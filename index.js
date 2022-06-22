@@ -4,20 +4,18 @@ const port = 8000;
 const bodyParser = require("body-parser");
 const helmet = require("helmet");
 
-const userAllRoutes = require("./routes/users/showBy")
-const userFindByRoutes = require("./routes/users/cud")
-const recipesRoutes = require("./routes/recipes/crud")
-const commentsRoutes = require("./routes/comments/crud")
+const userAllRoutes = require("./routes/usersRoutes")
+const recipesRoutes = require("./routes/recipesRoutes")
+const commentsRoutes = require("./routes/commentsRoutes")
 
 app.use(helmet());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
-//
+// from router
 app.use("/", userAllRoutes);
-app.use("/", userFindByRoutes);
 app.use("/", recipesRoutes);
 app.use("/", commentsRoutes);
 
 // console of running port
-app.listen(port, () => console.log(`Running program from port: '${port}'`) );
+app.listen(port, () => console.log(`Success nodemon from port: '${port}'`) );
