@@ -1,6 +1,5 @@
 const Router = require("express").Router();
 const controller = require("../controllers/usersControllers");
-const db = require("../db");
 
 // SHOW ALL USERS
 Router.get("/users/show/all", controller.showAll);
