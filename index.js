@@ -8,7 +8,6 @@ app.use(helmet());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
-
 const cors = require("cors");
 app.use(cors());
 
@@ -16,7 +15,6 @@ require("dotenv").config();
 // console.log(process.env)
 
 // linter ~ .eslintrc.json
-
 
 // Routes
 const userAllRoutes = require("./routes/usersRoutes");
