@@ -8,7 +8,7 @@ Router.get("/users/show/all", controller.showAll);
 Router.get("/users/show/id", controller.showById);
 
 // FIND USER BY NAME
-Router.get("/users/show/name", controller.showByName); 
+Router.get("/users/show/name", controller.showByName);
 
 // ADD NEW USER / REGISTER
 Router.post("/users/add", controller.newUser);

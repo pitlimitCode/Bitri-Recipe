@@ -1,4 +1,4 @@
-const model = require("../model/usersModel");
+const model = require("../model/usersModel"); 
 
 // SHOW ALL USERS
 const showAll = async (req, res) => {

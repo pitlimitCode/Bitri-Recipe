@@ -1,4 +1,4 @@
-const model = require("../model/commentsModel");
+const model = require("../model/commentsModel"); 
 
 // SHOW ALL COMMENTS PUBLIC
 const showAll = async (req, res) => {
@@ -11,7 +11,7 @@ const showAll = async (req, res) => {
       res.send("No one Comment record in this apps.");
     }
   } catch (error) {
-    res.status(400).send("Something wrong while comment data.");
+    res.status(400).send("Something wrong while progress all comment data.");
   }
 };
 
@@ -73,7 +73,7 @@ const deleteComment = async (req, res) => {
       if (show.rowCount > 0) {
         try {
           const show2 = await model.deleteComment2(id);
-          res.send(`Data id: ${inpId} succesfully to be deleted.`);
+          res.status(200).send(`Data id: ${inpId} succesfully to be deleted.`);
         } catch (error) { }
       } else {
         res.status(400).send(`Id data: ${id}, not found`);

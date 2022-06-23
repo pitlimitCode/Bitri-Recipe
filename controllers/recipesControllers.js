@@ -38,7 +38,7 @@ const showByName = async (req, res) => {
 
     const show = await model.showByName(nameLower);
     if (show.rowCount > 0){
-      res.status(200).send({ data: show.rows, count_of_data: show.rowCount });
+      res.send({ data: show.rows, count_of_data: show.rowCount });
     } 
     if (show.rowCount == 0 ){
       res.send(`No one recipe name: '${name}' from recipes data.`);
@@ -104,11 +104,18 @@ const deleteRecipe = async (req, res) => {
     let inpId = id;
     try {
       const show = await model.deleteRecipe(id);
-      res.send(`Recipe data id: ${inpId} succesfully to be deleted.`);
+      res.status(200).send(`Recipe data id: ${inpId} succesfully to be deleted.`);
     } catch (error) {
       res.status(400).send("Something wrong while deleting recipe data by id");
     }
   } else ('Please input id recipe.')
 }
 
-module.exports = { showAll, showNew, showByName, newRecipe, editRecipe, deleteRecipe };
+module.exports = {
+  showAll,
+  showNew,
+  showByName,
+  newRecipe,
+  editRecipe,
+  deleteRecipe,
+};
