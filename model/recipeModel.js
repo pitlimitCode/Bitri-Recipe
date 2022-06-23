@@ -68,13 +68,6 @@ const editRecipe2 = (inpId_user, inpName, inpIngredients, inpStep, inpImage, inp
 // DELETE RECIPE BY ID
 const deleteRecipe = (id) => {
   return new Promise((resolve, reject) => {
-    db.query(`SELECT * FROM recipes WHERE id = $1`, [id], (error, result) => {
-      if (error) { reject (error) } else { resolve (result); }
-    })
-  });
-}
-const deleteRecipe2 = (id) => {
-  return new Promise((resolve, reject) => {
     db.query(`DELETE FROM recipes WHERE id = $1`, [id], (error, result) => {
       if (error) { reject (error) } else { resolve (result); }
     })
@@ -89,5 +82,4 @@ module.exports = {
   editRecipe,
   editRecipe2,
   deleteRecipe,
-  deleteRecipe2,
 };

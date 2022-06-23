@@ -6,7 +6,7 @@ const connection = new Postgre({
   database: "bitriDB",
   password: "g4jahDuduk",
   port: 5432, // PORT POSTGRE
-});
+}); 
 
 // connection.connect( (err) => { 
 //   if (err) {

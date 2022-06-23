@@ -85,7 +85,7 @@ const editUserData = async (req, res) => {
       } catch { res.status(400).send("Something wrong while editing data by id.") }
     } else { res.status(400).send(`Data id: ${id} not found.`) }
   } catch (error) {
-    res.status(400).send("Something wrong while finding id data.");
+    res.status(400).send("Something wrong while editing user data.");
   }
 }
 
@@ -96,14 +96,7 @@ const deleteUser = async (req, res) => {
     let inpId = id;
     try{
       const show = await model.deleteUser(id);
-      if (show.rowCount > 0) {
-        try {
-          const show2 = await model.deleteUser2(id);
           res.send(`Data id: '${inpId}' succesfully to be deleted.`);
-        } catch (error) {}
-      } else {
-        res.status(400).send(`Id data: ${id}, not found`);
-      }
     } catch {
       res.status(400).send("Something wrong while deleting data");
     }

@@ -6,8 +6,8 @@ const db = require("../db");
 Router.get("/recipes/show/all", controller.showAll);
 
 // SHOW 5 NEW RECIPES
-Router.get("/recipes/show/new", controller.showNew);
-
+Router.get("/recipes/show/new", controller.showNew); 
+ 
 // FIND RECIPE BY NAME
 Router.get("/recipes/show/name", controller.showByName);
 

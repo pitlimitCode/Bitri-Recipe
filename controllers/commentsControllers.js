@@ -60,7 +60,7 @@ const editComment = async (req, res) => {
   } catch (error) {
     res.status(400).send("Something wrong in data input for editing comment.");
   }
-}
+} 
 
 // DELETE A COMMENT BY COMMENTS.ID
 const deleteComment = async (req, res) => {

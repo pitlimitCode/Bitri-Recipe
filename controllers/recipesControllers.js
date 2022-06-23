@@ -104,14 +104,7 @@ const deleteRecipe = async (req, res) => {
     let inpId = id;
     try {
       const show = await model.deleteRecipe(id);
-      if (show.rowCount > 0) {
-          try {
-            const show2 = await model.deleteRecipe2(id);
-            res.send(`Recipe data id: ${inpId} succesfully to be deleted.`);
-          } catch (error) {}
-      } else {
-        res.status(400).send(`Id data = ${id}, not found`);
-      }
+      res.send(`Recipe data id: ${inpId} succesfully to be deleted.`);
     } catch (error) {
       res.status(400).send("Something wrong while deleting recipe data by id");
     }

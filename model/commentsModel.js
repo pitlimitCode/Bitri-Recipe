@@ -9,7 +9,7 @@ const showAll = () => {
       }
     );
   })
-};
+}; 
 
 // SHOW NEWEST COMMENTS AND LIMIT IT
 const showNew = (id_recipe, limit) => {
