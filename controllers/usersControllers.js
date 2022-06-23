@@ -63,8 +63,8 @@ const editUserData = async (req, res) => {
   try {
     const { id, name, email, phone_number, password, avatar } = req.body;
 
-    const show = await model.editUserData( id );
-    
+    const show = await model.editUserData(id);
+
     if (show.rowCount > 0) {
       let inpName = name || show?.rows[0]?.name; // not null
       let inpEmail = email || show?.rows[0]?.email; // not null
@@ -80,8 +80,8 @@ const editUserData = async (req, res) => {
       if (inpAvatar) message += "avatar pic, ";
 
       try {
-        const show2 = await model.editUserData2 ( inpName, inpEmail, inpPhone_number, inpPassword, inpAvatar, id );
-        res.status(200).send(`${message} from id: '${id}' successfully to be edited.`);      
+        const show2 = await model.editUserData2(inpName, inpEmail, inpPhone_number, inpPassword, inpAvatar, id);
+        res.status(200).send(`${message} from id: '${id}' successfully to be edited.`);
       } catch { res.status(400).send("Something wrong while editing data by id.") }
     } else { res.status(400).send(`Data id: ${id} not found.`) }
   } catch (error) {
@@ -114,58 +114,14 @@ const deleteAllUsers = async (req, res) => {
   } catch (error) {
     res.status(400).send(`Something wrong when deleting all data.`);
   }
-
-  // db.query(`SELECT * FROM users`, (error, result) => {
-  //   if (error) {
-  //     res.status(400).send("Something wrong while deleting all data by Query code");
-  //   } else {
-  //     if (result.rowCount > 0) {
-  //       db.query(`DELETE FROM users`, (error, result) => {
-  //         if (error) {
-  //           res.status(400).send("Something wrong while deleting all data after Query code");
-  //         } else {
-  //           res.status(200).send("All users data has been deleted.");
-  //         }
-  //       });
-  //     } else {
-  //       res.status(400).send("Query code to delete all data didn't work, because all user data not has a data.");
-  //     }
-  //   }
-  // });
 }
 
-
-module.exports = { showAll, showById, showByName, newUser, editUserData, deleteUser, deleteAllUsers };
-
-
-
-// jika tanpa folder model :
-
-// SHOW ALL USERS
-// const showAll = async (req, res) => {
-//   db.query(`SELECT * FROM users ORDER BY users.id ASC`,
-//     (error, result) => {
-//       if (result.rowCount > 1){
-//         if (error) {
-//           res.status(400).send("Something wrong while getting all users data.");
-//         } else {
-//           res.send({ data: result.rows, count_of_data: result.rowCount });
-//         } 
-//       } else {
-//         res.status(200).send("No one User on Database.");
-//       }
-//     }
-//   );
-// };
-
-// FIND USER BY ID
-// const showById = async (req, res) => {
-//   const { id } = req.body;
-//   db.query(`SELECT * FROM users WHERE id = $1`, [id], (error, result) => {
-//     if (error) {
-//       res.status(400).send("Something wrong while finding user data by id.");
-//     } else {
-//       res.status(200).send({ data: result.rows, count_of_data: result.rowCount });
-//     }
-//   });
-// };
+module.exports = {
+  showAll,
+  showById,
+  showByName,
+  newUser,
+  editUserData,
+  deleteUser,
+  deleteAllUsers,
+};

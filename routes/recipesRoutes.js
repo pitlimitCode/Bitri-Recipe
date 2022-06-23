@@ -1,6 +1,5 @@
 const Router = require("express").Router();
 const controller = require("../controllers/recipesControllers");
-const db = require("../db");
 
 // SHOW ALL RECIPES
 Router.get("/recipes/show/all", controller.showAll);
