@@ -1,5 +1,14 @@
 # Week 3 - Tugas Beginer Backend
 
+
+- [belum diperbaiki](#belum-diperbaiki)
+- [sudah diperbaiki](#sudah-diperbaiki)
+- [catatan revisi setelah presentasi](#catatan-revisi-setelah-presentasi)
+- [persyaratan yang telah selesai sebelum presentasi](#persyaratan-yang-telah-selesai-sebelum-presentasi)
+- [Ringkasan tugas](#Ringkasan-tugas)
+- [Format database kugunakan](#Format-database-kugunakan)
+- [Soal asli / original](#Soal-asli-/-original)
+
 ### belum diperbaiki :
   - Perbaiki validasi inputan di CRUD, delete id tereksekusi 2x
   - Buat pagination
@@ -52,19 +61,18 @@ Persyaratan :
     - Dokumentasi Postman  
     - Dapat didemokan menggunakan postman  
   - Upload/push tugas kamu ke GitHub dan gunakan nama yang profesional  
-
-### Reqruitment optional :
+Reqruitment optional :
   - Pagination
   - Comment by resep
   - Resep by user
-
-### Optional recuritment other :
+Optional recuritment other :
   - Multer
   - Crypto-js
   - Validator
   - Autentifikator
 
-### DATABASE : 
+---
+### Format database kugunakan : 
 | 1. users:    | data type | not_null? | unique? | primary_key? | foreign_key |
 | ------------ | --------- | --------- | ------- | -----------  | ----------- |
 | id           | int       | y         |  y      | y            | -           |
@@ -91,7 +99,7 @@ Persyaratan :
 | id_commenter | integer   |  y        |  -      | -            | users.id    |
 | comment_text | text      |  y        |  -      | -            | -           |
 
-### Soal asli/original :
+### Soal asli / original :
 Buatlah API dari aplikasi dibawah ini 
 https://www.figma.com/file/SUbBTYCq1e4ngRt20lSdqr/Food-Recipe?node-id=47%3A1273
 Requirements:
