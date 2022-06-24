@@ -1,31 +1,30 @@
 # Week 3 - Tugas Beginer Backend
 
+[Belum diperbaiki](#Belum-diperbaiki)  
+[Sudah diperbaiki](#Sudah-diperbaiki)  
+[Catatan revisi setelah presentasi](#Catatan-revisi-setelah-presentasi)  
+[Persyaratan yang telah selesai sebelum presentasi](#Persyaratan-yang-telah-selesai-sebelum-presentasi)  
+[Ringkasan tugas](#Ringkasan-tugas)  
+[Format database kugunakan](#Format-database-kugunakan)  
+[Soal asli / original](#Soal-asli-/-original)  
 
-- [belum diperbaiki](#belum-diperbaiki)
-- [sudah diperbaiki](#sudah-diperbaiki)
-- [catatan revisi setelah presentasi](#catatan-revisi-setelah-presentasi)
-- [persyaratan yang telah selesai sebelum presentasi](#persyaratan-yang-telah-selesai-sebelum-presentasi)
-- [Ringkasan tugas](#Ringkasan-tugas)
-- [Format database kugunakan](#Format-database-kugunakan)
-- [Soal asli / original](#Soal-asli-/-original)
-
-### belum diperbaiki:
+### Belum diperbaiki:
   - Perbaiki validasi inputan di CRUD, delete id tereksekusi 2x
   - Buat pagination
   - Buat multer untuk inputan file data, lengkap dengan limitasi data file
 
-### sudah diperbaiki:
+### Sudah diperbaiki:
   - Perbaiki penggunaan .env bersama db.js
   - push tugas di github pakai file .gitignore yang mengabaikan node_modules
 
-### catatan revisi setelah presentasi:
+### Catatan revisi setelah presentasi:
   - Perbaiki penggunaan .env bersama db.js
   - Perbaiki validasi inputan di CRUD, delete id tereksekusi 2x
   - Buat pagination
   - Buat multer untuk inputan file data, lengkap dengan limitasi data file
   - push tugas di github pakai file .gitignore yang mengabaikan node_modules
 
-### persyaratan yang telah selesai sebelum presentasi:
+### Persyaratan yang telah selesai sebelum presentasi:
   - Gunakan Bahasa Inggris untuk nama File dan Fungsi
   - Table (Recipe, User, Comment)
   - Linter
@@ -61,10 +60,12 @@ Persyaratan :
     - Dokumentasi Postman  
     - Dapat didemokan menggunakan postman  
   - Upload/push tugas kamu ke GitHub dan gunakan nama yang profesional  
+
 Reqruitment optional :
   - Pagination
   - Comment by resep
   - Resep by user
+
 Optional recuritment other :
   - Multer
   - Crypto-js
@@ -72,7 +73,7 @@ Optional recuritment other :
   - Autentifikator
 
 ---
-### Format database ku gunakan: 
+### Format database yang ku buat: 
 | 1. users:    | data type | not_null? | unique? | primary_key? | foreign_key |
 | ------------ | --------- | --------- | ------- | -----------  | ----------- |
 | id           | int       | y         |  y      | y            | -           |
@@ -100,8 +101,8 @@ Optional recuritment other :
 | comment_text | text      |  y        |  -      | -            | -           |
 
 ### Soal asli / original:
-Buatlah API dari aplikasi dibawah ini 
-https://www.figma.com/file/SUbBTYCq1e4ngRt20lSdqr/Food-Recipe?node-id=47%3A1273
+Buatlah API dari aplikasi dibawah ini  
+https://www.figma.com/file/SUbBTYCq1e4ngRt20lSdqr/Food-Recipe?node-id=47%3A1273  
 Requirements:
   - Flowchart Aplikasi
   - Table (Recipe, User, Comment)
