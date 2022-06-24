@@ -1,7 +1,35 @@
+# Week 3 - Tugas Beginer Backend
 
+### belum diperbaiki :
+  - Perbaiki validasi inputan di CRUD, delete id tereksekusi 2x
+  - Buat pagination
+  - Buat multer untuk inputan file data, lengkap dengan limitasi data file
 
+### sudah diperbaiki :
+  - Perbaiki penggunaan .env bersama db.js
+  - push tugas di github pakai file .gitignore yang mengabaikan node_modules
 
-# Ringkasan tugas :
+### catatan revisi setelah presentasi :
+  - Perbaiki penggunaan .env bersama db.js
+  - Perbaiki validasi inputan di CRUD, delete id tereksekusi 2x
+  - Buat pagination
+  - Buat multer untuk inputan file data, lengkap dengan limitasi data file
+  - push tugas di github pakai file .gitignore yang mengabaikan node_modules
+
+### persyaratan yang telah selesai sebelum presentasi:
+  - Gunakan Bahasa Inggris untuk nama File dan Fungsi
+  - Table (Recipe, User, Comment)
+  - Linter
+  - ENV
+  - Cors
+  - CRUD Create Read Update Delete
+  - Error Handling
+  - Pencarian Resep berdasarkan nama
+  - Resep terbaru maksimal 5
+  - Comment by resep
+  - Resep by user
+
+## Ringkasan tugas :
 Persyaratan :  
   - Gunakan Bahasa Inggris untuk nama File dan Fungsi  
   - Table (Recipe, User, Comment)  
@@ -25,47 +53,18 @@ Persyaratan :
     - Dapat didemokan menggunakan postman  
   - Upload/push tugas kamu ke GitHub dan gunakan nama yang profesional  
 
-Reqruitment optional :
+### Reqruitment optional :
   - Pagination
   - Comment by resep
   - Resep by user
 
-Optional other :
+### Optional recuritment other :
   - Multer
   - Crypto-js
   - Validator
   - Autentifikator
 
-
-belum diperbaiki :
-  - n
-  - n
-
-sudah diperbaiki :
-  - n
-  - n
-
-catatan revisi setelah presentasi :
-  - Perbaiki penggunaan .env bersama db.js
-  - Perbaiki validasi inputan di CRUD, delete id tereksekusi 2x
-  - Buat pagination
-  - Buat multer untuk inputan file data, lengkap dengan limitasi data file
-  - push tugas di github pakai file .gitignore yang mengabaikan node_modules
-
-persyaratan yang telah selesai sebelum presentasi:
-  - Gunakan Bahasa Inggris untuk nama File dan Fungsi
-  - Table (Recipe, User, Comment)
-  - Linter
-  - ENV
-  - Cors
-  - CRUD Create Read Update Delete
-  - Error Handling
-  - Pencarian Resep berdasarkan nama
-  - Resep terbaru maksimal 5
-  - Comment by resep
-  - Resep by user
-
-DATABASE : 
+### DATABASE : 
 | 1. users:    | data type | not_null? | unique? | primary_key? | foreign_key |
 | ------------ | --------- | --------- | ------- | -----------  | ----------- |
 | id           | int       | y         |  y      | y            | -           |
@@ -92,7 +91,7 @@ DATABASE :
 | id_commenter | integer   |  y        |  -      | -            | users.id    |
 | comment_text | text      |  y        |  -      | -            | -           |
 
-# Week 3 - Tugas Beginer Backend, asli dari soal :
+### Soal asli/original :
 Buatlah API dari aplikasi dibawah ini 
 https://www.figma.com/file/SUbBTYCq1e4ngRt20lSdqr/Food-Recipe?node-id=47%3A1273
 Requirements:
