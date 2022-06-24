@@ -4,9 +4,7 @@
 [Persyaratan yang telah selesai sebelum presentasi](#Persyaratan-yang-telah-selesai-sebelum-presentasi)  
 [Ringkasan tugas](#Ringkasan-tugas)  
 [Format database yang ku buat](#Format-database-yang-ku-buat)  
-[Soal asli / original](#Soal-asli-/-original)  
-[Soal asli / original](#Soal-asli/original)  
-[Soal asli / original](#Soal-asli)  
+[Soal asli / original](#Soal-asli--original) 
 
 Belum diperbaiki:
   - Perbaiki validasi inputan di CRUD, delete id tereksekusi 2x
@@ -74,7 +72,7 @@ Persyaratan tambahan lain-lain (opsional):
 
 ---
 ### Format database yang ku buat:
-| 1. users:    | data type | not_null? | unique? | primary_key? | foreign_key |
+| users table  | data type | not_null? | unique? | primary_key? | foreign_key |
 | ------------ | --------- | --------- | ------- | -----------  | ----------- |
 | id           | int       | y         |  y      | y            | -           |
 | name         | varchar   | y         |  -      | -            | -           |
@@ -83,26 +81,27 @@ Persyaratan tambahan lain-lain (opsional):
 | password     | varchar   | -         |  -      | -            | -           |
 | avatar       | varchar   | -         |  -      | -            | -           |
 
-| 2. recipes:  | data type | not_null? | unique? | primary_key? | foreign_key |
-| ------------ | --------- | --------- | ------- | ------------ | :---------: |
-| id           | integer   | y         |  y      | y            | -           |
-| id_user      | integer   | y         |  -      | -            | users.id    |
-| name         | varchar   | y         |  -      | -            | -           |
-| ingredients  | varchar   | y         |  -      | -            | -           |
-| step         | varchar   | -         |  -      | -            | -           |
-| image        | varchar   | -         |  -      | -            | -           |
-| video        | varchar   | -         |  -      | -            | -           |
+| recipes table | data type | not_null? | unique? | primary_key? | foreign_key |
+| ------------- | --------- | --------- | ------- | ------------ | ----------- |
+| id            | integer   | y         |  y      | y            | -           |
+| id_user       | integer   | y         |  -      | -            | users.id    |
+| name          | varchar   | y         |  -      | -            | -           |
+| ingredients   | varchar   | y         |  -      | -            | -           |
+| step          | varchar   | -         |  -      | -            | -           |
+| image         | varchar   | -         |  -      | -            | -           |
+| video         | varchar   | -         |  -      | -            | -           |
 
-| 3. comments  | data type | not_null? | unique? | primary_key? | foreign_key |
-| ------------ | --------- | --------- | ------- | ------------ | ----------- |
-| id           | integer   |  y        |  y      | y            | -           |
-| id_recipe    | integer   |  y        |  -      | -            | recipes.id  |
-| id_commenter | integer   |  y        |  -      | -            | users.id    |
-| comment_text | text      |  y        |  -      | -            | -           |
+| comments table | data type | not_null? | unique? | primary_key? | foreign_key |
+| -------------- | --------- | --------- | ------- | ------------ | ----------- |
+| id             | integer   |  y        |  y      | y            | -           |
+| id_recipe      | integer   |  y        |  -      | -            | recipes.id  |
+| id_commenter   | integer   |  y        |  -      | -            | users.id    |
+| comment_text   | text      |  y        |  -      | -            | -           |
 ---
 ### Soal asli / original:
 Buatlah API dari aplikasi dibawah ini  
 https://www.figma.com/file/SUbBTYCq1e4ngRt20lSdqr/Food-Recipe?node-id=47%3A1273  
+
 Requirements:
   - Flowchart Aplikasi
   - Table (Recipe, User, Comment)
