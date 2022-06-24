@@ -65,27 +65,27 @@ persyaratan yang telah selesai sebelum presentasi:
 DATABASE : 
 1. users:
                 type data   not_null?   unique?   primary_key?  foreign_key
-id              int         y           y         y             
-name            varchar     y           -         -             
-email           varchar     y           -         -             
-phone_number    varchar     -           -         -             
-password        varchar     -           -         -             
-avatar          varchar     -           -         -             
+id              int         y           y         y             -  
+name            varchar     y           -         -             -  
+email           varchar     y           -         -             -  
+phone_number    varchar     -           -         -             -  
+password        varchar     -           -         -             -  
+avatar          varchar     -           -         -             -  
 
 2. recipes:
-id              integer     y           y         y             -
-id_user         integer     y           -         -             users.id
-name            varchar     y           -         -             -
-ingredients     varchar     y           -         -             -
-step            varchar     -           -         -             -
-image           varchar     -           -         -             -
-video           varchar     -           -         -             -
+id              integer     y           y         y             -  
+id_user         integer     y           -         -             users.id  
+name            varchar     y           -         -             -  
+ingredients     varchar     y           -         -             -  
+step            varchar     -           -         -             -  
+image           varchar     -           -         -             -  
+video           varchar     -           -         -             -  
 
 3. comments:
-id
-id_recipe
-id_commenter
-comment_text
+id              integer     y           y         y             -  
+id_recipe       integer     y           -         -             recipes.id  
+id_commenter    integer     y           -         -             users.id  
+comment_text    text        y           -         -             -  
 
 
 # Week 3 - Tugas Beginer Backend, asli dari soal :
