@@ -36,9 +36,9 @@
   - Resep terbaru maksimal 5
   - Comment by resep
   - Resep by user
-
+---
 ## Ringkasan tugas:
-Persyaratan :  
+Persyaratan:  
   - Gunakan Bahasa Inggris untuk nama File dan Fungsi  
   - Table (Recipe, User, Comment)  
   - Linter  
@@ -61,12 +61,12 @@ Persyaratan :
     - Dapat didemokan menggunakan postman  
   - Upload/push tugas kamu ke GitHub dan gunakan nama yang profesional  
 
-Reqruitment optional :
+Persyaratan tambahan (opsional):
   - Pagination
   - Comment by resep
   - Resep by user
 
-Optional recuritment other :
+Persyaratan tambahan lain-lain (opsional):
   - Multer
   - Crypto-js
   - Validator
@@ -99,7 +99,7 @@ Optional recuritment other :
 | id_recipe    | integer   |  y        |  -      | -            | recipes.id  |
 | id_commenter | integer   |  y        |  -      | -            | users.id    |
 | comment_text | text      |  y        |  -      | -            | -           |
-
+---
 ### Soal asli / original:
 Buatlah API dari aplikasi dibawah ini  
 https://www.figma.com/file/SUbBTYCq1e4ngRt20lSdqr/Food-Recipe?node-id=47%3A1273  
