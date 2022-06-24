@@ -31,36 +31,39 @@ Reqruitment optional :
   - Resep by user
 
 Optional other :
-  Multer
-  Crypto-js
-  Validator
-  Autentifikator
+  - Multer
+  - Crypto-js
+  - Validator
+  - Autentifikator
 
 
 belum diperbaiki :
+  - n
+  - n
 
 sudah diperbaiki :
+  - n
+  - n
 
 catatan revisi setelah presentasi :
-  Perbaikin penggunaan .env di db.js
-  Perbaiki validasi inputan di CRUD, delete id tereksekusi 2x
-  Buat pagination
-  Buat multer untuk inputan file data, lengkap dengan limitasi data file
-  upload tugas pakai file .gitignore dan mengabaikan node_modules
-.env
+  - Perbaiki penggunaan .env bersama db.js
+  - Perbaiki validasi inputan di CRUD, delete id tereksekusi 2x
+  - Buat pagination
+  - Buat multer untuk inputan file data, lengkap dengan limitasi data file
+  - push tugas di github pakai file .gitignore yang mengabaikan node_modules
 
 persyaratan yang telah selesai sebelum presentasi:
-  Gunakan Bahasa Inggris untuk nama File dan Fungsi
-  Table (Recipe, User, Comment)
-  Linter
-  ENV
-  Cors
-  CRUD Create Read Update Delete
-  Error Handling
-  Pencarian Resep berdasarkan nama
-  Resep terbaru maksimal 5
-  Comment by resep
-  Resep by user
+  - Gunakan Bahasa Inggris untuk nama File dan Fungsi
+  - Table (Recipe, User, Comment)
+  - Linter
+  - ENV
+  - Cors
+  - CRUD Create Read Update Delete
+  - Error Handling
+  - Pencarian Resep berdasarkan nama
+  - Resep terbaru maksimal 5
+  - Comment by resep
+  - Resep by user
 
 DATABASE : 
 | 1. users:    | data type | not_null? | unique? | primary_key? | foreign_key |
@@ -93,26 +96,26 @@ DATABASE :
 Buatlah API dari aplikasi dibawah ini 
 https://www.figma.com/file/SUbBTYCq1e4ngRt20lSdqr/Food-Recipe?node-id=47%3A1273
 Requirements:
-  Flowchart Aplikasi
-  Table (Recipe, User, Comment)
-  CRUD
-  Comment by resep (opsional)
-  Resep by user (opsional)
-  Pencarian Resep berdasarkan nama
-  Resep terbaru maksimal 5
-  Pagination (opsional)
-  Linter
-  Error Handling
-  Cors
-  ENV
-  Dokumentasi Postman
-  Gunakan Bahasa Inggris untuk nama File dan Fungsi
-  Upload/push tugas kamu ke GitHub dan gunakan nama yang profesional
-  Dapat didemokan menggunakan postman
-  Presentasikan apa yang telah Anda lakukan dalam minggu ini
-  Jelaskan dengan bahasa kalian sendiri apa itu dan konsep tentang:
-    Node JS
-    Express
-    postgreSQL
-    REST API
-  Ceritakan dan Demokan tentang proyek ini
+  - Flowchart Aplikasi
+  - Table (Recipe, User, Comment)
+  - CRUD
+  - Comment by resep (opsional)
+  - Resep by user (opsional)
+  - Pencarian Resep berdasarkan nama
+  - Resep terbaru maksimal 5
+  - Pagination (opsional)
+  - Linter
+  - Error Handling
+  - Cors
+  - ENV
+  - Dokumentasi Postman
+  - Gunakan Bahasa Inggris untuk nama File dan Fungsi
+  - Upload/push tugas kamu ke GitHub dan gunakan nama yang profesional
+  - Dapat didemokan menggunakan postman
+  - Presentasikan apa yang telah Anda lakukan dalam minggu ini
+  - Jelaskan dengan bahasa kalian sendiri apa itu dan konsep tentang:
+    - Node JS
+    - Express
+    - postgreSQL
+    - REST API
+  - Ceritakan dan Demokan tentang proyek ini
