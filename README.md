@@ -63,30 +63,30 @@ persyaratan yang telah selesai sebelum presentasi:
   Resep by user
 
 DATABASE : 
-|              | type data |  not_null? | unique? |primary_key? | foreign_key |
-
-| 1. users:                                                                   |
-| id           | int       |  y         |  y      | y           | -           |
-| name         | varchar   |  y         |  -      | -           | -           |
-| email        | varchar   |  y         |  -      | -           | -           |
-| phone_number | varchar   |  -         |  -      | -           | -           |
-| password     | varchar   |  -         |  -      | -           | -           |
-| avatar       | varchar   |  -         |  -      | -           | -           |
-
-| 2. recipes:  |           |            |         |             |             |
-| id           | integer   |  y         |  y      | y           | -           |
-| id_user      | integer   |  y         |  -      | -           | users.id    |
-| name         | varchar   |  y         |  -      | -           | -           |
-| ingredients  | varchar   |  y         |  -      | -           | -           |
-| step         | varchar   |  -         |  -      | -           | -           |
-| image        | varchar   |  -         |  -      | -           | -           |
-| video        | varchar   |  -         |  -      | -           | -           |
-
-| 3. comments: |           |            |         |             |             |
-| id           | integer   |  y         |  y      | y           | -           |
-| id_recipe    | integer   |  y         |  -      | -           | recipes.id  |
-| id_commenter | integer   |  y         |  -      | -           | users.id    |
-| comment_text | text      |  y         |  -      | -           | -           |
+|               | type data |  not_null? | unique? |primary_key? | foreign_key |
+| ------------- | --------- | ---------- | ------- | ----------- | ----------- | 
+| 1. users:     |           |            |         |             |             |
+| id            | int       |  y         |  y      | y           | -           |
+| name          | varchar   |  y         |  -      | -           | -           |
+| email         | varchar   |  y         |  -      | -           | -           |
+| phone_number  | varchar   |  -         |  -      | -           | -           |
+| password      | varchar   |  -         |  -      | -           | -           |
+| avatar        | varchar   |  -         |  -      | -           | -           |
+|  |  |  |  |  |  |
+| 2. recipes:   |           |            |         |             |             |
+| id            | integer   |  y         |  y      | y           | -           |
+| id_user       | integer   |  y         |  -      | -           | users.id    |
+| name          | varchar   |  y         |  -      | -           | -           |
+| ingredients   | varchar   |  y         |  -      | -           | -           |
+| step          | varchar   |  -         |  -      | -           | -           |
+| image         | varchar   |  -         |  -      | -           | -           |
+| video         | varchar   |  -         |  -      | -           | -           |
+| ------------- | --------- | ---------- | ------- | ----------- | ----------- |
+| 3. comments:  |           |            |         |             |             |
+| id            | integer   |  y         |  y      | y           | -           |
+| id_recipe     | integer   |  y         |  -      | -           | recipes.id  |
+| id_commenter  | integer   |  y         |  -      | -           | users.id    |
+| comment_text  | text      |  y         |  -      | -           | -           |
 
 # Week 3 - Tugas Beginer Backend, asli dari soal :
 Buatlah API dari aplikasi dibawah ini 
