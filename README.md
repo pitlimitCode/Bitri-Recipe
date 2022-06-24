@@ -3,32 +3,32 @@
 
 # Ringkasan tugas :
 Persyaratan :  
-  Gunakan Bahasa Inggris untuk nama File dan Fungsi  
-  Table (Recipe, User, Comment)  
-  Linter  
-  ENV  
-  Cors  
-  CRUD Create Read Update Delete  
-  Error Handling  
-  Pencarian Resep berdasarkan nama  
-  Resep terbaru maksimal 5  
-  Presentasikan (ppt) :  
-    apa yang telah Anda lakukan dalam minggu ini  
-      Express  
-      Body-parser  
-      Helmet  
-      Nodemon  
-      Postgre  
-    Ceritakan dan Demokan tentang proyek ini  
-    Flowchart Aplikasi  
-    Dokumentasi Postman  
-    Dapat didemokan menggunakan postman  
-  Upload/push tugas kamu ke GitHub dan gunakan nama yang profesional  
+  - Gunakan Bahasa Inggris untuk nama File dan Fungsi  
+  - Table (Recipe, User, Comment)  
+  - Linter  
+  - ENV  
+  - Cors  
+  - CRUD Create Read Update Delete  
+  - Error Handling  
+  - Pencarian Resep berdasarkan nama  
+  - Resep terbaru maksimal 5  
+  - Presentasikan (ppt) :  
+    - apa yang telah Anda lakukan dalam minggu ini  
+      - Express  
+      - Body-parser  
+      - Helmet  
+      - Nodemon  
+      - Postgre  
+    - Ceritakan dan Demokan tentang proyek ini  
+    - Flowchart Aplikasi  
+    - Dokumentasi Postman  
+    - Dapat didemokan menggunakan postman  
+  - Upload/push tugas kamu ke GitHub dan gunakan nama yang profesional  
 
 Reqruitment optional :
-  Pagination
-  Comment by resep
-  Resep by user
+  - Pagination
+  - Comment by resep
+  - Resep by user
 
 Optional other :
   Multer
@@ -63,7 +63,7 @@ persyaratan yang telah selesai sebelum presentasi:
   Resep by user
 
 DATABASE : 
-| 1. users:    | type data | not_null? | unique? | primary_key? | foreign_key |
+| 1. users:    | data type | not_null? | unique? | primary_key? | foreign_key |
 | ------------ | --------- | --------- | ------- | -----------  | ----------- |
 | id           | int       | y         |  y      | y            | -           |
 | name         | varchar   | y         |  -      | -            | -           |
@@ -72,7 +72,7 @@ DATABASE :
 | password     | varchar   | -         |  -      | -            | -           |
 | avatar       | varchar   | -         |  -      | -            | -           |
 
-| 2. recipes:  | type data | not_null? | unique? | primary_key? | foreign_key |
+| 2. recipes:  | data type | not_null? | unique? | primary_key? | foreign_key |
 | ------------ | --------- | --------- | ------- | ------------ | :---------: |
 | id           | integer   | y         |  y      | y            | -           |
 | id_user      | integer   | y         |  -      | -            | users.id    |
@@ -82,7 +82,7 @@ DATABASE :
 | image        | varchar   | -         |  -      | -            | -           |
 | video        | varchar   | -         |  -      | -            | -           |
 
-| 3. comments: | type data | not_null? | unique? | primary_key? | foreign_key |
+| 3. comments  | data type | not_null? | unique? | primary_key? | foreign_key |
 | ------------ | --------- | --------- | ------- | ------------ | ----------- |
 | id           | integer   |  y        |  y      | y            | -           |
 | id_recipe    | integer   |  y        |  -      | -            | recipes.id  |
