@@ -1,19 +1,17 @@
 # Week 3 - Tugas Beginer Backend
 
-[Belum diperbaiki](#Belum-diperbaiki)  
-[Sudah diperbaiki](#Sudah-diperbaiki)  
 [Catatan revisi setelah presentasi](#Catatan-revisi-setelah-presentasi)  
 [Persyaratan yang telah selesai sebelum presentasi](#Persyaratan-yang-telah-selesai-sebelum-presentasi)  
 [Ringkasan tugas](#Ringkasan-tugas)  
-[Format database kugunakan](#Format-database-kugunakan)  
+[Format database yang ku buat](#Format-database-yang-ku-buat)  
 [Soal asli / original](#Soal-asli-/-original)  
 
-### Belum diperbaiki:
+Belum diperbaiki:
   - Perbaiki validasi inputan di CRUD, delete id tereksekusi 2x
   - Buat pagination
   - Buat multer untuk inputan file data, lengkap dengan limitasi data file
 
-### Sudah diperbaiki:
+Sudah diperbaiki:
   - Perbaiki penggunaan .env bersama db.js
   - push tugas di github pakai file .gitignore yang mengabaikan node_modules
 
@@ -73,7 +71,7 @@ Persyaratan tambahan lain-lain (opsional):
   - Autentifikator
 
 ---
-### Format database yang ku buat: 
+### Format database yang ku buat:
 | 1. users:    | data type | not_null? | unique? | primary_key? | foreign_key |
 | ------------ | --------- | --------- | ------- | -----------  | ----------- |
 | id           | int       | y         |  y      | y            | -           |
