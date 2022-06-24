@@ -65,13 +65,14 @@ persyaratan yang telah selesai sebelum presentasi:
 DATABASE : 
 |               | type data |  not_null? | unique? |primary_key? | foreign_key |
 | ------------- | --------- | ---------- | ------- | ----------- | ----------- | 
-| 1. users:     |           |            |         |             |             |
+| 1. users:           |
 | id            | int       |  y         |  y      | y           | -           |
 | name          | varchar   |  y         |  -      | -           | -           |
 | email         | varchar   |  y         |  -      | -           | -           |
 | phone_number  | varchar   |  -         |  -      | -           | -           |
 | password      | varchar   |  -         |  -      | -           | -           |
 | avatar        | varchar   |  -         |  -      | -           | -           |
+|  |  |  |  |  |  |
 |  |  |  |  |  |  |
 | 2. recipes:   |           |            |         |             |             |
 | id            | integer   |  y         |  y      | y           | -           |
@@ -81,7 +82,8 @@ DATABASE :
 | step          | varchar   |  -         |  -      | -           | -           |
 | image         | varchar   |  -         |  -      | -           | -           |
 | video         | varchar   |  -         |  -      | -           | -           |
-| ------------- | --------- | ---------- | ------- | ----------- | ----------- |
+|  |   |   |   |   |   |
+|  |   |   |   |   |   |
 | 3. comments:  |           |            |         |             |             |
 | id            | integer   |  y         |  y      | y           | -           |
 | id_recipe     | integer   |  y         |  -      | -           | recipes.id  |
