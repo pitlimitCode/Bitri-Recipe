@@ -5,6 +5,8 @@
 [Ringkasan tugas](#Ringkasan-tugas)  
 [Format database yang ku buat](#Format-database-yang-ku-buat)  
 [Soal asli / original](#Soal-asli-/-original)  
+[Soal asli / original](#Soal-asli/original)  
+[Soal asli / original](#Soal-asli)  
 
 Belum diperbaiki:
   - Perbaiki validasi inputan di CRUD, delete id tereksekusi 2x
