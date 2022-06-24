@@ -2,28 +2,28 @@
 
 
 # Ringkasan tugas :
-Persyaratan :
-  Gunakan Bahasa Inggris untuk nama File dan Fungsi
-  Table (Recipe, User, Comment)
-  Linter
-  ENV
-  Cors
-  CRUD Create Read Update Delete
-  Error Handling
-  Pencarian Resep berdasarkan nama
-  Resep terbaru maksimal 5
-  Presentasikan (ppt) :
-    apa yang telah Anda lakukan dalam minggu ini
-      Express
-      Body-parser
-      Helmet
-      Nodemon
-      Postgre
-    Ceritakan dan Demokan tentang proyek ini
-    Flowchart Aplikasi
-    Dokumentasi Postman
-    Dapat didemokan menggunakan postman
-  Upload/push tugas kamu ke GitHub dan gunakan nama yang profesional
+Persyaratan :  
+  Gunakan Bahasa Inggris untuk nama File dan Fungsi  
+  Table (Recipe, User, Comment)  
+  Linter  
+  ENV  
+  Cors  
+  CRUD Create Read Update Delete  
+  Error Handling  
+  Pencarian Resep berdasarkan nama  
+  Resep terbaru maksimal 5  
+  Presentasikan (ppt) :  
+    apa yang telah Anda lakukan dalam minggu ini  
+      Express  
+      Body-parser  
+      Helmet  
+      Nodemon  
+      Postgre  
+    Ceritakan dan Demokan tentang proyek ini  
+    Flowchart Aplikasi  
+    Dokumentasi Postman  
+    Dapat didemokan menggunakan postman  
+  Upload/push tugas kamu ke GitHub dan gunakan nama yang profesional  
 
 Reqruitment optional :
   Pagination
@@ -68,19 +68,19 @@ DATABASE :
 | id           | int       | y         |  y      | y            | -           |
 | name         | varchar   | y         |  -      | -            | -           |
 | email        | varchar   | y         |  -      | -            | -           |
-| phone_number | varchar   | -         |  -      | -            | -           |
+| phone_number | int       | -         |  -      | -            | -           |
 | password     | varchar   | -         |  -      | -            | -           |
 | avatar       | varchar   | -         |  -      | -            | -           |
 
 | 2. recipes:  | type data | not_null? | unique? | primary_key? | foreign_key |
-| ------------ | --------- | --------- | ------- | ------------ | ----------- |
-| id           | integer   |  y        |  y      | y            | -           |
-| id_user      | integer   |  y        |  -      | -            | users.id    |
-| name         | varchar   |  y        |  -      | -            | -           |
-| ingredients  | varchar   |  y        |  -      | -            | -           |
-| step         | varchar   |  -        |  -      | -            | -           |
-| image        | varchar   |  -        |  -      | -            | -           |
-| video        | varchar   |  -        |  -      | -            | -           |
+| ------------ | --------- | --------- | ------- | ------------ | :---------: |
+| id           | integer   | y         |  y      | y            | -           |
+| id_user      | integer   | y         |  -      | -            | users.id    |
+| name         | varchar   | y         |  -      | -            | -           |
+| ingredients  | varchar   | y         |  -      | -            | -           |
+| step         | varchar   | -         |  -      | -            | -           |
+| image        | varchar   | -         |  -      | -            | -           |
+| video        | varchar   | -         |  -      | -            | -           |
 
 | 3. comments: | type data | not_null? | unique? | primary_key? | foreign_key |
 | ------------ | --------- | --------- | ------- | ------------ | ----------- |
