@@ -9,16 +9,16 @@
 - [Format database kugunakan](#Format-database-kugunakan)
 - [Soal asli / original](#Soal-asli-/-original)
 
-### belum diperbaiki :
+### belum diperbaiki:
   - Perbaiki validasi inputan di CRUD, delete id tereksekusi 2x
   - Buat pagination
   - Buat multer untuk inputan file data, lengkap dengan limitasi data file
 
-### sudah diperbaiki :
+### sudah diperbaiki:
   - Perbaiki penggunaan .env bersama db.js
   - push tugas di github pakai file .gitignore yang mengabaikan node_modules
 
-### catatan revisi setelah presentasi :
+### catatan revisi setelah presentasi:
   - Perbaiki penggunaan .env bersama db.js
   - Perbaiki validasi inputan di CRUD, delete id tereksekusi 2x
   - Buat pagination
@@ -38,7 +38,7 @@
   - Comment by resep
   - Resep by user
 
-## Ringkasan tugas :
+## Ringkasan tugas:
 Persyaratan :  
   - Gunakan Bahasa Inggris untuk nama File dan Fungsi  
   - Table (Recipe, User, Comment)  
@@ -72,7 +72,7 @@ Optional recuritment other :
   - Autentifikator
 
 ---
-### Format database kugunakan : 
+### Format database ku gunakan: 
 | 1. users:    | data type | not_null? | unique? | primary_key? | foreign_key |
 | ------------ | --------- | --------- | ------- | -----------  | ----------- |
 | id           | int       | y         |  y      | y            | -           |
@@ -99,7 +99,7 @@ Optional recuritment other :
 | id_commenter | integer   |  y        |  -      | -            | users.id    |
 | comment_text | text      |  y        |  -      | -            | -           |
 
-### Soal asli / original :
+### Soal asli / original:
 Buatlah API dari aplikasi dibawah ini 
 https://www.figma.com/file/SUbBTYCq1e4ngRt20lSdqr/Food-Recipe?node-id=47%3A1273
 Requirements:
