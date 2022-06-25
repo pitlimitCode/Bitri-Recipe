@@ -11,9 +11,6 @@ app.use(bodyParser.urlencoded({ extended: false }));
 const cors = require("cors");
 app.use(cors());
 
-require("dotenv").config();
-// console.log(process.env)
-
 // linter ~ .eslintrc.json
 
 // Routes

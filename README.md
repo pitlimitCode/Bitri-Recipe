@@ -25,9 +25,9 @@ Sudah diperbaiki:
 ### Persyaratan yang telah selesai sebelum presentasi:
   - Gunakan Bahasa Inggris untuk nama File dan Fungsi
   - Table (Recipe, User, Comment)
-  - Linter
-  - ENV
-  - Cors
+  - Linter (esLint)
+  - ENV (npm: dotenv)
+  - Cors (middleware)
   - CRUD Create Read Update Delete
   - Error Handling
   - Pencarian Resep berdasarkan nama
