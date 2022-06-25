@@ -24,7 +24,7 @@ const showById = async (req, res) => {
       res.status(200).send({ data: show.rows, count_of_data: show.rowCount });
     } 
     if (show.rowCount == 0 ){
-      res.send(`No one User id: ${id} on Database.`);
+      res.send(`No one User id: '${id}' on Database.`);
     }
   } catch (error) {
     res.status(400).send("Something wrong while finding user data by id.");
@@ -40,7 +40,7 @@ const showByName = async (req, res) => {
       res.status(200).send({ data: show.rows, count_of_data: show.rowCount });
     } 
     if (show.rowCount == 0 ){
-      res.send(`No one User name: ${name} on Database.`);
+      res.send(`No one User name: '${name}' on Database.`);
     }
   } catch (error) {
     res.status(400).send("Something wrong while finding user data by name.");
@@ -52,7 +52,7 @@ const newUser = async (req, res) => {
   try {
     const { name, email, phone_number, password, avatar } = req.body;
     const show = await model.newUser( name, email, phone_number, password, avatar);
-      res.status(200).send(`Ok ${name}, your data succesfully to be added.`);
+    res.status(200).send(`Ok '${name}', your data succesfully to be added.`);
   } catch (error) {
     res.status(400).send("Something wrong while registering data, OR name or email has already on user data.");
   }
@@ -63,7 +63,7 @@ const editUserData = async (req, res) => {
   try {
     const { id, name, email, phone_number, password, avatar } = req.body;
 
-    const show = await model.editUserData(id);
+    const show = await model.showById(id);
 
     if (show.rowCount > 0) {
       let inpName = name || show?.rows[0]?.name; // not null
@@ -80,10 +80,10 @@ const editUserData = async (req, res) => {
       if (inpAvatar) message += "avatar pic, ";
 
       try {
-        const show2 = await model.editUserData2(inpName, inpEmail, inpPhone_number, inpPassword, inpAvatar, id);
+        const show2 = await model.editUserData(inpName, inpEmail, inpPhone_number, inpPassword, inpAvatar, id);
         res.status(200).send(`${message} from id: '${id}' successfully to be edited.`);
       } catch { res.status(400).send("Something wrong while editing data by id.") }
-    } else { res.status(400).send(`Data id: ${id} not found.`) }
+    } else { res.status(400).send(`Data id: '${id}' not found.`) }
   } catch (error) {
     res.status(400).send("Something wrong while editing user data.");
   }
@@ -94,14 +94,23 @@ const deleteUser = async (req, res) => {
   const {id} = req.body;
   if (id) {
     let inpId = id;
-    try{
-      const show = await model.deleteUser(id);
-          res.send(`Data id: '${inpId}' succesfully to be deleted.`);
+
+    try {
+      const show = await model.showById(id);
+      
+      try{
+        const show = await model.deleteUser(id);
+        res.send(`Data id: '${inpId}' succesfully to be deleted.`);
+      } catch {
+        res.status(400).send("Something wrong while deleting data.");
+      }
     } catch {
-      res.status(400).send("Something wrong while deleting data");
+
     }
+
+
   } else {
-    res.status(400).send(`Id data: '${id}', not found`);
+    res.status(400).send(`Id data: '${id}', not found.`);
   }
 }
 
@@ -110,7 +119,6 @@ const deleteAllUsers = async (req, res) => {
   try {
     const hapus = await model.deleteAllUsers();
     res.status(200).send(`All data has been deleted.`);
-    
   } catch (error) {
     res.status(400).send(`Something wrong when deleting all data.`);
   }

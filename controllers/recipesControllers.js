@@ -30,6 +30,22 @@ const showNew = async (req, res) => {
   }
 };
 
+// FIND RECIPE BY ID
+const showById = async (req, res) => {
+  try {
+    const { id } = req.body;
+    const show = await model.showById(id);
+    if (show.rowCount > 0){
+      res.status(200).send({ data: show.rows, count_of_data: show.rowCount });
+    } 
+    if (show.rowCount == 0 ){
+      res.send(`No one Recipe id: '${id}' on Database.`);
+    }
+  } catch (error) {
+    res.status(400).send("Something wrong while finding user data by id.");
+  }
+};
+
 // FIND RECIPES BY NAME
 const showByName = async (req, res) => {
   try {
@@ -63,9 +79,10 @@ const newRecipe = async (req, res) => {
 const editRecipe = async (req, res) => {
   const { id, id_user, name, ingredients, step, image, video } = req.body;
   try {
-    const show = await modul.editRecipe(id);
+    const show = await model.showById(id);
 
     if (show.rowCount > 0) {
+      let inpId = id;
       let inpId_user = id_user || show?.rows[0]?.id_user; // not null
       let inpName = name || show?.rows[0]?.name; // not null
       let inpIngredients = ingredients || show?.rows[0]?.ingredients; // not null
@@ -82,14 +99,14 @@ const editRecipe = async (req, res) => {
       if (inpVideo) message += "video, ";
 
       try {
-        const show = await modul.editRecipe2(inpId_user, inpName, inpIngredients, inpStep, inpImage, inpVideo, id);
+        const show = await model.editRecipe(inpId_user, inpName, inpIngredients, inpStep, inpImage, inpVideo, inpId);
         res.status(200).send(`${message} recipe from id: '${id}' successfully to be edited.`);
       } catch (error) {
         res.status(400).send("Something wrong while edit recipe data by id.");
       }
 
     } else {
-      res.status(400).send(`Recipe data id: ${id} not found.`);
+      res.status(400).send(`Recipe data id: '${id}' not found.`);
     }
   } catch (error) {
     res.status(400).send("Something wrong while editing recipe data.");
@@ -102,9 +119,10 @@ const deleteRecipe = async (req, res) => {
   const { id } = req.body;
   if (id) {
     let inpId = id;
+    
     try {
       const show = await model.deleteRecipe(id);
-      res.status(200).send(`Recipe data id: ${inpId} succesfully to be deleted.`);
+      res.status(200).send(`Recipe data id: '${inpId}' succesfully to be deleted.`);
     } catch (error) {
       res.status(400).send("Something wrong while deleting recipe data by id");
     }
@@ -114,6 +132,7 @@ const deleteRecipe = async (req, res) => {
 module.exports = {
   showAll,
   showNew,
+  showById,
   showByName,
   newRecipe,
   editRecipe,

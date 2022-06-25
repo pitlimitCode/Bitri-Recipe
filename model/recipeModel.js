@@ -22,6 +22,15 @@ const showNew = () => {
   })
 };
 
+//FIND RECIPE BY ID
+const showById = (id) => {
+  return new Promise((resolve, reject) => {
+    db.query(`SELECT * FROM recipes WHERE id = $1`, [id], (error, result) => {
+      if (error) { reject (error) } else { resolve (result); }
+    })
+  })
+}
+
 // FIND RECIPES BY NAME
 const showByName = (nameLower) => {
   return new Promise((resolve, reject) => {
@@ -46,14 +55,7 @@ const newRecipe = (id_user, name, ingredients, step, image, video) => {
 }
 
 // EDIT RECIPE DATA BY ID
-const editRecipe = (id) => {
-  return new Promise((resolve, reject) => {
-    db.query(`SELECT * FROM recipes WHERE id = $1`, [id], (error, result) => {
-      if (error) { reject (error) } else { resolve (result); }
-    })
-  })
-}
-const editRecipe2 = (inpId_user, inpName, inpIngredients, inpStep, inpImage, inpVideo, id) => {
+const editRecipe = (inpId_user, inpName, inpIngredients, inpStep, inpImage, inpVideo, id) => {
   return new Promise((resolve, reject) => {
     db.query(
       `UPDATE recipes SET id_user = $1, name = $2, ingredients = $3, step = $4, image = $5, video = $6 WHERE id = $7`,
@@ -63,7 +65,6 @@ const editRecipe2 = (inpId_user, inpName, inpIngredients, inpStep, inpImage, inp
     )
   })
 };
-
 
 // DELETE RECIPE BY ID
 const deleteRecipe = (id) => {
@@ -77,9 +78,9 @@ const deleteRecipe = (id) => {
 module.exports = {
   showAll,
   showNew,
+  showById,
   showByName,
   newRecipe,
   editRecipe,
-  editRecipe2,
   deleteRecipe,
 };

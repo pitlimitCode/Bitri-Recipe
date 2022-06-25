@@ -3,15 +3,14 @@ const app = express();
 const port = 8000;
 
 const bodyParser = require("body-parser");
-const helmet = require("helmet");
-app.use(helmet());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
+const helmet = require("helmet");
+app.use(helmet());
+
 const cors = require("cors");
 app.use(cors());
-
-// linter ~ .eslintrc.json
 
 // Routes
 const userAllRoutes = require("./routes/usersRoutes");
@@ -22,4 +21,4 @@ app.use("/", recipesRoutes);
 app.use("/", commentsRoutes);
 
 // LAST LISTEN
-app.listen(port, () => console.log(`[nodemen] success, port: '${port}'.`));
+app.listen(port, () => console.log(`[nodemen] success running from port: '${port}'.`));

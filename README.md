@@ -1,4 +1,4 @@
-# Week 3 - Tugas Beginer Backend
+# Week 3 - Tugas Backend
 
 [Catatan revisi setelah presentasi](#Catatan-revisi-setelah-presentasi)  
 [Persyaratan yang telah selesai sebelum presentasi](#Persyaratan-yang-telah-selesai-sebelum-presentasi)  
@@ -74,29 +74,29 @@ Persyaratan tambahan lain-lain (opsional):
 ### Format database yang ku buat:
 | users table  | data type | not_null? | unique? | primary_key? | foreign_key |
 | ------------ | --------- | --------- | ------- | -----------  | ----------- |
-| id           | int       | y         |  y      | y            | -           |
-| name         | varchar   | y         |  -      | -            | -           |
-| email        | varchar   | y         |  -      | -            | -           |
-| phone_number | int       | -         |  -      | -            | -           |
-| password     | varchar   | -         |  -      | -            | -           |
-| avatar       | varchar   | -         |  -      | -            | -           |
+| id           | int       |     y     |    y    |      y       |      -      |
+| name         | varchar   |     y     |    y    |      -       |      -      |
+| email        | varchar   |     y     |    y    |      -       |      -      |
+| phone_number | int       |     -     |    -    |      -       |      -      |
+| password     | varchar   |     y     |    -    |      -       |      -      |
+| avatar       | varchar   |     -     |    -    |      -       |      -      |
 
-| recipes table | data type | not_null? | unique? | primary_key? | foreign_key |
-| ------------- | --------- | --------- | ------- | ------------ | ----------- |
-| id            | integer   | y         |  y      | y            | -           |
-| id_user       | integer   | y         |  -      | -            | users.id    |
-| name          | varchar   | y         |  -      | -            | -           |
-| ingredients   | varchar   | y         |  -      | -            | -           |
-| step          | varchar   | -         |  -      | -            | -           |
-| image         | varchar   | -         |  -      | -            | -           |
-| video         | varchar   | -         |  -      | -            | -           |
+| recipes table | data type | not_null? | unique? | primary_key? | foreign_key  |
+| ------------- | --------- | --------- | ------- | ------------ | ------------ |
+| id            | integer   |     y     |    y    |      y       |       -      |
+| id_user       | integer   |     y     |    -    |      -       |   users.id   |
+| name          | varchar   |     y     |    -    |      -       |       -      |
+| ingredients   | varchar   |     y     |    -    |      -       |       -      |
+| step          | varchar   |     -     |    -    |      -       |       -      |
+| image         | varchar   |     -     |    -    |      -       |       -      |
+| video         | varchar   |     -     |    -    |      -       |       -      |
 
-| comments table | data type | not_null? | unique? | primary_key? | foreign_key |
-| -------------- | --------- | --------- | ------- | ------------ | ----------- |
-| id             | integer   |  y        |  y      | y            | -           |
-| id_recipe      | integer   |  y        |  -      | -            | recipes.id  |
-| id_commenter   | integer   |  y        |  -      | -            | users.id    |
-| comment_text   | text      |  y        |  -      | -            | -           |
+| comments table | data type | not_null? | unique? | primary_key? | foreign_key  |
+| -------------- | --------- | --------- | ------- | ------------ | ------------ |
+| id             | integer   |     y     |    y    |      y       |       -      |
+| id_recipe      | integer   |     y     |    -    |      -       |  recipes.id  |
+| id_commenter   | integer   |     y     |    -    |      -       |   users.id   |
+| comment_text   | text      |     y     |    -    |      -       |       -      |
 ---
 ### Soal asli / original:
 Buatlah API dari aplikasi dibawah ini  
