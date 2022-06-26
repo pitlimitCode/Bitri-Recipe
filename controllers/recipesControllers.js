@@ -15,6 +15,22 @@ const showAll = async (req, res) => {
   }
 };
 
+// SHOW RECIPES IN PAGES
+const showInPages = async (req, res) => {
+  try {
+    const { limit, pages } = req.body;
+    const show = await model.showInPages(limit, pages);
+    if (show.rowCount > 0){
+      res.status(200).send({ limit_of_data: limit, data: show.rows, pages: pages });
+    } 
+    if (show.rowCount == 0 ){
+      res.send("No one Recipe on Database.");
+    }
+  } catch (error) {
+    res.status(400).send("Something wrong while getting all recipes data.");
+  }
+};
+
 // SHOW 5 NEW RECIPES
 const showNew = async (req, res) => {
   try {
@@ -119,18 +135,28 @@ const deleteRecipe = async (req, res) => {
   const { id } = req.body;
   if (id) {
     let inpId = id;
-    
     try {
-      const show = await model.deleteRecipe(id);
-      res.status(200).send(`Recipe data id: '${inpId}' succesfully to be deleted.`);
-    } catch (error) {
-      res.status(400).send("Something wrong while deleting recipe data by id");
+      const show = await model.showById(id);
+      if (show.rowCount > 0) {
+        try {
+          const show2 = await model.deleteRecipe(id);
+          res.status(200).send(`Recipe data id: '${inpId}' succesfully to be deleted.`);
+        } catch (error) {
+          res.status(400).send("Something wrong while deleting recipe data by id");
+        }
+      } else {
+        res.status(400).send(`No one Recipe id: '${id}' on Database.`);
+      }
+    } catch {
+      res.status(400).send("Something wrong while searching id: '${id}' before delete it.");
     }
+    
   } else ('Please input id recipe.')
 }
 
 module.exports = {
   showAll,
+  showInPages,
   showNew,
   showById,
   showByName,

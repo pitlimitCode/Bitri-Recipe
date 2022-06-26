@@ -1,7 +1,7 @@
 const Postgre = require("pg").Pool;
 require('dotenv').config();
 
-const connection = new Postgre({
+const conn = new Postgre({
 	user: process.env.DB_USER, 
 	host: process.env.DB_HOST,
 	database: process.env.DB_NAME,
@@ -9,4 +9,4 @@ const connection = new Postgre({
 	port: process.env.DB_PORT,
 });
 
-module.exports = connection;
+module.exports = conn;

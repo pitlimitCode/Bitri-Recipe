@@ -3,6 +3,7 @@ const controller = require("../controllers/recipesControllers");
 
 
 Router.get("/recipes/show/all", controller.showAll); // SHOW ALL RECIPES
+Router.get("/recipes/pagination/", controller.showInPages); // SHOW RECIPES IN PAGES
 Router.get("/recipes/show/new", controller.showNew); // SHOW 5 NEW RECIPES
 Router.get("/recipes/show/id", controller.showById); // FIND RECIPE BY ID
 Router.get("/recipes/show/name", controller.showByName); // FIND RECIPE BY NAME

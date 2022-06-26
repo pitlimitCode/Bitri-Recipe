@@ -3,7 +3,20 @@ const db = require("./db");
 // SHOW ALL RECIPES
 const showAll = () => {
   return new Promise((resolve, reject) => {
-    db.query(`SELECT * FROM recipes ORDER BY recipes.id ASC`,
+    db.query(`SELECT * FROM recipes ORDER BY id ASC`,
+      (error, result) => {
+        if (error) { reject (error) } else { resolve (result); }
+      }
+    );
+  })
+};
+
+// SHOW RECIPES IN PAGES
+const showInPages = (limit, pages) => {
+  return new Promise((resolve, reject) => {
+    offset = (pages - 1)*limit;
+    const x = `SELECT * FROM recipes ORDER BY id LIMIT ${limit} OFFSET ${offset}`;
+    db.query( x ,
       (error, result) => {
         if (error) { reject (error) } else { resolve (result); }
       }
@@ -77,6 +90,7 @@ const deleteRecipe = (id) => {
 
 module.exports = {
   showAll,
+  showInPages,
   showNew,
   showById,
   showByName,

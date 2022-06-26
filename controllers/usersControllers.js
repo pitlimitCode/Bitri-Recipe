@@ -35,7 +35,9 @@ const showById = async (req, res) => {
 const showByName = async (req, res) => {
   try {
     const { name } = req.body;
-    const show = await model.showByName(name);
+    const nameLower = name.toLowerCase();
+
+    const show = await model.showByName(nameLower);
     if (show.rowCount > 0){
       res.status(200).send({ data: show.rows, count_of_data: show.rowCount });
     } 
@@ -54,7 +56,7 @@ const newUser = async (req, res) => {
     const show = await model.newUser( name, email, phone_number, password, avatar);
     res.status(200).send(`Ok '${name}', your data succesfully to be added.`);
   } catch (error) {
-    res.status(400).send("Something wrong while registering data, OR name or email has already on user data.");
+    res.status(400).send("name or email has already on user data.");
   }
 }
 

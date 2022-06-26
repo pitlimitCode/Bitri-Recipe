@@ -22,9 +22,11 @@ const showById = (id) => {
 }
 
 // FIND USER BY NAME
-const showByName = (name) => {
+const showByName = (nameLower) => {
   return new Promise((resolve, reject) => {
-    db.query(`SELECT * FROM users WHERE name = $1`, [name],
+    const x = `SELECT * From users WHERE LOWER(name) LIKE '%${nameLower}%'`;
+    db.query( x,
+    // db.query(`SELECT * FROM users WHERE name = $1`, [name],
     (error, result) => {
       if (error) { reject (error) } else { resolve (result); }
     });

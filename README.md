@@ -7,17 +7,17 @@
 [Soal asli / original](#Soal-asli--original) 
 
 Belum diperbaiki:
-  - Perbaiki validasi inputan di CRUD, delete id tereksekusi 2x
-  - Buat pagination
+  - Perbaiki CRU: validasi, delete id jangan tereksekusi 2x, handling unique input
   - Buat multer untuk inputan file data, lengkap dengan limitasi data file
 
 Sudah diperbaiki:
   - Perbaiki penggunaan .env bersama db.js
+  - Buat pagination
   - push tugas di github pakai file .gitignore yang mengabaikan node_modules
 
 ### Catatan revisi setelah presentasi:
   - Perbaiki penggunaan .env bersama db.js
-  - Perbaiki validasi inputan di CRUD, delete id tereksekusi 2x
+  - Perbaiki CRU: validasi, delete id jangan tereksekusi 2x, handling unique input
   - Buat pagination
   - Buat multer untuk inputan file data, lengkap dengan limitasi data file
   - push tugas di github pakai file .gitignore yang mengabaikan node_modules

@@ -1,6 +1,5 @@
 const express = require("express");
 const app = express(); 
-const port = 8000;
 
 const bodyParser = require("body-parser");
 app.use(bodyParser.json());
@@ -20,5 +19,6 @@ app.use("/", userAllRoutes);
 app.use("/", recipesRoutes);
 app.use("/", commentsRoutes);
 
-// LAST LISTEN
-app.listen(port, () => console.log(`[nodemen] success running from port: '${port}'.`));
+// Port listen
+const port = 8000;
+app.listen(port, () => console.log(`[nodemen] running from port: '${port}'.`));
