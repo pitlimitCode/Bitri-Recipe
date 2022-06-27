@@ -6,12 +6,12 @@
 [Format database yang ku buat](#Format-database-yang-ku-buat)  
 [Soal asli / original](#Soal-asli--original) 
 
-Tugas backend tambahan:
+Tugas tambahan backend 27 Juni:
   - Revisi sebelumnya harus selesai.
   - Penggunaan CORS.
   - Hash password (di register user).
   - Compare hash password (di login).
-  - Saat login terima JWT.
+  - Saat Register dan LogIn terima JWT.
   - Client harus pakai token ketika akses post put delete.
 
 Belum diperbaiki:

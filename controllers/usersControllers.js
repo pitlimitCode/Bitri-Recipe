@@ -1,5 +1,11 @@
 const model = require("../model/usersModel"); 
 const bcrypt = require('bcrypt');
+require('dotenv').config();
+
+var jwt = require('jsonwebtoken');
+var token = jwt.sign({ foo: 'bar' }, 'apaajaaaa', { algorithm: 'HS256' }, function(err, token) {
+  // console.log(token);
+});
 
 // SHOW ALL USERS
 const showAll = async (req, res) => {
@@ -53,21 +59,39 @@ const showByName = async (req, res) => {
 // ADD NEW USER / REGISTER
 const newUser = async (req, res) => {
   try {
-    console.log(req.body.password);
-    // const password = bcrypt.
-    // const password = bcrypt.hash(req.body.password, 5);
-    console.log(password);
-    const { name, email, phone_number} = req.body;
-    const show = await model.newUser( name, email, phone_number, password);
-    res.status(200).send(`Ok '${name}', your data succesfully to be added.`);
-  } catch (error) {
-    console.log(error);
-    res.status(400).send("Please try another 'name' or 'email'.");
+    const { name, email, phone_number, password } = req.body;
+    const hash = await bcrypt.hash(password, 5);
+      try {
+        const show = await model.newUser( name, email, phone_number, hash);
+        res.status(200).send(`Ok '${name}', your data succesfully to be added.`);
+      } catch (error) {
+        console.log(error.message);
+        res.status(400).send("Please try another 'name' and/or 'email'.");
+      }
+  } catch {
+    console.log(error.message);
+    res.status(400).send("Something wrong registering data.");
   }
-}
+};
+
+// userLogin
+const userLogin = async (req, res) => {
+  try {
+    const { email, password } = req.body;
+    const show = await model.userLogin(email);
+    const compare = await bcrypt.compare(password, show.rows[0].password);
+    if(compare == true) {
+      res.status(200).send(`Success to login.`);
+    } else {
+      res(`Wrong password !`);
+    }
+  } catch (error) {
+    console.log(error.message);
+    res.status(400).send("Please try another email to Log In.");
+  }
+};
 
 // pindahkan multer ke controller && nambah multi - multipart 
-
 //
 const addAvatar = async (req, res) => {
   try {
@@ -76,7 +100,7 @@ const addAvatar = async (req, res) => {
     const show = await model.showById(id);
     if (show.rowCount > 0) {
       try {
-        const show2 = await model.userAvatar( id, avatar);
+        const show2 = await model.addAvatar( id, avatar);
         res.status(200).send(`Ok id: '${id}', your avatar succesfully to be added.`);
       } catch (error) {
         console.log(error);
@@ -126,9 +150,9 @@ const deleteUser = async (req, res) => {
   let inpId = id;
   try {
     const show = await model.showById(id);
-    if (show.rowCount > 1) {
+    if (show.rowCount > 0) {
       try{
-        const show = await model.deleteUser(id);
+        const show2 = await model.deleteUser(id);
         res.send(`Data id: '${inpId}' succesfully to be deleted.`);
       } catch {
         res.status(400).send("Something wrong while deleting data.");
@@ -144,7 +168,7 @@ const deleteUser = async (req, res) => {
 // DELETE ALL USERS
 const deleteAllUsers = async (req, res) => {
   try {
-    const hapus = await model.deleteAllUsers();
+    const show = await model.deleteAllUsers();
     res.status(200).send(`All data has been deleted.`);
   } catch (error) {
     res.status(400).send(`Something wrong when deleting all data.`);
@@ -156,6 +180,7 @@ module.exports = {
   showById,
   showByName,
   newUser,
+  userLogin,
   addAvatar,
   editUserData,
   deleteUser,

@@ -37,15 +37,25 @@ const showByName = (nameLower) => {
 const newUser = ( name, email, phone_number, password ) => { 
   return new Promise((resolve, reject) => {
     db.query(`INSERT INTO users (name, email, phone_number, password) VALUES ($1, $2, $3, $4)`,
-    [name, email, phone_number, password, avatar],
+    [name, email, phone_number, password],
     (error, result) => {
       if (error) { reject (error) } else { resolve (result); }
     })
   })
-
 }
+
+// USER LOGIN
+const userLogin = ( email ) => { 
+  return new Promise((resolve, reject) => {
+    db.query(`SELECT * FROM users WHERE email = $1`, [email],
+    (error, result) => {
+      if (error) { reject (error) } else { resolve (result); }
+    })
+  })
+}
+
 // ADD USER AVATAR
-const userAvatar = ( id, avatar ) => { 
+const addAvatar = ( id, avatar ) => { 
   return new Promise((resolve, reject) => {
     db.query(`UPDATE users SET avatar = $1 WHERE id = $2`, [avatar, id],
     (error, result) => {
@@ -89,7 +99,8 @@ module.exports = {
   showById,
   showByName,
   newUser,
-  userAvatar,
+  userLogin,
+  addAvatar,
   editUserData,
   deleteUser,
   deleteAllUsers
