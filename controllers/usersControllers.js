@@ -52,12 +52,38 @@ const showByName = async (req, res) => {
 // ADD NEW USER / REGISTER
 const newUser = async (req, res) => {
   try {
-    const { name, email, phone_number, password, avatar } = req.body;
-    const show = await model.newUser( name, email, phone_number, password, avatar);
+    // console.log(req);
+    const { name, email, phone_number, password } = req.body;
+    const show = await model.newUser( name, email, phone_number, password);
     res.status(200).send(`Ok '${name}', your data succesfully to be added.`);
   } catch (error) {
-    res.status(400).send("name or email has already on user data.");
+    console.log(error);
+    res.status(200).send("Please try another 'name' or 'email'.");
   }
+}
+
+// ADD USER AVATAR
+const addAvatar = async (req, res) => {
+
+  try {
+
+    const show = await model.showById(id);
+
+    if (show.rowCount > 0) {
+      
+      try {
+        const avatar = req?.file?.path || 'images/defaultAvatar.jpeg';
+        const show2 = await model.newUser( name, email, phone_number, password, avatar);
+        res.status(200).send(`Ok '${name}', your data succesfully to be added.`);
+      } catch (error) {
+        console.log(error);
+        res.status(200).send("Please try another 'name' or 'email'.");
+      }
+
+    } else { res.status(400).send(`Data id: '${id}' not found.`) }
+
+  } catch {}
+
 }
 
 // EDIT USER DATA BY ID
@@ -131,6 +157,7 @@ module.exports = {
   showById,
   showByName,
   newUser,
+  addAvatar,
   editUserData,
   deleteUser,
   deleteAllUsers,

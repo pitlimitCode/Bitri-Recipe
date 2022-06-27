@@ -9,6 +9,7 @@
 Belum diperbaiki:
   - Perbaiki CRU: validasi, delete id jangan tereksekusi 2x, handling unique input
   - Buat multer untuk inputan file data, lengkap dengan limitasi data file
+  - Pakai Cors
 
 Sudah diperbaiki:
   - Perbaiki penggunaan .env bersama db.js
@@ -20,7 +21,8 @@ Sudah diperbaiki:
   - Perbaiki CRU: validasi, delete id jangan tereksekusi 2x, handling unique input
   - Buat pagination
   - Buat multer untuk inputan file data, lengkap dengan limitasi data file
-  - push tugas di github pakai file .gitignore yang mengabaikan node_modules
+  - Pakai Cors
+  - Push tugas di github pakai file .gitignore yang mengabaikan node_modules
 
 ### Persyaratan yang telah selesai sebelum presentasi:
   - Gunakan Bahasa Inggris untuk nama File dan Fungsi
@@ -48,7 +50,7 @@ Persyaratan:
   - Resep terbaru maksimal 5  
   - Presentasikan (ppt) :  
     - apa yang telah Anda lakukan dalam minggu ini  
-      - Express  
+      - Express 
       - Body-parser  
       - Helmet  
       - Nodemon  
@@ -65,7 +67,7 @@ Persyaratan tambahan (opsional):
   - Resep by user
 
 Persyaratan tambahan lain-lain (opsional):
-  - Multer
+  - Multer (middleware)
   - Crypto-js
   - Validator
   - Autentifikator

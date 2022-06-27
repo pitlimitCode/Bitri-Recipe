@@ -34,26 +34,27 @@ const showByName = (nameLower) => {
 }
 
 // ADD NEW USER / REGISTER
-const newUser = ( name, email, phone_number, password, avatar ) => { 
+const newUser = ( name, email, phone_number, password ) => { 
   return new Promise((resolve, reject) => {
-    db.query(`INSERT INTO users (name, email, phone_number, password, avatar) VALUES ($1, $2, $3, $4, $5)`,
+    db.query(`INSERT INTO users (name, email, phone_number, password) VALUES ($1, $2, $3, $4)`,
     [name, email, phone_number, password, avatar],
+    (error, result) => {
+      if (error) { reject (error) } else { resolve (result); }
+    })
+  })
+
+}
+// ADD USER AVATAR
+const userAvatar = ( avatar ) => { 
+  return new Promise((resolve, reject) => {
+    db.query(`INSERT INTO users (avatar) VALUES ($1)`, [avatar],
     (error, result) => {
       if (error) { reject (error) } else { resolve (result); }
     })
   })
 }
 
-
-// EDIT USER DATA BY ID
-const editUserData = ( id ) => {
-  return new Promise((resolve, reject) => {
-    db.query(`SELECT * FROM users WHERE id = $1`, [id], (error, result) => {
-      if (error) { reject (error) } else { resolve (result); }
-    })
-  })
-}
-const editUserData2 = (inpName, inpEmail, inpPhone_number, inpPassword, inpAvatar, id) => {
+const editUserData = (inpName, inpEmail, inpPhone_number, inpPassword, inpAvatar, id) => {
   return new Promise((resolve, reject) => {  
     db.query(`UPDATE users SET name = $1, email = $2, phone_number = $3, password = $4, avatar = $5 WHERE id = $6`,
       [inpName, inpEmail, inpPhone_number, inpPassword, inpAvatar, id],
@@ -88,8 +89,8 @@ module.exports = {
   showById,
   showByName,
   newUser,
+  userAvatar,
   editUserData,
-  editUserData2,
   deleteUser,
   deleteAllUsers
 };
