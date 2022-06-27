@@ -1,3 +1,13 @@
+/*
+Tugas backend tambahan:
+  - Revisi sebelumnya harus selesai.
+  - Penggunaan CORS.
+  - Hash password (di register user).
+  - Compare hash password (di login).
+  - Saat login terima JWT.
+  - Client harus pakai token ketika akses post put delete.
+*/
+
 const express = require("express");
 const app = express(); 
 
@@ -20,5 +30,5 @@ app.use("/", recipesRoutes);
 app.use("/", commentsRoutes);
 
 // Port listen
-const port = 8000;
+const port = 8000; // port database
 app.listen(port, () => console.log(`[nodemen] running from port: '${port}'.`));

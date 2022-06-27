@@ -1,4 +1,5 @@
 const model = require("../model/usersModel"); 
+const bcrypt = require('bcrypt');
 
 // SHOW ALL USERS
 const showAll = async (req, res) => {
@@ -52,38 +53,40 @@ const showByName = async (req, res) => {
 // ADD NEW USER / REGISTER
 const newUser = async (req, res) => {
   try {
-    // console.log(req);
-    const { name, email, phone_number, password } = req.body;
+    console.log(req.body.password);
+    // const password = bcrypt.
+    // const password = bcrypt.hash(req.body.password, 5);
+    console.log(password);
+    const { name, email, phone_number} = req.body;
     const show = await model.newUser( name, email, phone_number, password);
     res.status(200).send(`Ok '${name}', your data succesfully to be added.`);
   } catch (error) {
     console.log(error);
-    res.status(200).send("Please try another 'name' or 'email'.");
+    res.status(400).send("Please try another 'name' or 'email'.");
   }
 }
 
-// ADD USER AVATAR
+// pindahkan multer ke controller && nambah multi - multipart 
+
+//
 const addAvatar = async (req, res) => {
-
   try {
-
+    const { id } = req.body;
+    const avatar = req?.file?.path || 'images/defaultAvatar.jpeg';
     const show = await model.showById(id);
-
     if (show.rowCount > 0) {
-      
       try {
-        const avatar = req?.file?.path || 'images/defaultAvatar.jpeg';
-        const show2 = await model.newUser( name, email, phone_number, password, avatar);
-        res.status(200).send(`Ok '${name}', your data succesfully to be added.`);
+        const show2 = await model.userAvatar( id, avatar);
+        res.status(200).send(`Ok id: '${id}', your avatar succesfully to be added.`);
       } catch (error) {
         console.log(error);
-        res.status(200).send("Please try another 'name' or 'email'.");
+        res.status(400).send("Something wrong while adding your avatar.");
       }
-
     } else { res.status(400).send(`Data id: '${id}' not found.`) }
 
-  } catch {}
-
+  } catch {
+    res.status(400).send(`Something wrong while getting data: '${id}', id for adding user avatar.`);
+  }
 }
 
 // EDIT USER DATA BY ID
@@ -120,25 +123,21 @@ const editUserData = async (req, res) => {
 // DELETE USER BY ID
 const deleteUser = async (req, res) => {
   const {id} = req.body;
-  if (id) {
-    let inpId = id;
-
-    try {
-      const show = await model.showById(id);
-      
+  let inpId = id;
+  try {
+    const show = await model.showById(id);
+    if (show.rowCount > 1) {
       try{
         const show = await model.deleteUser(id);
         res.send(`Data id: '${inpId}' succesfully to be deleted.`);
       } catch {
         res.status(400).send("Something wrong while deleting data.");
       }
-    } catch {
-
+    } else {
+      res.status(400).send(`Id data: '${id}', not found.`);
     }
-
-
-  } else {
-    res.status(400).send(`Id data: '${id}', not found.`);
+  } catch {
+    res.status(400).send(`Something wrong while getting data: '${id}', id for deleting data.`);
   }
 }
 

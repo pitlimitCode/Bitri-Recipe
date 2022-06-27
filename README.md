@@ -6,10 +6,18 @@
 [Format database yang ku buat](#Format-database-yang-ku-buat)  
 [Soal asli / original](#Soal-asli--original) 
 
+Tugas backend tambahan:
+  - Revisi sebelumnya harus selesai.
+  - Penggunaan CORS.
+  - Hash password (di register user).
+  - Compare hash password (di login).
+  - Saat login terima JWT.
+  - Client harus pakai token ketika akses post put delete.
+
 Belum diperbaiki:
-  - Perbaiki CRU: validasi, delete id jangan tereksekusi 2x, handling unique input
-  - Buat multer untuk inputan file data, lengkap dengan limitasi data file
-  - Pakai Cors
+  - Perbaiki CRUD: validasi, delete id jangan tereksekusi 2x, handling unique input.
+  - Buat multer untuk inputan file data, lengkap dengan limitasi data file.
+  - Pakai Cors.
 
 Sudah diperbaiki:
   - Perbaiki penggunaan .env bersama db.js

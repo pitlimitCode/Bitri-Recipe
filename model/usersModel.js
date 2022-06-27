@@ -45,9 +45,9 @@ const newUser = ( name, email, phone_number, password ) => {
 
 }
 // ADD USER AVATAR
-const userAvatar = ( avatar ) => { 
+const userAvatar = ( id, avatar ) => { 
   return new Promise((resolve, reject) => {
-    db.query(`INSERT INTO users (avatar) VALUES ($1)`, [avatar],
+    db.query(`UPDATE users SET avatar = $1 WHERE id = $2`, [avatar, id],
     (error, result) => {
       if (error) { reject (error) } else { resolve (result); }
     })
