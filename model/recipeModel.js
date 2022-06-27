@@ -3,7 +3,7 @@ const db = require("./db");
 // SHOW ALL RECIPES
 const showAll = () => {
   return new Promise((resolve, reject) => {
-    db.query(`SELECT * FROM recipes ORDER BY id ASC`,
+    db.query(`SELECT * FROM recipes ORDER BY id DESC`,
       (error, result) => {
         if (error) { reject (error) } else { resolve (result); }
       }

@@ -64,6 +64,7 @@ const addAvatar = ( id, avatar ) => {
   })
 }
 
+// EDIT USER DATA BY ID
 const editUserData = (inpName, inpEmail, inpPhone_number, inpPassword, inpAvatar, id) => {
   return new Promise((resolve, reject) => {  
     db.query(`UPDATE users SET name = $1, email = $2, phone_number = $3, password = $4, avatar = $5 WHERE id = $6`,

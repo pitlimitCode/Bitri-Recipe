@@ -1,11 +1,16 @@
 const model = require("../model/usersModel"); 
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 require('dotenv').config();
 
-var jwt = require('jsonwebtoken');
-var token = jwt.sign({ foo: 'bar' }, 'apaajaaaa', { algorithm: 'HS256' }, function(err, token) {
-  // console.log(token);
-});
+// var token = jwt.sign({ foo: 'bar' }, process.env.JWK_KEY, { expiresIn: 60 * 60 }, { algorithm: process.env.JWK_ALG }, 
+//   // function(err, token) {
+//   //   console.log(token);
+//   //   console.log(process.env.JWK_KEY); 
+//   //   console.log(process.env.JWK_ALG);
+//   // }
+// );
+// // console.log(token);
 
 // SHOW ALL USERS
 const showAll = async (req, res) => {
@@ -63,7 +68,16 @@ const newUser = async (req, res) => {
     const hash = await bcrypt.hash(password, 5);
       try {
         const show = await model.newUser( name, email, phone_number, hash);
-        res.status(200).send(`Ok '${name}', your data succesfully to be added.`);
+        
+        var token = jwt.sign(
+          show.rows[0],
+          process.env.JWK_KEY,
+          { expiresIn: 60 * 60 },
+          { algorithm: process.env.JWK_ALG }
+        );
+
+        res.status(200).send(`Ok '${name}', your data succesfully to be added...
+        Your Token is : ${token}`);
       } catch (error) {
         console.log(error.message);
         res.status(400).send("Please try another 'name' and/or 'email'.");
@@ -74,14 +88,24 @@ const newUser = async (req, res) => {
   }
 };
 
-// userLogin
+// USER LOGIN
 const userLogin = async (req, res) => {
   try {
     const { email, password } = req.body;
     const show = await model.userLogin(email);
     const compare = await bcrypt.compare(password, show.rows[0].password);
     if(compare == true) {
-      res.status(200).send(`Success to login.`);
+
+      var token = jwt.sign(
+        show.rows[0],
+        process.env.JWK_KEY,
+        { expiresIn: 120 },
+        { algorithm: process.env.JWK_ALG }
+      );
+      
+      res.status(200).send(`Success to login...
+      Your Token is : ${token}`);
+
     } else {
       res(`Wrong password !`);
     }
@@ -92,7 +116,7 @@ const userLogin = async (req, res) => {
 };
 
 // pindahkan multer ke controller && nambah multi - multipart 
-//
+// ADD USER AVATAR
 const addAvatar = async (req, res) => {
   try {
     const { id } = req.body;

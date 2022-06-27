@@ -24,6 +24,7 @@ const multer = require('multer');
 // 	}
 // });
 
+
 // 2
 const storage = multer.diskStorage({
 	destination: (req, file, cb) => {

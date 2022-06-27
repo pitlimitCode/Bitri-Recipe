@@ -1,4 +1,6 @@
 const model = require("../model/recipeModel");
+const jwt = require('jsonwebtoken');
+require('dotenv').config();
 
 // SHOW ALL RECIPES
 const showAll = async (req, res) => {
@@ -82,13 +84,22 @@ const showByName = async (req, res) => {
 
 // ADD NEW RECIPE
 const newRecipe = async (req, res) => {
-  const { id_user, name, ingredients, step, image, video } = req.body;
-  try {
-    const show = await model.newRecipe(id_user, name, ingredients, step, image, video);
-     res.status(200).send(`Your recipe: '${name}', succesfully to be added.`);
-  } catch (error) {
-    res.status(400).send("Something wrong while adding new recipe.");
-  }
+  // if () {
+    // console.log(req.Symbol(kHeaders));
+    
+    var decoded = jwt.verify(req.rawHeaders[1].split(' ')[1], process.env.JWK_KEY);
+    console.log(decoded);
+
+    const { id_user, name, ingredients, step, image, video } = req.body;
+    try {
+      const show = await model.newRecipe(id_user, name, ingredients, step, image, video);
+      res.status(200).send(`Your recipe: '${name}', succesfully to be added.`);
+    } catch (error) {
+      res.status(400).send("Something wrong while adding new recipe.");
+    }
+  // } else {
+  //   res.status(400).send("You not authorization to post/patch.delete in this URL.");
+  // }
 }
 
 // EDIT RECIPE DATA BY ID
