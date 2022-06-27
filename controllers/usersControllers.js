@@ -99,7 +99,7 @@ const userLogin = async (req, res) => {
       var token = jwt.sign(
         show.rows[0],
         process.env.JWK_KEY,
-        { expiresIn: 120 },
+        { expiresIn: 10 },
         { algorithm: process.env.JWK_ALG }
       );
       

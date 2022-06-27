@@ -84,22 +84,20 @@ const showByName = async (req, res) => {
 
 // ADD NEW RECIPE
 const newRecipe = async (req, res) => {
-  // if () {
-    // console.log(req.Symbol(kHeaders));
-    
-    var decoded = jwt.verify(req.rawHeaders[1].split(' ')[1], process.env.JWK_KEY);
-    console.log(decoded);
-
-    const { id_user, name, ingredients, step, image, video } = req.body;
-    try {
-      const show = await model.newRecipe(id_user, name, ingredients, step, image, video);
-      res.status(200).send(`Your recipe: '${name}', succesfully to be added.`);
-    } catch (error) {
-      res.status(400).send("Something wrong while adding new recipe.");
-    }
-  // } else {
-  //   res.status(400).send("You not authorization to post/patch.delete in this URL.");
-  // }
+  jwt.verify(req.rawHeaders[1].split(' ')[1], process.env.JWK_KEY, async function(err, decoded) {
+    if(err){
+      res.status(400).send(err.message +', please login again.');
+    } else {
+      const id_user = decoded.id;
+      const { name, ingredients, step, image, video } = req.body;
+      try {
+        const show = await model.newRecipe(id_user, name, ingredients, step, image, video);
+        res.status(200).send(`Your recipe: '${name}', succesfully to be added.`);
+      } catch (err) {
+        res.status(400).send("Something wrong while adding new recipe.");
+      }
+    };
+  })
 }
 
 // EDIT RECIPE DATA BY ID
