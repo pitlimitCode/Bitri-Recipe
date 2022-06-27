@@ -4,8 +4,8 @@ const db = require("./db");
 const showAll = () => {
   return new Promise((resolve, reject) => {
     db.query(`SELECT * FROM users ORDER BY id DESC`,
-      (error, result) => {
-        if (error) { reject (error) } else { resolve (result); }
+      (err, result) => {
+        if (err) { reject (err) } else { resolve (result); }
       }
     );
   })
@@ -15,8 +15,8 @@ const showAll = () => {
 const showById = (id) => {
   return new Promise((resolve, reject) => {
     db.query(`SELECT * FROM users WHERE id = $1`, [id],
-    (error, result) => {
-      if (error) { reject (error) } else { resolve (result); }
+    (err, result) => {
+      if (err) { reject (err) } else { resolve (result); }
     });
   })
 }
@@ -27,8 +27,8 @@ const showByName = (nameLower) => {
     const x = `SELECT * From users WHERE LOWER(name) LIKE '%${nameLower}%'`;
     db.query( x,
     // db.query(`SELECT * FROM users WHERE name = $1`, [name],
-    (error, result) => {
-      if (error) { reject (error) } else { resolve (result); }
+    (err, result) => {
+      if (err) { reject (err) } else { resolve (result); }
     });
   })
 }
@@ -38,8 +38,8 @@ const newUser = ( name, email, phone_number, password ) => {
   return new Promise((resolve, reject) => {
     db.query(`INSERT INTO users (name, email, phone_number, password) VALUES ($1, $2, $3, $4)`,
     [name, email, phone_number, password],
-    (error, result) => {
-      if (error) { reject (error) } else { resolve (result); }
+    (err, result) => {
+      if (err) { reject (err) } else { resolve (result); }
     })
   })
 }
@@ -48,8 +48,8 @@ const newUser = ( name, email, phone_number, password ) => {
 const userLogin = ( email ) => { 
   return new Promise((resolve, reject) => {
     db.query(`SELECT * FROM users WHERE email = $1`, [email],
-    (error, result) => {
-      if (error) { reject (error) } else { resolve (result); }
+    (err, result) => {
+      if (err) { reject (err) } else { resolve (result); }
     })
   })
 }
@@ -58,8 +58,8 @@ const userLogin = ( email ) => {
 const addAvatar = ( id, avatar ) => { 
   return new Promise((resolve, reject) => {
     db.query(`UPDATE users SET avatar = $1 WHERE id = $2`, [avatar, id],
-    (error, result) => {
-      if (error) { reject (error) } else { resolve (result); }
+    (err, result) => {
+      if (err) { reject (err) } else { resolve (result); }
     })
   })
 }
@@ -69,8 +69,8 @@ const editUserData = (inpName, inpEmail, inpPhone_number, inpPassword, inpAvatar
   return new Promise((resolve, reject) => {  
     db.query(`UPDATE users SET name = $1, email = $2, phone_number = $3, password = $4, avatar = $5 WHERE id = $6`,
       [inpName, inpEmail, inpPhone_number, inpPassword, inpAvatar, id],
-      (error, result) => {
-        if (error) { reject (error) } else { resolve (result); }
+      (err, result) => {
+        if (err) { reject (err) } else { resolve (result); }
       }
     )
   })
@@ -80,8 +80,8 @@ const editUserData = (inpName, inpEmail, inpPhone_number, inpPassword, inpAvatar
 const deleteUser = (id) => {
   return new Promise((resolve, reject) => {
     db.query(`DELETE FROM users WHERE id = $1`, [id],
-      (error, result) => {
-        if (error) { reject (error) } else { resolve (result); }
+      (err, result) => {
+        if (err) { reject (err) } else { resolve (result); }
       }
     )
   })
@@ -90,8 +90,8 @@ const deleteUser = (id) => {
 // DELETE ALL USERS
 const deleteAllUsers = () => {
   db.query(`DELETE FROM users`), 
-  (error, result) => {
-    if (error) { reject (error) } else { resolve (result); }
+  (err, result) => {
+    if (err) { reject (err) } else { resolve (result); }
   }
 }
 

@@ -22,7 +22,7 @@ const showAll = async (req, res) => {
     if (show.rowCount == 0 ){
       res.send("No one User on Database.");
     }
-  } catch (error) {
+  } catch (err) {
     res.status(400).send("Something wrong while getting all users data.");
   }
 };
@@ -38,7 +38,7 @@ const showById = async (req, res) => {
     if (show.rowCount == 0 ){
       res.send(`No one User id: '${id}' on Database.`);
     }
-  } catch (error) {
+  } catch (err) {
     res.status(400).send("Something wrong while finding user data by id.");
   }
 };
@@ -56,36 +56,35 @@ const showByName = async (req, res) => {
     if (show.rowCount == 0 ){
       res.send(`No one User name: '${name}' on Database.`);
     }
-  } catch (error) {
+  } catch (err) {
     res.status(400).send("Something wrong while finding user data by name.");
   }
 };
 
 // ADD NEW USER / REGISTER
-const newUser = async (req, res) => {
-  try {
-    const { name, email, phone_number, password } = req.body;
-    const hash = await bcrypt.hash(password, 5);
+const newUser = async (req, res, next) => {
+  const { name, email, phone_number, password } = req.body;
+  const hash = await bcrypt.hash(password, 5);
+    try {
+      const show = await model.newUser( name, email, phone_number, hash);
       try {
-        const show = await model.newUser( name, email, phone_number, hash);
-        
+        const show2 = await model.userLogin(email);
+
         var token = jwt.sign(
-          show.rows[0],
+          show2.rows[0],
           process.env.JWK_KEY,
-          { expiresIn: 60 * 60 },
+          { expiresIn: 60 * 60 }, // Expired Token
           { algorithm: process.env.JWK_ALG }
         );
-
+        
         res.status(200).send(`Ok '${name}', your data succesfully to be added...
         Your Token is : ${token}`);
-      } catch (error) {
-        console.log(error.message);
-        res.status(400).send("Please try another 'name' and/or 'email'.");
+      } catch (err) {
+        res.status(400).send("Success register but failed to Log In.");
       }
-  } catch {
-    console.log(error.message);
-    res.status(400).send("Something wrong registering data.");
-  }
+    } catch (err) {
+      res.status(400).send("Please try another 'name' and/or 'email'.");
+    }
 };
 
 // USER LOGIN
@@ -99,7 +98,7 @@ const userLogin = async (req, res) => {
       var token = jwt.sign(
         show.rows[0],
         process.env.JWK_KEY,
-        { expiresIn: 10 },
+        { expiresIn: 10 }, // Expired Token
         { algorithm: process.env.JWK_ALG }
       );
       
@@ -107,11 +106,10 @@ const userLogin = async (req, res) => {
       Your Token is : ${token}`);
 
     } else {
-      res(`Wrong password !`);
+      res.send(`Wrong password !`);
     }
-  } catch (error) {
-    console.log(error.message);
-    res.status(400).send("Please try another email to Log In.");
+  } catch (err) {
+    res.send("Please try another email to Log In.");
   }
 };
 
@@ -126,8 +124,7 @@ const addAvatar = async (req, res) => {
       try {
         const show2 = await model.addAvatar( id, avatar);
         res.status(200).send(`Ok id: '${id}', your avatar succesfully to be added.`);
-      } catch (error) {
-        console.log(error);
+      } catch (err) {
         res.status(400).send("Something wrong while adding your avatar.");
       }
     } else { res.status(400).send(`Data id: '${id}' not found.`) }
@@ -163,7 +160,7 @@ const editUserData = async (req, res) => {
         res.status(200).send(`${message} from id: '${id}' successfully to be edited.`);
       } catch { res.status(400).send("Something wrong while editing data by id.") }
     } else { res.status(400).send(`Data id: '${id}' not found.`) }
-  } catch (error) {
+  } catch (err) {
     res.status(400).send("Something wrong while editing user data.");
   }
 }
@@ -178,7 +175,7 @@ const deleteUser = async (req, res) => {
       try{
         const show2 = await model.deleteUser(id);
         res.send(`Data id: '${inpId}' succesfully to be deleted.`);
-      } catch {
+      } catch (err) {
         res.status(400).send("Something wrong while deleting data.");
       }
     } else {
@@ -194,7 +191,7 @@ const deleteAllUsers = async (req, res) => {
   try {
     const show = await model.deleteAllUsers();
     res.status(200).send(`All data has been deleted.`);
-  } catch (error) {
+  } catch (err) {
     res.status(400).send(`Something wrong when deleting all data.`);
   }
 }

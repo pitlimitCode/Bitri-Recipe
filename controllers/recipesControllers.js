@@ -12,7 +12,7 @@ const showAll = async (req, res) => {
     if (show.rowCount == 0 ){
       res.send("No one recipe on Database.");
     }
-  } catch (error) {
+  } catch (err) {
     res.status(400).send("Something wrong while getting all recipes data.");
   }
 };
@@ -28,7 +28,7 @@ const showInPages = async (req, res) => {
     if (show.rowCount == 0 ){
       res.send("No one Recipe on Database.");
     }
-  } catch (error) {
+  } catch (err) {
     res.status(400).send("Something wrong while getting all recipes data.");
   }
 };
@@ -43,7 +43,7 @@ const showNew = async (req, res) => {
     if (show.rowCount == 0 ){
       res.send("No one recipe on Database.");
     }
-  } catch (error) {
+  } catch (err) {
     res.status(400).send("Something wrong while getting all recipes data.");
   }
 };
@@ -59,7 +59,7 @@ const showById = async (req, res) => {
     if (show.rowCount == 0 ){
       res.send(`No one Recipe id: '${id}' on Database.`);
     }
-  } catch (error) {
+  } catch (err) {
     res.status(400).send("Something wrong while finding user data by id.");
   }
 };
@@ -77,7 +77,7 @@ const showByName = async (req, res) => {
     if (show.rowCount == 0 ){
       res.send(`No one recipe name: '${name}' from recipes data.`);
     }
-  } catch (error) {
+  } catch (err) {
     res.status(400).send("Something wrong while finding recipe data by name.");
   }
 };
@@ -126,14 +126,14 @@ const editRecipe = async (req, res) => {
       try {
         const show = await model.editRecipe(inpId_user, inpName, inpIngredients, inpStep, inpImage, inpVideo, inpId);
         res.status(200).send(`${message} recipe from id: '${id}' successfully to be edited.`);
-      } catch (error) {
+      } catch (err) {
         res.status(400).send("Something wrong while edit recipe data by id.");
       }
 
     } else {
       res.status(400).send(`Recipe data id: '${id}' not found.`);
     }
-  } catch (error) {
+  } catch (err) {
     res.status(400).send("Something wrong while editing recipe data.");
     
   }
@@ -150,7 +150,7 @@ const deleteRecipe = async (req, res) => {
         try {
           const show2 = await model.deleteRecipe(id);
           res.status(200).send(`Recipe data id: '${inpId}' succesfully to be deleted.`);
-        } catch (error) {
+        } catch (err) {
           res.status(400).send("Something wrong while deleting recipe data by id");
         }
       } else {

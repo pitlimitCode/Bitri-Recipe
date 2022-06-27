@@ -10,7 +10,7 @@ const showAll = async (req, res) => {
     if (show.rowCount == 0 ){
       res.send("No one Comment record in this apps.");
     }
-  } catch (error) {
+  } catch (err) {
     res.status(400).send("Something wrong while progress all comment data.");
   }
 };
@@ -26,7 +26,7 @@ const showNew = async (req, res) => {
     if (show.rowCount == 0 ){
       res.send("No one comments history.");
     }
-  } catch (error) {
+  } catch (err) {
     res.status(400).send("Something wrong while getting comments of a recipe.");
   }
 };
@@ -37,7 +37,7 @@ const newComment = async (req, res) => {
   try {
     const show = await model.newComment(id_recipe, id_commenter, comment_text);
     res.status(200).send(`Your comment succesfully to be added.`);
-  } catch (error) {
+  } catch (err) {
     res.status(400).send("Something wrong while adding new comment.");
   }
 }
@@ -51,13 +51,13 @@ const editComment = async (req, res) => {
       try {
         const show2 = await model.editComment2(id, comment_text);
         res.status(200).send(`Comment has been edited.`);  
-      } catch (error) {
+      } catch (err) {
         res.status(400).send("Something wrong while editing comment.");
       }
     } else {
       res.status(400).send(`Data id: ${id} not found.`);
     }
-  } catch (error) {
+  } catch (err) {
     res.status(400).send("Something wrong in data input for editing comment.");
   }
 } 
@@ -74,11 +74,11 @@ const deleteComment = async (req, res) => {
         try {
           const show2 = await model.deleteComment2(id);
           res.status(200).send(`Data id: ${inpId} succesfully to be deleted.`);
-        } catch (error) { }
+        } catch (err) { }
       } else {
         res.status(400).send(`Id data: ${id}, not found`);
       }
-    } catch (error) {
+    } catch (err) {
       res.status(400).send("Something wrong while deleting data by id");
     }
   } 

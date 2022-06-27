@@ -19,7 +19,7 @@ const multer = require('multer');
 // 					cb(null, true);
 // 			} else {
 // 					cb(null, false);
-// 					return cb(new Error('Allowed only .png, .jpg, .jpeg and .gif'));
+// 					return cb(new err('Allowed only .png, .jpg, .jpeg and .gif'));
 // 			}
 // 	}
 // });

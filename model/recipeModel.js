@@ -4,8 +4,8 @@ const db = require("./db");
 const showAll = () => {
   return new Promise((resolve, reject) => {
     db.query(`SELECT * FROM recipes ORDER BY id DESC`,
-      (error, result) => {
-        if (error) { reject (error) } else { resolve (result); }
+      (err, result) => {
+        if (err) { reject (err) } else { resolve (result); }
       }
     );
   })
@@ -17,8 +17,8 @@ const showInPages = (limit, pages) => {
     offset = (pages - 1)*limit;
     const x = `SELECT * FROM recipes ORDER BY id LIMIT ${limit} OFFSET ${offset}`;
     db.query( x ,
-      (error, result) => {
-        if (error) { reject (error) } else { resolve (result); }
+      (err, result) => {
+        if (err) { reject (err) } else { resolve (result); }
       }
     );
   })
@@ -28,8 +28,8 @@ const showInPages = (limit, pages) => {
 const showNew = () => {
   return new Promise((resolve, reject) => {
     db.query(`SELECT recipes.id AS Id_recipe, users.name AS name, recipes.name AS name_recipe FROM recipes JOIN users ON recipes.id_user = users.id ORDER BY recipes.id DESC LIMIT 5`,
-      (error, result) => {
-        if (error) { reject (error) } else { resolve (result); }
+      (err, result) => {
+        if (err) { reject (err) } else { resolve (result); }
       }
     );
   })
@@ -38,8 +38,8 @@ const showNew = () => {
 //FIND RECIPE BY ID
 const showById = (id) => {
   return new Promise((resolve, reject) => {
-    db.query(`SELECT * FROM recipes WHERE id = $1`, [id], (error, result) => {
-      if (error) { reject (error) } else { resolve (result); }
+    db.query(`SELECT * FROM recipes WHERE id = $1`, [id], (err, result) => {
+      if (err) { reject (err) } else { resolve (result); }
     })
   })
 }
@@ -49,8 +49,8 @@ const showByName = (nameLower) => {
   return new Promise((resolve, reject) => {
     const x = `SELECT users.name AS name, recipes.name AS name_recipe, recipes.ingredients, recipes.step FROM recipes JOIN users ON recipes.id_user = users.id WHERE LOWER(recipes.name) LIKE '%${nameLower}%'`;
     db.query( x,
-    (error, result) => {
-      if (error) { reject (error) } else { resolve (result); }
+    (err, result) => {
+      if (err) { reject (err) } else { resolve (result); }
     });
   })
 }
@@ -60,8 +60,8 @@ const newRecipe = (id_user, name, ingredients, step, image, video) => {
   return new Promise((resolve, reject) => {
     db.query(
       `INSERT INTO recipes (id_user, name, ingredients, step, image, video) VALUES ($1, $2, $3, $4, $5, $6)`,
-      [id_user, name, ingredients, step, image, video], (error, result) => {
-        if (error) { reject (error) } else { resolve (result); }
+      [id_user, name, ingredients, step, image, video], (err, result) => {
+        if (err) { reject (err) } else { resolve (result); }
       }
     )
   })
@@ -72,8 +72,8 @@ const editRecipe = (inpId_user, inpName, inpIngredients, inpStep, inpImage, inpV
   return new Promise((resolve, reject) => {
     db.query(
       `UPDATE recipes SET id_user = $1, name = $2, ingredients = $3, step = $4, image = $5, video = $6 WHERE id = $7`,
-      [inpId_user, inpName, inpIngredients, inpStep, inpImage, inpVideo, id], (error, result) => {
-        if (error) { reject (error) } else { resolve (result); }
+      [inpId_user, inpName, inpIngredients, inpStep, inpImage, inpVideo, id], (err, result) => {
+        if (err) { reject (err) } else { resolve (result); }
       }
     )
   })
@@ -82,8 +82,8 @@ const editRecipe = (inpId_user, inpName, inpIngredients, inpStep, inpImage, inpV
 // DELETE RECIPE BY ID
 const deleteRecipe = (id) => {
   return new Promise((resolve, reject) => {
-    db.query(`DELETE FROM recipes WHERE id = $1`, [id], (error, result) => {
-      if (error) { reject (error) } else { resolve (result); }
+    db.query(`DELETE FROM recipes WHERE id = $1`, [id], (err, result) => {
+      if (err) { reject (err) } else { resolve (result); }
     })
   })
 }

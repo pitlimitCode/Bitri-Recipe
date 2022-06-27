@@ -6,6 +6,12 @@
 [Format database yang ku buat](#Format-database-yang-ku-buat)  
 [Soal asli / original](#Soal-asli--original) 
 
+Tugas tambahan yang sudah :
+  - Hash password (di register user).
+  - Compare hash password (di login).
+  - Saat Register dan LogIn terima JWT.
+  - Client harus pakai token ketika akses post put delete, (telah buat 1 saja, di data tambah resep saja)
+  
 Tugas tambahan backend 27 Juni:
   - Revisi sebelumnya harus selesai.
   - Penggunaan CORS.
@@ -15,18 +21,18 @@ Tugas tambahan backend 27 Juni:
   - Client harus pakai token ketika akses post put delete.
 
 Belum diperbaiki:
-  - Perbaiki CRUD: validasi, delete id jangan tereksekusi 2x, handling unique input.
   - Buat multer untuk inputan file data, lengkap dengan limitasi data file.
   - Pakai Cors.
 
 Sudah diperbaiki:
   - Perbaiki penggunaan .env bersama db.js
-  - Buat pagination
+  - Perbaiki CRUD: validasi, delete id jangan tereksekusi 2x, handling unique input.
+  - Buat pagination (lewat params ?)
   - push tugas di github pakai file .gitignore yang mengabaikan node_modules
 
 ### Catatan revisi setelah presentasi:
   - Perbaiki penggunaan .env bersama db.js
-  - Perbaiki CRU: validasi, delete id jangan tereksekusi 2x, handling unique input
+  - Perbaiki CRUD: validasi, delete id jangan tereksekusi 2x, handling unique input
   - Buat pagination
   - Buat multer untuk inputan file data, lengkap dengan limitasi data file
   - Pakai Cors
@@ -94,7 +100,7 @@ Persyaratan tambahan lain-lain (opsional):
 | recipes table | data type | not_null? | unique? | primary_key? | foreign_key  |
 | ------------- | --------- | --------- | ------- | ------------ | ------------ |
 | id            | integer   |     y     |    y    |      y       |       -      |
-| id_user       | integer   |     y     |    -    |      -       |   users.id   |
+| id_user       | integer   |     y     |    -    |      -       |  (users.id)  |
 | name          | varchar   |     y     |    -    |      -       |       -      |
 | ingredients   | varchar   |     y     |    -    |      -       |       -      |
 | step          | varchar   |     -     |    -    |      -       |       -      |
@@ -104,8 +110,8 @@ Persyaratan tambahan lain-lain (opsional):
 | comments table | data type | not_null? | unique? | primary_key? | foreign_key  |
 | -------------- | --------- | --------- | ------- | ------------ | ------------ |
 | id             | integer   |     y     |    y    |      y       |       -      |
-| id_recipe      | integer   |     y     |    -    |      -       |  recipes.id  |
-| id_commenter   | integer   |     y     |    -    |      -       |   users.id   |
+| id_recipe      | integer   |     y     |    -    |      -       | (recipes.id) |
+| id_commenter   | integer   |     y     |    -    |      -       |  (users.id)  |
 | comment_text   | text      |     y     |    -    |      -       |       -      |
 ---
 ### Soal asli / original:
