@@ -114,8 +114,19 @@ const userLogin = async (req, res) => {
 };
 
 // pindahkan multer ke controller && nambah multi - multipart 
+
+
 // ADD USER AVATAR
 const addAvatar = async (req, res) => {
+
+  // upload(req, res, function(err) {
+  //   if (err) {
+  //     console.log('goodJob');
+  //   } else { 
+  //     console.log('goodJob');
+  //   }
+  // });
+
   try {
     const { id } = req.body;
     const avatar = req?.file?.path || 'images/defaultAvatar.jpeg';

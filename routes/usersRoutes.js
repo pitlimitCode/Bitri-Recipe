@@ -1,7 +1,7 @@
 const Router = require("express").Router();
 const controller = require("../controllers/usersControllers");
-
 const multer = require('multer');
+
 
 // // 1
 // const storage = multer.diskStorage({
@@ -27,14 +27,22 @@ const multer = require('multer');
 
 // 2
 const storage = multer.diskStorage({
-	destination: (req, file, cb) => {
-		cb(null, './images/users_avatar/');
-	},
+	destination: '././images/users_avatar/',
 	filename: (req, file, cb) => {
-		cb(null, file.originalname);
+		cb(null, 'avatar_Id' + req.body.id + '.' +file.mimetype.split('/')[1]);
 	},
+})
+const upload = multer({ 
+	storage: storage,
+	// limits: {fileSize: 40000 },
+	// fileFilter: (req, file, cb) => {
+	// 	const type = file.mimetype.split('/')[1];
+	// 	if(type !== 'png' && type !== 'jpeg' && type !== 'jpg') {
+	// 		return cb(new Error("Please input file type png / jpeg / jpg"))
+	// 	}
+	// },
 });
-const upload = multer({ storage: storage });
+  
 
 Router.get("/users/show/all", controller.showAll); // SHOW ALL USERS
 Router.get("/users/show/id", controller.showById); // FIND USER BY ID
