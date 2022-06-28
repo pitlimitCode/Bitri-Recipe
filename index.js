@@ -1,12 +1,4 @@
-/*
-Tugas backend tambahan:
-  - Revisi sebelumnya harus selesai.
-  - Penggunaan CORS.
-  - Hash password (di register user).
-  - Compare hash password (di login).
-  - Saat login terima JWT.
-  - Client harus pakai token ketika akses post put delete.
-*/
+// Client harus pakai token ketika akses post put delete.
 
 const express = require("express");
 const app = express(); 
@@ -19,15 +11,28 @@ const helmet = require("helmet");
 app.use(helmet());
 
 const cors = require("cors");
+
+// use cors for all
+var allowlist = ["http://localhost:8000/", "https://www.pijarmahir.id", "https://www.telkom.co.id"];
+var corsOptionsDelegate = function (req, callback) {
+  var corsOptions;
+  if (allowlist.indexOf(req.header("Origin")) !== -1) {
+    corsOptions = { origin: true }; // reflect (enable) the requested origin in the CORS response
+  } else {
+    corsOptions = { origin: false }; // disable CORS for this request
+  }
+  callback(null, corsOptions); // callback expects two parameters: error and options
+};
+
 app.use(cors());
 
 // Routes
 const userAllRoutes = require("./routes/usersRoutes");
 const recipesRoutes = require("./routes/recipesRoutes");
 const commentsRoutes = require("./routes/commentsRoutes");
-app.use("/", userAllRoutes);
-app.use("/", recipesRoutes);
-app.use("/", commentsRoutes);
+app.use("/", cors(corsOptionsDelegate), userAllRoutes);
+app.use("/", cors(corsOptionsDelegate), recipesRoutes);
+app.use("/", cors(corsOptionsDelegate), commentsRoutes);
 
 // Port listen
 const port = 8000; // port database

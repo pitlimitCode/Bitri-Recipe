@@ -118,15 +118,6 @@ const userLogin = async (req, res) => {
 
 // ADD USER AVATAR
 const addAvatar = async (req, res) => {
-
-  // upload(req, res, function(err) {
-  //   if (err) {
-  //     console.log('goodJob');
-  //   } else { 
-  //     console.log('goodJob');
-  //   }
-  // });
-
   try {
     const { id } = req.body;
     const avatar = req?.file?.path || 'images/defaultAvatar.jpeg';
@@ -136,6 +127,7 @@ const addAvatar = async (req, res) => {
         const show2 = await model.addAvatar( id, avatar);
         res.status(200).send(`Ok id: '${id}', your avatar succesfully to be added.`);
       } catch (err) {
+        console.log(error);
         res.status(400).send("Something wrong while adding your avatar.");
       }
     } else { res.status(400).send(`Data id: '${id}' not found.`) }
@@ -144,6 +136,7 @@ const addAvatar = async (req, res) => {
     res.status(400).send(`Something wrong while getting data: '${id}', id for adding user avatar.`);
   }
 }
+
 
 // EDIT USER DATA BY ID
 const editUserData = async (req, res) => {

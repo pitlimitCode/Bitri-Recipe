@@ -1,17 +1,10 @@
 # Week 3 - Tugas Backend
 
 [Catatan revisi setelah presentasi](#Catatan-revisi-setelah-presentasi)  
-[Persyaratan yang telah selesai sebelum presentasi](#Persyaratan-yang-telah-selesai-sebelum-presentasi)  
 [Ringkasan tugas](#Ringkasan-tugas)  
 [Format database yang ku buat](#Format-database-yang-ku-buat)  
-[Soal asli / original](#Soal-asli--original) 
+<!-- [Soal asli / original](#Soal-asli--original)  -->
 
-Tugas tambahan yang sudah :
-  - Hash password (di register user).
-  - Compare hash password (di login).
-  - Saat Register dan LogIn terima JWT.
-  - Client harus pakai token ketika akses post put delete, (telah buat 1 saja, di data tambah resep saja)
-  
 Tugas tambahan backend 27 Juni:
   - Revisi sebelumnya harus selesai.
   - Penggunaan CORS.
@@ -19,16 +12,6 @@ Tugas tambahan backend 27 Juni:
   - Compare hash password (di login).
   - Saat Register dan LogIn terima JWT.
   - Client harus pakai token ketika akses post put delete.
-
-Belum diperbaiki:
-  - Buat multer untuk inputan file data, lengkap dengan limitasi data file.
-  - Pakai Cors.
-
-Sudah diperbaiki:
-  - Perbaiki penggunaan .env bersama db.js
-  - Perbaiki CRUD: validasi, delete id jangan tereksekusi 2x, handling unique input.
-  - Buat pagination (lewat params ?)
-  - push tugas di github pakai file .gitignore yang mengabaikan node_modules
 
 ### Catatan revisi setelah presentasi:
   - Perbaiki penggunaan .env bersama db.js

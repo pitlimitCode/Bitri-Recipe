@@ -89,9 +89,10 @@ const newRecipe = async (req, res) => {
       res.status(400).send(err.message +', please login again.');
     } else {
       const id_user = decoded.id;
-      const { name, ingredients, step, image, video } = req.body;
+      const image = req?.file?.path || 'images/defaultAvatar.jpeg';
+      const { name, ingredients, step } = req.body;
       try {
-        const show = await model.newRecipe(id_user, name, ingredients, step, image, video);
+        const show = await model.newRecipe(id_user, name, ingredients, step, image );
         res.status(200).send(`Your recipe: '${name}', succesfully to be added.`);
       } catch (err) {
         res.status(400).send("Something wrong while adding new recipe.");
@@ -102,7 +103,7 @@ const newRecipe = async (req, res) => {
 
 // EDIT RECIPE DATA BY ID
 const editRecipe = async (req, res) => {
-  const { id, id_user, name, ingredients, step, image, video } = req.body;
+  const { id, id_user, name, ingredients, step, image } = req.body;
   try {
     const show = await model.showById(id);
 
@@ -113,7 +114,6 @@ const editRecipe = async (req, res) => {
       let inpIngredients = ingredients || show?.rows[0]?.ingredients; // not null
       let inpStep = step || null;
       let inpImage = image || null;
-      let inpVideo = video || null;
 
       let message = "";
       if (inpId_user) message += "id_user, ";
@@ -121,10 +121,41 @@ const editRecipe = async (req, res) => {
       if (inpIngredients) message += "ingredients, ";
       if (inpStep) message += "step, ";
       if (inpImage) message += "image, ";
-      if (inpVideo) message += "video, ";
 
       try {
         const show = await model.editRecipe(inpId_user, inpName, inpIngredients, inpStep, inpImage, inpVideo, inpId);
+        res.status(200).send(`${message} recipe from id: '${id}' successfully to be edited.`);
+      } catch (err) {
+        res.status(400).send("Something wrong while edit recipe data by id.");
+      }
+
+    } else {
+      res.status(400).send(`Recipe data id: '${id}' not found.`);
+    }
+  } catch (err) {
+    res.status(400).send("Something wrong while editing recipe data.");
+    
+  }
+}
+
+// ADD VIDEO TO RECIPE
+const newVideo = async (req, res) => {
+  const { id, id_user } = req.body;
+  const video = req?.file?.path || 'images/defaultAvatar.jpeg';
+  try {
+    const show = await model.showById(id);
+
+    if (show.rowCount > 0) {
+      let inpId = id;
+      let inpId_user = id_user || show?.rows[0]?.id_user; // not null
+      let inpVideo = video || null;
+
+      let message = "";
+      if (inpId_user) message += "id_user, ";
+      if (inpVideo) message += "video, ";
+
+      try {
+        const show = await model.editRecipe(inpId_user, inpVideo, inpId);
         res.status(200).send(`${message} recipe from id: '${id}' successfully to be edited.`);
       } catch (err) {
         res.status(400).send("Something wrong while edit recipe data by id.");
@@ -170,6 +201,7 @@ module.exports = {
   showById,
   showByName,
   newRecipe,
+  newVideo,
   editRecipe,
   deleteRecipe,
 };
