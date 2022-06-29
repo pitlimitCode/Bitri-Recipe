@@ -63,9 +63,32 @@ const showByName = async (req, res) => {
 };
 
 // ADD NEW USER / REGISTER
-const newUser = async (req, res, next) => {
-  const { name, email, phone_number, password } = req.body;
-  const hash = await bcrypt.hash(password, 5);
+const newUser = async (req, res) => {
+
+  // let expireLogIn;
+  // // console.log(req.rawHeaders[1].split(' ')[1]);
+  // jwt.verify(req.rawHeaders[1].split(' ')[1], process.env.JWK_KEY, async function(err, decoded) {  
+  //   expireLogIn = decoded.exp;
+  //   // console.log(decoded);
+  // })
+  // // console.log(expireLogIn);
+  
+  // let thisTime;
+  // var getTime = jwt.sign( {foo: 'bar'}, process.env.JWK_KEY, { expiresIn: 1 }, { algorithm: process.env.JWK_ALG } );
+  // // console.log(getTime);
+  // jwt.verify(getTime, process.env.JWK_KEY, async function(err, decoded) {  
+  //   thisTime = decoded.expireAt;
+  //   // console.log(decoded);
+  //   // console.log(decoded.exp);
+  // })
+  // // console.log(thisTime);
+  
+  // if (thisTime > expireLogIn){ 
+  //   res.status(400).send(`Didn't need to Register, You're already LogIn!`)
+  // } else {
+
+    const { name, email, phone_number, password } = req.body;
+    const hash = await bcrypt.hash(password, 5);
     try {
       const show = await model.newUser( name, email, phone_number, hash);
       try {
@@ -87,7 +110,10 @@ const newUser = async (req, res, next) => {
     } catch (err) {
       res.status(400).send("Please try another 'name' and/or 'email'.");
     }
-};
+
+  // }
+
+}
 
 // USER LOGIN
 const userLogin = async (req, res) => {
@@ -100,7 +126,7 @@ const userLogin = async (req, res) => {
       var token = jwt.sign(
         show.rows[0],
         process.env.JWK_KEY,
-        { expiresIn: 600 }, // EXPIRED TOKEN IN n SECOND
+        { expiresIn: 20 }, // EXPIRED TOKEN IN n SECOND
         { algorithm: process.env.JWK_ALG }
       );
       

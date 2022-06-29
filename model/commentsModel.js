@@ -37,8 +37,8 @@ const newComment = (id_recipe, id_commenter, comment_text) => {
   });
 };
 
-// EDIT A COMMENT BY ID
-const editComment = (id) => {
+// SELECT COMMENT BY ID FOR EDIT OR DELETE A COMMENT
+const selectById = (id) => {
   return new Promise((resolve, reject) => {
     db.query(
       `SELECT * FROM comments WHERE id = $1`, [id],
@@ -48,13 +48,12 @@ const editComment = (id) => {
     );
   });
 };
-const editComment2 = (id, id_commenter, comment_text) => {
+
+// EDIT A COMMENT BY ID
+const editComment = (id, id_commenter, comment_text) => {
   return new Promise((resolve, reject) => {
-    console.log(id);
-    console.log(id_commenter);
-    console.log(comment_text);
     db.query(
-      `UPDATE comments SET comment_text = $1 WHERE id_commenter = $2 AND id = $3`,
+      `UPDATE comments SET comment_text = $1 WHERE id_commenter = $2 and id = $3`,
       [comment_text, id_commenter, id],
       (error, result) => {
         if (error) { reject (error) } else { resolve (result); }
@@ -64,21 +63,12 @@ const editComment2 = (id, id_commenter, comment_text) => {
 };
 
 // DELETE A COMMENT BY ID
-const deleteComment = (id) => {
+const deleteComment = (id, id_commenter) => {
   return new Promise((resolve, reject) => {
-    db.query(`SELECT * FROM comments WHERE id = $1`, [id], (error, result) => {
-      if (error) {
-        if (error) { reject (error) } else { resolve (result); }
-      }
-    });
-  });
-};
-const deleteComment2 = (id) => {
-  return new Promise((resolve, reject) => {
-    db.query(`DELETE FROM comments WHERE id = $1`, [id], (error, result) => {
-      if (error) {
-        if (error) { reject (error) } else { resolve (result); }
-      }
+    db.query(`DELETE FROM comments WHERE id = $1 and id_commenter = $2`,
+    [id, id_commenter],
+    (error, result) => {
+      if (error) { reject (error) } else { resolve (result); }
     });
   });
 };
@@ -87,8 +77,7 @@ module.exports = {
   showAll,
   showNew,
   newComment,
+  selectById,
   editComment,
-  editComment2,
   deleteComment,
-  deleteComment2,
 };

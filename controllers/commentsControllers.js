@@ -58,29 +58,26 @@ const editComment = async (req, res) => {
     if (err) {
       res.status(400).send('Error verify type: ' + err.message + '.');
     } else {
-
-      try {
-        const id_commenter = decoded.id;
-        const { id, comment_text } = req.body;
+      const id_commenter = decoded.id;
+      const { id, comment_text } = req.body;
+      if (id == null || comment_text == null) {
+        res.status(400).send("Please input id and/or your comment");
+      } else {
         try {
-          const show = await model.editComment(id, id_commenter);
-          console.log(show);
-          if (show.rowCount > 0) {
+          const show = await model.selectById(id);
+          if (show.rows[0].id_commenter == decoded.id) {
             try {
-              const show2 = await model.editComment2(id, id_commenter, comment_text);
+              const show2 = await model.editComment(id, id_commenter, comment_text);
               res.status(200).send(`Comment has been edited.`);  
             } catch (err) {
               res.status(400).send("Something wrong while editing comment.");
             }
           } else {
-            res.status(400).send(`Comment id: ${id} not found.`);
+            res.status(400).send("You cann't edit other user comment.");
           }
         } catch (err) {
-          console.log(err);
           res.status(400).send("Something wrong in data input for editing comment.");
         }
-      } catch {
-        res.status(400).send("Please input id and/or your comment");
       }
     }
   })
@@ -91,27 +88,35 @@ const deleteComment = async (req, res) => {
   jwt.verify(req.rawHeaders[1].split(' ')[1], process.env.JWK_KEY, async function(err, decoded) {
     if (err) {
       res.status(400).send('Error verify type: ' + err.message + '.');
-    } else {
 
+    } else {
+      const id_commenter = decoded.id;
       const { id } = req.body;
       if (id) {
         let inpId = id;
-        
         try {
-          const show = await model.deleteComment(id);
+          const show = await model.selectById(id);
           if (show.rowCount > 0) {
-            try {
-              const show2 = await model.deleteComment2(id);
-              res.status(200).send(`Data id: ${inpId} succesfully to be deleted.`);
-            } catch (err) { }
+            if (show.rows[0].id_commenter == decoded.id) {
+              try {
+                const show2 = await model.deleteComment(id, id_commenter);
+                res.status(200).send(`Data id: ${inpId} succesfully to be deleted.`);
+              } catch (err) { 
+                res.status(400).send(`Id data: catch, not found`);
+              }
+              
+            } else {
+              res.status(400).send("You cann't delete other user recipe.");
+            }
           } else {
-            res.status(400).send(`Id data: ${id}, not found`);
+            res.status(400).send(`No one Comment id: '${id}' on Database.`);
           }
         } catch (err) {
           res.status(400).send("Something wrong while deleting data by id");
         }
-      } 
-
+      } else {
+        res.status(400).send("Please input Id comment");
+      }
     }
   })
 }

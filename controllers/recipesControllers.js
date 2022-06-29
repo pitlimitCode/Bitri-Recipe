@@ -149,16 +149,12 @@ const editRecipe = async (req, res) => {
   })
 }
 
+// ADD VIDEO TO RECIPE
+const newVideo = async (req, res) => {
 // jwt.verify(req.rawHeaders[1].split(' ')[1], process.env.JWK_KEY, async function(err, decoded) {
 //   if (err) {
 //     res.status(400).send('Error verify type: ' + err.message + '.');
 //   } else {
-
-//   }
-// })
-
-// ADD VIDEO TO RECIPE
-const newVideo = async (req, res) => {
 
 
       const { id, id_user } = req.body;
@@ -187,8 +183,8 @@ const newVideo = async (req, res) => {
         res.status(400).send("Something wrong while search id for adding video recipe.");
       }
 
-
-
+//   }
+// })
 }
 
 // DELETE RECIPE BY ID

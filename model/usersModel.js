@@ -1,4 +1,5 @@
 const db = require("./db");
+const multer = require("multer");
 
 // SHOW ALL USERS
 const showAll = () => {

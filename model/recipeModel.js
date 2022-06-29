@@ -1,4 +1,5 @@
 const db = require("./db");
+const multer = require("multer");
 
 // SHOW ALL RECIPES
 const showAll = () => {
@@ -70,14 +71,6 @@ const newRecipe = (id_user, name, ingredients, step, image, video) => {
 // EDIT RECIPE DATA BY ID
 const editRecipe = (inpId_user, inpName, inpIngredients, inpStep, inpImage, inpId) => {
   return new Promise((resolve, reject) => {
-    
-    console.log(inpId);
-    console.log(inpId_user);
-    console.log(inpName);
-    console.log(inpIngredients);
-    console.log(inpStep);
-    console.log(inpImage);
-
     db.query(
       `UPDATE recipes SET id_user = $1, name = $2, ingredients = $3, step = $4, image = $5 WHERE id = $6`,
       [inpId_user, inpName, inpIngredients, inpStep, inpImage, inpId], (err, result) => {
