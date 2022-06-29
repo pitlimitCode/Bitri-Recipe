@@ -68,11 +68,19 @@ const newRecipe = (id_user, name, ingredients, step, image, video) => {
 }
 
 // EDIT RECIPE DATA BY ID
-const editRecipe = (inpId_user, inpName, inpIngredients, inpStep, inpImage, inpVideo, inpId) => {
+const editRecipe = (inpId_user, inpName, inpIngredients, inpStep, inpImage, inpId) => {
   return new Promise((resolve, reject) => {
+    
+    console.log(inpId);
+    console.log(inpId_user);
+    console.log(inpName);
+    console.log(inpIngredients);
+    console.log(inpStep);
+    console.log(inpImage);
+
     db.query(
-      `UPDATE recipes SET id_user = $1, name = $2, ingredients = $3, step = $4, image = $5, video = $6 WHERE id = $7`,
-      [inpId_user, inpName, inpIngredients, inpStep, inpImage, inpVideo, inpId], (err, result) => {
+      `UPDATE recipes SET id_user = $1, name = $2, ingredients = $3, step = $4, image = $5 WHERE id = $6`,
+      [inpId_user, inpName, inpIngredients, inpStep, inpImage, inpId], (err, result) => {
         if (err) { reject (err) } else { resolve (result); }
       }
     )

@@ -5,6 +5,11 @@
 [Format database yang ku buat](#Format-database-yang-ku-buat)  
 <!-- [Soal asli / original](#Soal-asli--original)  -->
 
+Belum:
+  - Validasi error inputan file
+  - Clien akses dengan token
+  - 
+
 Tugas tambahan backend 27 Juni:
   - Revisi sebelumnya harus selesai.
   - Penggunaan CORS.

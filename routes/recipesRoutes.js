@@ -2,6 +2,8 @@ const Router = require("express").Router();
 const controller = require("../controllers/recipesControllers");
 const singleUpload = require("../middleware/recipes/singleUpload");
 const multiUpload = require("../middleware/recipes/multiUpload");
+const middleware = require("../middleware/verifyToken");
+
 
 Router.get("/recipes/show/all", controller.showAll); // SHOW ALL RECIPES
 Router.get("/recipes/pagination/", controller.showInPages); // SHOW RECIPES IN PAGES

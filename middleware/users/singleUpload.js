@@ -3,6 +3,7 @@ const multer = require("multer");
 // singleUpload to users avatar 
 const storage = multer.diskStorage({
   filename: (req, file, cb) => {
+    console.log(req);
     cb(null, "avatar_Id" + req.body.id + "." + file.mimetype.split("/")[1]);
   },
   // destination: (req, file, cb) => {
@@ -11,21 +12,23 @@ const storage = multer.diskStorage({
   destination: "images/users_avatar/",
 });
 const singleUpload = multer({
-  storage: storage,
-  limits: {
-    fileSize: 1000 * 1000, // 1 MB
-  },
   fileFilter: (req, file, cb) => {
     if (
       file.mimetype == "image/png" ||
       file.mimetype == "image/jpg" ||
       file.mimetype == "image/jpeg"
     ) {
+      console.log(file);
       return cb(null, true);
     } else {
+      console.log(file);
       return cb(null, false);
 		}
   },
+  limits: {
+    fileSize: 1000 * 1000, // 1 MB
+  },
+  storage: storage,
 })
 
 module.exports = singleUpload;

@@ -7,11 +7,7 @@ const storage = multer.diskStorage({
   },
   destination: "images/food_images/",
 });
-const multiUpload = multer({
-  storage: storage,
-  limits: {
-    fileSize: 1000 * 1000, // 1 MB
-  },
+const singleUpload = multer({
   fileFilter: (req, file, cb) => {
     if (
       file.mimetype == "image/png" ||
@@ -23,6 +19,10 @@ const multiUpload = multer({
       return cb(null, false);
 		}
   },
+  limits: {
+    fileSize: 1000 * 1000, // 1 MB
+  },
+  // storage: storage,
 })
 
-module.exports = multiUpload;
+module.exports = singleUpload;

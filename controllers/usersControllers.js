@@ -1,5 +1,6 @@
 const model = require("../model/usersModel"); 
 const bcrypt = require('bcrypt');
+const multer = require("multer");
 const jwt = require('jsonwebtoken');
 require('dotenv').config();
 
@@ -69,18 +70,19 @@ const newUser = async (req, res, next) => {
       const show = await model.newUser( name, email, phone_number, hash);
       try {
         const show2 = await model.userLogin(email);
-
         var token = jwt.sign(
           show2.rows[0],
           process.env.JWK_KEY,
-          { expiresIn: 60 * 60 }, // Expired Token
+          { expiresIn: 60 * 60 }, // EXPIRED TOKEN IN n SECOND
           { algorithm: process.env.JWK_ALG }
         );
         
         res.status(200).send(`Ok '${name}', your data succesfully to be added...
-        Your Token is : ${token}`);
+        Your id_user = ${show2.rows[0].id}
+        Your Token is : 
+        ${token}`);
       } catch (err) {
-        res.status(400).send("Success register but failed to Log In.");
+        res.status(400).send("Success register but failed to Log In." + err);
       }
     } catch (err) {
       res.status(400).send("Please try another 'name' and/or 'email'.");
@@ -98,12 +100,13 @@ const userLogin = async (req, res) => {
       var token = jwt.sign(
         show.rows[0],
         process.env.JWK_KEY,
-        { expiresIn: 10 }, // Expired Token
+        { expiresIn: 600 }, // EXPIRED TOKEN IN n SECOND
         { algorithm: process.env.JWK_ALG }
       );
       
       res.status(200).send(`Success to login...
-      Your Token is : ${token}`);
+      Hi ${show.rows[0].name}, [id: ${show.rows[0].id}], your Token is : 
+      ${token}`);
 
     } else {
       res.send(`Wrong password !`);
@@ -113,91 +116,104 @@ const userLogin = async (req, res) => {
   }
 };
 
-// pindahkan multer ke controller && nambah multi - multipart 
-
-
 // ADD USER AVATAR
 const addAvatar = async (req, res) => {
-  try {
-    const { id } = req.body;
-    const avatar = req?.file?.path || 'images/defaultAvatar.jpeg';
-    const show = await model.showById(id);
-    if (show.rowCount > 0) {
+  jwt.verify(req.rawHeaders[1].split(' ')[1], process.env.JWK_KEY, async function(err, decoded) {
+    if (err) {
+      res.status(400).send('Error verify type: ' + err.message + '.');
+    } else {
       try {
-        const show2 = await model.addAvatar( id, avatar);
-        res.status(200).send(`Ok id: '${id}', your avatar succesfully to be added.`);
-      } catch (err) {
-        console.log(error);
-        res.status(400).send("Something wrong while adding your avatar.");
+        const avatar = req?.file?.path || 'images/defaultAvatar.jpeg';
+        const show = await model.showById(decoded.id);
+        if (show.rowCount > 0) {
+          try {
+            const show2 = await model.addAvatar( decoded.id, avatar);
+            res.status(200).send(`Ok id: '${decoded.id}', your avatar succesfully to be added.`);
+          } catch (err) {
+            res.status(400).send("Something wrong while adding your avatar.");
+          }
+        } else { res.status(400).send(`Data id: '${decoded.id}' not found.`) }
+      } catch {
+        res.status(400).send(`Something wrong while getting data id: '${decoded.id}', for adding user avatar.`);
       }
-    } else { res.status(400).send(`Data id: '${id}' not found.`) }
-
-  } catch {
-    res.status(400).send(`Something wrong while getting data: '${id}', id for adding user avatar.`);
-  }
+    }
+  })
 }
-
 
 // EDIT USER DATA BY ID
 const editUserData = async (req, res) => {
-  try {
-    const { id, name, email, phone_number, password, avatar } = req.body;
-
-    const show = await model.showById(id);
-
-    if (show.rowCount > 0) {
-      let inpName = name || show?.rows[0]?.name; // not null
-      let inpEmail = email || show?.rows[0]?.email; // not null
-      let inpPhone_number = phone_number || null;
-      let inpPassword = password || show?.rows[0]?.password; // not null
-      let inpAvatar = avatar || null;
-
-      let message = "";
-      if (inpName) message += "name, ";
-      if (inpEmail) message += "email, ";
-      if (inpPhone_number) message += "phone, ";
-      if (inpPassword) message += "password, ";
-      if (inpAvatar) message += "avatar pic, ";
-
+  jwt.verify(req.rawHeaders[1].split(' ')[1], process.env.JWK_KEY, async function(err, decoded) {
+    if (err) {
+      res.status(400).send('Error verify type: ' + err.message + '.');
+    } else {
       try {
-        const show2 = await model.editUserData(inpName, inpEmail, inpPhone_number, inpPassword, inpAvatar, id);
-        res.status(200).send(`${message} from id: '${id}' successfully to be edited.`);
-      } catch { res.status(400).send("Something wrong while editing data by id.") }
-    } else { res.status(400).send(`Data id: '${id}' not found.`) }
-  } catch (err) {
-    res.status(400).send("Something wrong while editing user data.");
-  }
+        const { name, email, phone_number, password } = req.body;
+        const show = await model.showById(decoded.id);
+        if (show.rowCount > 0) {
+          let inpName = name || show?.rows[0]?.name; // not null
+          let inpEmail = email || show?.rows[0]?.email; // not null
+          let inpPhone_number = phone_number || null;
+          let inpPassword = password || show?.rows[0]?.password; // not null
+
+          let message = "";
+          if (inpName) message += "name, ";
+          if (inpEmail) message += "email, ";
+          if (inpPhone_number) message += "phone, ";
+          if (inpPassword) message += "password, ";
+
+          try {
+            const show2 = await model.editUserData(inpName, inpEmail, inpPhone_number, inpPassword, decoded.id);
+            res.status(200).send(`${message} from id: '${decoded.id}' successfully to be edited.`);
+          } catch (err) { 
+            console.log(err);
+            res.status(400).send("Something wrong while editing data by id.") }
+        } else { res.status(400).send(`Data id: '${decoded.id}' not found.`) }
+      } catch (err) {
+        res.status(400).send("Something wrong while editing user data.");
+      }
+    }
+  })
 }
 
 // DELETE USER BY ID
 const deleteUser = async (req, res) => {
-  const {id} = req.body;
-  let inpId = id;
-  try {
-    const show = await model.showById(id);
-    if (show.rowCount > 0) {
-      try{
-        const show2 = await model.deleteUser(id);
-        res.send(`Data id: '${inpId}' succesfully to be deleted.`);
-      } catch (err) {
-        res.status(400).send("Something wrong while deleting data.");
-      }
+  jwt.verify(req.rawHeaders[1].split(' ')[1], process.env.JWK_KEY, async function(err, decoded) {
+    if (err) {
+      res.status(400).send('Error verify type: ' + err.message + '.');
     } else {
-      res.status(400).send(`Id data: '${id}', not found.`);
+      let inpId = decoded.id;
+      try {
+        const show = await model.showById(decoded.id);
+        if (show.rows[0].id !== decoded.id) {
+          console.log(show);
+          console.log(show.id);
+          console.log(decoded.id);
+          res.status(400).send("You cann't delete other user account.");
+        } else if (show.rowCount > 0) {
+          try{
+            const show2 = await model.deleteUser(decoded.id);
+            res.send(`Data id: '${inpId}' succesfully to be deleted.`);
+          } catch (err) {
+            res.status(400).send("Something wrong while deleting data.");
+          }
+        } else {
+          res.status(400).send(`Id data: '${decoded.id}', not found.`);
+        }
+      } catch {
+        res.status(400).send(`Something wrong while getting data: '${decoded.id}', id for deleting data.`);
+      }
     }
-  } catch {
-    res.status(400).send(`Something wrong while getting data: '${id}', id for deleting data.`);
-  }
+  })
 }
 
 // DELETE ALL USERS
 const deleteAllUsers = async (req, res) => {
-  try {
-    const show = await model.deleteAllUsers();
-    res.status(200).send(`All data has been deleted.`);
-  } catch (err) {
-    res.status(400).send(`Something wrong when deleting all data.`);
-  }
+  // try {
+  //   const show = await model.deleteAllUsers();
+  //   res.status(200).send(`All data has been deleted.`);
+  // } catch (err) {
+  //   res.status(400).send(`Something wrong when deleting all data.`);
+  // }
 }
 
 module.exports = {

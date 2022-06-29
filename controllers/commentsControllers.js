@@ -1,4 +1,6 @@
 const model = require("../model/commentsModel"); 
+const jwt = require('jsonwebtoken');
+require('dotenv').config();
 
 // SHOW ALL COMMENTS PUBLIC
 const showAll = async (req, res) => {
@@ -33,55 +35,85 @@ const showNew = async (req, res) => {
 
 // ADD NEW COMMENT
 const newComment = async (req, res) => {
-  const { id_recipe, id_commenter, comment_text } = req.body;
-  try {
-    const show = await model.newComment(id_recipe, id_commenter, comment_text);
-    res.status(200).send(`Your comment succesfully to be added.`);
-  } catch (err) {
-    res.status(400).send("Something wrong while adding new comment.");
-  }
+  jwt.verify(req.rawHeaders[1].split(' ')[1], process.env.JWK_KEY, async function(err, decoded) {
+    if (err) {
+      res.status(400).send('Error verify type: ' + err.message + '.');
+    } else {
+      const id_commenter = decoded.id;
+      const { id_recipe, comment_text } = req.body;
+      try {
+        const show = await model.newComment(id_recipe, id_commenter, comment_text);
+        res.status(200).send(`Your comment succesfully to be added.`);
+      } catch (err) {
+        res.status(400).send("Something wrong while adding new comment.");
+      }
+
+    }
+  })
 }
 
 // EDIT A COMMENT BY ID
 const editComment = async (req, res) => {
-  const { id, id_recipe, id_commenter, comment_text } = req.body;
-  try {
-    const show = await model.editComment(id_recipe, id_commenter);
-    if (show.rowCount > 0) {
-      try {
-        const show2 = await model.editComment2(id, comment_text);
-        res.status(200).send(`Comment has been edited.`);  
-      } catch (err) {
-        res.status(400).send("Something wrong while editing comment.");
-      }
+  jwt.verify(req.rawHeaders[1].split(' ')[1], process.env.JWK_KEY, async function(err, decoded) {
+    if (err) {
+      res.status(400).send('Error verify type: ' + err.message + '.');
     } else {
-      res.status(400).send(`Data id: ${id} not found.`);
+
+      try {
+        const id_commenter = decoded.id;
+        const { id, comment_text } = req.body;
+        try {
+          const show = await model.editComment(id, id_commenter);
+          console.log(show);
+          if (show.rowCount > 0) {
+            try {
+              const show2 = await model.editComment2(id, id_commenter, comment_text);
+              res.status(200).send(`Comment has been edited.`);  
+            } catch (err) {
+              res.status(400).send("Something wrong while editing comment.");
+            }
+          } else {
+            res.status(400).send(`Comment id: ${id} not found.`);
+          }
+        } catch (err) {
+          console.log(err);
+          res.status(400).send("Something wrong in data input for editing comment.");
+        }
+      } catch {
+        res.status(400).send("Please input id and/or your comment");
+      }
     }
-  } catch (err) {
-    res.status(400).send("Something wrong in data input for editing comment.");
-  }
+  })
 } 
 
 // DELETE A COMMENT BY COMMENTS.ID
 const deleteComment = async (req, res) => {
-  const { id } = req.body;
-  if (id) {
-    let inpId = id;
-    
-    try {
-      const show = await model.deleteComment(id);
-      if (show.rowCount > 0) {
+  jwt.verify(req.rawHeaders[1].split(' ')[1], process.env.JWK_KEY, async function(err, decoded) {
+    if (err) {
+      res.status(400).send('Error verify type: ' + err.message + '.');
+    } else {
+
+      const { id } = req.body;
+      if (id) {
+        let inpId = id;
+        
         try {
-          const show2 = await model.deleteComment2(id);
-          res.status(200).send(`Data id: ${inpId} succesfully to be deleted.`);
-        } catch (err) { }
-      } else {
-        res.status(400).send(`Id data: ${id}, not found`);
-      }
-    } catch (err) {
-      res.status(400).send("Something wrong while deleting data by id");
+          const show = await model.deleteComment(id);
+          if (show.rowCount > 0) {
+            try {
+              const show2 = await model.deleteComment2(id);
+              res.status(200).send(`Data id: ${inpId} succesfully to be deleted.`);
+            } catch (err) { }
+          } else {
+            res.status(400).send(`Id data: ${id}, not found`);
+          }
+        } catch (err) {
+          res.status(400).send("Something wrong while deleting data by id");
+        }
+      } 
+
     }
-  } 
+  })
 }
 
 
