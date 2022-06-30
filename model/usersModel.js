@@ -1,10 +1,9 @@
 const db = require("./db");
-const multer = require("multer");
 
 // SHOW ALL USERS
 const showAll = () => {
   return new Promise((resolve, reject) => {
-    db.query(`SELECT * FROM users ORDER BY id DESC`,
+    db.query(`SELECT * FROM users ORDER BY id DESC`, // id, name, avatar
       (err, result) => {
         if (err) { reject (err) } else { resolve (result); }
       }
@@ -22,10 +21,20 @@ const showById = (id) => {
   })
 }
 
+// FIND USER BY ID * Privacy
+const showByIdPri = (id) => {
+  return new Promise((resolve, reject) => {
+    db.query(`SELECT id, name, avatar FROM users WHERE id = $1`, [id],
+    (err, result) => {
+      if (err) { reject (err) } else { resolve (result); }
+    });
+  })
+}
+
 // FIND USER BY NAME
 const showByName = (nameLower) => {
   return new Promise((resolve, reject) => {
-    const x = `SELECT * From users WHERE LOWER(name) LIKE '%${nameLower}%'`;
+    const x = `SELECT id, name, avatar From users WHERE LOWER(name) LIKE '%${nameLower}%'`;
     db.query( x,
     // db.query(`SELECT * FROM users WHERE name = $1`, [name],
     (err, result) => {
@@ -66,10 +75,10 @@ const addAvatar = ( id, avatar ) => {
 }
 
 // EDIT USER DATA BY ID
-const editUserData = (inpName, inpEmail, inpPhone_number, inpPassword, id) => {
+const editUserData = (inpName, inpEmail, inpPhone_number, id) => {
   return new Promise((resolve, reject) => {  
-    db.query(`UPDATE users SET name = $1, email = $2, phone_number = $3, password = $4 WHERE id = $5`,
-      [inpName, inpEmail, inpPhone_number, inpPassword, id],
+    db.query(`UPDATE users SET name = $1, email = $2, phone_number = $3 WHERE id = $4`,
+      [inpName, inpEmail, inpPhone_number, id],
       (err, result) => {
         if (err) { reject (err) } else { resolve (result); }
       }
@@ -90,15 +99,16 @@ const deleteUser = (id) => {
 
 // DELETE ALL USERS
 const deleteAllUsers = () => {
-  db.query(`DELETE FROM users`), 
-  (err, result) => {
-    if (err) { reject (err) } else { resolve (result); }
-  }
+  // db.query(`DELETE FROM users`), 
+  // (err, result) => {
+  //   if (err) { reject (err) } else { resolve (result); }
+  // }
 }
 
 module.exports = {
   showAll,
   showById,
+  showByIdPri,
   showByName,
   newUser,
   userLogin,

@@ -1,7 +1,5 @@
 const multer = require("multer");
 
-// multiUpload to food video
-
   const storage = multer.diskStorage({
     filename: (req, file, cb) => {
       cb(null, "foodVideo" + req.body.id_user + Math.round(Math.random()*1E4) + "." + file.mimetype.split("/")[1]);

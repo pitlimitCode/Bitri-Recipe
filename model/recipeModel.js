@@ -1,5 +1,4 @@
 const db = require("./db");
-const multer = require("multer");
 
 // SHOW ALL RECIPES
 const showAll = () => {
@@ -57,34 +56,22 @@ const showByName = (nameLower) => {
 }
 
 // ADD NEW RECIPE
-const newRecipe = (id_user, name, ingredients, step, image, video) => {
+const newRecipe = (id_user, name, ingredients, step, image) => {
   return new Promise((resolve, reject) => {
     db.query(
-      `INSERT INTO recipes (id_user, name, ingredients, step, image, video) VALUES ($1, $2, $3, $4, $5, $6)`,
-      [id_user, name, ingredients, step, image, video], (err, result) => {
+      `INSERT INTO recipes (id_user, name, ingredients, step, image) VALUES ($1, $2, $3, $4, $5)`,
+      [id_user, name, ingredients, step, image], (err, result) => {
         if (err) { reject (err) } else { resolve (result); }
       }
     )
   })
 }
 
-// EDIT RECIPE DATA BY ID
-const editRecipe = (inpId_user, inpName, inpIngredients, inpStep, inpId) => {
-  return new Promise((resolve, reject) => {
-    db.query(
-      `UPDATE recipes SET id_user = $1, name = $2, ingredients = $3, step = $4 WHERE id = $5`,
-      [inpId_user, inpName, inpIngredients, inpStep, inpId], (err, result) => {
-        if (err) { reject (err) } else { resolve (result); }
-      }
-    )
-  })
-};
-
 // EDIT IMAGE RECIPE BY ID
-const editImage = (inpImage, inpId) => {
+const editImage = (inpId_user, inpImage, inpId) => {
   return new Promise((resolve, reject) => {
     db.query(
-      `UPDATE recipes SET image = $1 WHERE id = $2`, [inpImage, inpId], 
+      `UPDATE recipes SET image = $1 WHERE id = $2 and id_user = $3`, [inpImage, inpId, inpId_user], 
       (err, result) => {
         if (err) { reject (err) } else { resolve (result); }
       }
@@ -92,12 +79,13 @@ const editImage = (inpImage, inpId) => {
   })
 };
 
-// ADDING VIDEO TO RECIPE
-const newVideo = (inpId_user, inpVideo, inpId) => {
+
+// EDIT RECIPE DATA BY ID
+const editRecipe = (inpId_user, inpName, inpIngredients, inpStep, inpId) => {
   return new Promise((resolve, reject) => {
     db.query(
-      `UPDATE recipes SET id_user = $1, video = $2 WHERE id = $3`,
-      [inpId_user, inpVideo, inpId], (err, result) => {
+      `UPDATE recipes SET id_user = $1, name = $2, ingredients = $3, step = $4 WHERE id = $5`,
+      [inpId_user, inpName, inpIngredients, inpStep, inpId], (err, result) => {
         if (err) { reject (err) } else { resolve (result); }
       }
     )
@@ -121,7 +109,6 @@ module.exports = {
   showByName,
   newRecipe,
   editImage,
-  newVideo,
   editRecipe,
   deleteRecipe,
 };

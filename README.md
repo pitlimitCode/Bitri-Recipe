@@ -1,3 +1,79 @@
+gitIgnore
+package.json
+env ~ dotenv *np
+Index : Cors *mw
+Pagination
+New Recipe (limit 5)
+Recipe by Name (%_%)
+Register n Login, bcrypt *np
+akses CUD User di router recipe
+multer.single *mw, -multer.array
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+*
+- multer di tiap Upload-an tiap file, krn tidak tau cara buat multer jadi function, agar dapat jadi 1 file,
+- (optional) limit filesize Tidak dapat ku error handling (multer options method) tipe data upload-an
+- Tidak buat middleware verify, karena butuh nilai object key decode nya jwt.verify
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  - Perbaiki penggunaan .env bersama db.js
+  - Perbaiki CRUD: validasi, delete id jangan tereksekusi 2x, handling unique input
+  - Buat pagination
+  - Buat multer untuk inputan file data, lengkap dengan limitasi data file
+  - Pakai Cors
+  - Push tugas di github pakai file .gitignore yang mengabaikan node_modules
+
+  - Revisi sebelumnya harus selesai. [^^^]
+  - Penggunaan CORS.
+  - Hash password (di register user).
+  - Compare hash password (di login).
+  - Saat Register dan LogIn terima JWT.
+  - Client harus pakai token ketika akses post put delete.
+
+
+
+
+
+
+
 # Week 3 - Tugas Backend
 
 [Catatan revisi setelah presentasi](#Catatan-revisi-setelah-presentasi)  
@@ -79,7 +155,7 @@ Persyaratan tambahan lain-lain (opsional):
 | users table  | data type | not_null? | unique? | primary_key? | foreign_key |
 | ------------ | --------- | --------- | ------- | -----------  | ----------- |
 | id           | int       |     y     |    y    |      y       |      -      |
-| name         | varchar   |     y     |    y    |      -       |      -      |
+| name         | varchar   |     y     |    -    |      -       |      -      |
 | email        | varchar   |     y     |    y    |      -       |      -      |
 | phone_number | int       |     -     |    -    |      -       |      -      |
 | password     | varchar   |     y     |    -    |      -       |      -      |

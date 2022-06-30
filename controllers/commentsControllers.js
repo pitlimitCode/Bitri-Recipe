@@ -100,7 +100,7 @@ const deleteComment = async (req, res) => {
             if (show.rows[0].id_commenter == decoded.id) {
               try {
                 const show2 = await model.deleteComment(id, id_commenter);
-                res.status(200).send(`Data id: ${inpId} succesfully to be deleted.`);
+                res.status(200).send(`Your comment id: '${inpId}' succesfully to be deleted.`);
               } catch (err) { 
                 res.status(400).send(`Id data: catch, not found`);
               }

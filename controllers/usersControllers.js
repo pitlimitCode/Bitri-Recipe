@@ -1,9 +1,7 @@
 const model = require("../model/usersModel"); 
-const bcrypt = require('bcrypt');
-const multer = require("multer");
 const jwt = require('jsonwebtoken');
 require('dotenv').config();
-
+const bcrypt = require('bcrypt');
 // var token = jwt.sign({ foo: 'bar' }, process.env.JWK_KEY, { expiresIn: 60 * 60 }, { algorithm: process.env.JWK_ALG }, 
 //   // function(err, token) {
 //   //   console.log(token);
@@ -19,8 +17,7 @@ const showAll = async (req, res) => {
     const show = await model.showAll();
     if (show.rowCount > 0){
       res.status(200).send({ data: show.rows, count_of_data: show.rowCount });
-    } 
-    if (show.rowCount == 0 ){
+    } else {
       res.send("No one User on Database.");
     }
   } catch (err) {
@@ -32,11 +29,10 @@ const showAll = async (req, res) => {
 const showById = async (req, res) => {
   try {
     const { id } = req.body;
-    const show = await model.showById(id);
+    const show = await model.showByIdPri(id);
     if (show.rowCount > 0){
       res.status(200).send({ data: show.rows, count_of_data: show.rowCount });
-    } 
-    if (show.rowCount == 0 ){
+    } else {
       res.send(`No one User id: '${id}' on Database.`);
     }
   } catch (err) {
@@ -53,8 +49,7 @@ const showByName = async (req, res) => {
     const show = await model.showByName(nameLower);
     if (show.rowCount > 0){
       res.status(200).send({ data: show.rows, count_of_data: show.rowCount });
-    } 
-    if (show.rowCount == 0 ){
+    } else {
       res.send(`No one User name: '${name}' on Database.`);
     }
   } catch (err) {
@@ -64,55 +59,28 @@ const showByName = async (req, res) => {
 
 // ADD NEW USER / REGISTER
 const newUser = async (req, res) => {
-
-  // let expireLogIn;
-  // // console.log(req.rawHeaders[1].split(' ')[1]);
-  // jwt.verify(req.rawHeaders[1].split(' ')[1], process.env.JWK_KEY, async function(err, decoded) {  
-  //   expireLogIn = decoded.exp;
-  //   // console.log(decoded);
-  // })
-  // // console.log(expireLogIn);
-  
-  // let thisTime;
-  // var getTime = jwt.sign( {foo: 'bar'}, process.env.JWK_KEY, { expiresIn: 1 }, { algorithm: process.env.JWK_ALG } );
-  // // console.log(getTime);
-  // jwt.verify(getTime, process.env.JWK_KEY, async function(err, decoded) {  
-  //   thisTime = decoded.expireAt;
-  //   // console.log(decoded);
-  //   // console.log(decoded.exp);
-  // })
-  // // console.log(thisTime);
-  
-  // if (thisTime > expireLogIn){ 
-  //   res.status(400).send(`Didn't need to Register, You're already LogIn!`)
-  // } else {
-
-    const { name, email, phone_number, password } = req.body;
-    const hash = await bcrypt.hash(password, 5);
+  const { name, email, phone_number, password } = req.body;
+  const hash = await bcrypt.hash(password, 5);
+  try {
+    const show = await model.newUser( name, email, phone_number, hash);
     try {
-      const show = await model.newUser( name, email, phone_number, hash);
-      try {
-        const show2 = await model.userLogin(email);
-        var token = jwt.sign(
-          show2.rows[0],
-          process.env.JWK_KEY,
-          { expiresIn: 60 * 60 }, // EXPIRED TOKEN IN n SECOND
-          { algorithm: process.env.JWK_ALG }
-        );
-        
-        res.status(200).send(`Ok '${name}', your data succesfully to be added...
-        Your id_user = ${show2.rows[0].id}
-        Your Token is : 
-        ${token}`);
-      } catch (err) {
-        res.status(400).send("Success register but failed to Log In." + err);
-      }
+      const show2 = await model.userLogin(email);
+      var token = jwt.sign(
+        show2.rows[0],
+        process.env.JWK_KEY,
+        { expiresIn: 60 * 60 }, // EXPIRED TOKEN IN n SECOND
+        { algorithm: process.env.JWK_ALG }
+      );
+      res.status(200).send(`Ok '${name}', your data succesfully to be added...
+      Your id_user = ${show2.rows[0].id}
+      Your Token is : 
+      ${token}`);
     } catch (err) {
-      res.status(400).send("Please try another 'name' and/or 'email'.");
+      res.status(400).send("Success register but failed to Log In." + err);
     }
-
-  // }
-
+  } catch (err) {
+    res.status(400).send("Please try another 'name' and/or 'email'.");
+  }
 }
 
 // USER LOGIN
@@ -144,99 +112,63 @@ const userLogin = async (req, res) => {
 
 // ADD USER AVATAR
 const addAvatar = async (req, res) => {
-  jwt.verify(req.rawHeaders[1].split(' ')[1], process.env.JWK_KEY, async function(err, decoded) {
+  jwt.verify(req.rawHeaders[1].split(" ")[1], process.env.JWK_KEY, async function (err, decoded) {
     if (err) {
-      res.status(400).send('Error verify type: ' + err.message + '.');
+      res.status(400).send("Error verify type: " + err.message + ".");
     } else {
       try {
-        
-        // // singleUpload to users avatar 
-        // const storage = multer.diskStorage({
-        //   filename: (req, file, cb) => {
-        //     console.log(req);
-        //     cb(null, "avatar_" + req.body.id + "." + file.mimetype.split("/")[1]);
-        //   },
-        //   destination: "images/users_avatar/",
-        // });
-
-        // const singleUpload = multer({
-        //   fileFilter: (req, file, cb) => {
-        //     if (
-        //       file.mimetype == "image/png" ||
-        //       file.mimetype == "image/jpg" ||
-        //       file.mimetype == "image/jpeg"
-        //     ) {
-        //       res.status(400).send("Image file type must be png / jpg / jpeg.");
-        //     } 
-        //   },
-        //   limits: {
-        //     fileSize: 1000 * 1000, // 1 MB
-        //   },
-        //   storage: storage,
-        // })
-        // singleUpload.single('avatar');
-
-
-
-
-        const avatar = req?.file?.path || 'images/defaultAvatar.jpeg';
-
         const show = await model.showById(decoded.id);
         if (show.rowCount > 0) {
           try {
-            const show2 = await model.addAvatar( decoded.id, avatar);
-
-
-
-
-
-
-            res.status(200).send(`Ok id: '${decoded.id}', your avatar succesfully to be added.`);
+            const avatar = req?.file?.path || "images/defaultAvatar.jpeg";
+            const show2 = await model.addAvatar(decoded.id, avatar);
+            if (req.file == undefined) {
+              res.status(400).send("Image type file must be: png / jpg / jpeg");
+            } else {
+              res.status(200).send(`Ok id: '${decoded.id}', your avatar succesfully to be edited.`);
+            }
           } catch (err) {
+            console.log(err);
             res.status(400).send("Something wrong while adding your avatar.");
           }
-        } else { res.status(400).send(`Data id: '${decoded.id}' not found.`) }
-      } catch {
+        } else {
+          res.status(400).send(`Data id: '${decoded.id}' not found.`);
+        }
+      } catch (err) {
         res.status(400).send(`Something wrong while getting data id: '${decoded.id}', for adding user avatar.`);
       }
     }
-  })
-}
+  });
+};
 
 // EDIT USER DATA BY ID
 const editUserData = async (req, res) => {
-  jwt.verify(req.rawHeaders[1].split(' ')[1], process.env.JWK_KEY, async function(err, decoded) {
+  jwt.verify( req.rawHeaders[1].split(" ")[1], process.env.JWK_KEY, async function (err, decoded) {
     if (err) {
-      res.status(400).send('Error verify type: ' + err.message + '.');
+      res.status(400).send("Error verify type: " + err.message + ".");
     } else {
       try {
-        const { name, email, phone_number, password } = req.body;
+        const { name, email, phone_number } = req.body;
         const show = await model.showById(decoded.id);
         if (show.rowCount > 0) {
           let inpName = name || show?.rows[0]?.name; // not null
           let inpEmail = email || show?.rows[0]?.email; // not null
-          let inpPhone_number = phone_number || null;
-          let inpPassword = password || show?.rows[0]?.password; // not null
-
-          let message = "";
-          if (inpName) message += "name, ";
-          if (inpEmail) message += "email, ";
-          if (inpPhone_number) message += "phone, ";
-          if (inpPassword) message += "password, ";
-
+          let inpPhone_number = phone_number || show?.rows[0]?.phone_number;
           try {
-            const show2 = await model.editUserData(inpName, inpEmail, inpPhone_number, inpPassword, decoded.id);
-            res.status(200).send(`${message} from id: '${decoded.id}' successfully to be edited.`);
-          } catch (err) { 
-            console.log(err);
-            res.status(400).send("Something wrong while editing data by id.") }
-        } else { res.status(400).send(`Data id: '${decoded.id}' not found.`) }
+            const show2 = await model.editUserData( inpName, inpEmail, inpPhone_number, decoded.id );
+            res.status(200).send(`Id: '${decoded.id}' successfully to be edited.`);
+          } catch (err) {
+            res.status(400).send("Something wrong while editing data by id.");
+          }
+        } else {
+          res.status(400).send(`Data id: '${decoded.id}' not found.`);
+        }
       } catch (err) {
         res.status(400).send("Something wrong while editing user data.");
       }
     }
-  })
-}
+  });
+};
 
 // DELETE USER BY ID
 const deleteUser = async (req, res) => {
@@ -248,9 +180,6 @@ const deleteUser = async (req, res) => {
       try {
         const show = await model.showById(decoded.id);
         if (show.rows[0].id !== decoded.id) {
-          console.log(show);
-          console.log(show.id);
-          console.log(decoded.id);
           res.status(400).send("You cann't delete other user account.");
         } else if (show.rowCount > 0) {
           try{
@@ -285,6 +214,7 @@ module.exports = {
   showByName,
   newUser,
   userLogin,
+  addAvatar,
   addAvatar,
   editUserData,
   deleteUser,
