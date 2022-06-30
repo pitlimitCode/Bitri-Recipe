@@ -4,12 +4,12 @@ const multer = require("multer");
 const storage = multer.diskStorage({
   filename: (req, file, cb) => {
     console.log(req);
-    cb(null, "avatar_Id" + req.body.id + "." + file.mimetype.split("/")[1]);
+    cb(null, "avatar_" + Date.now() + "." + file.mimetype.split("/")[1]);
   },
   // destination: (req, file, cb) => {
   // 	cb(null, 'images/users_avatar/')
   // },
-  destination: "images/users_avatar/",
+  destination: "././images/users_avatar/",
 });
 const singleUpload = multer({
   fileFilter: (req, file, cb) => {

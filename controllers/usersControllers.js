@@ -126,7 +126,7 @@ const userLogin = async (req, res) => {
       var token = jwt.sign(
         show.rows[0],
         process.env.JWK_KEY,
-        { expiresIn: 20 }, // EXPIRED TOKEN IN n SECOND
+        { expiresIn: 60 * 60 }, // EXPIRED TOKEN IN n SECOND
         { algorithm: process.env.JWK_ALG }
       );
       
@@ -149,11 +149,48 @@ const addAvatar = async (req, res) => {
       res.status(400).send('Error verify type: ' + err.message + '.');
     } else {
       try {
+        
+        // // singleUpload to users avatar 
+        // const storage = multer.diskStorage({
+        //   filename: (req, file, cb) => {
+        //     console.log(req);
+        //     cb(null, "avatar_" + req.body.id + "." + file.mimetype.split("/")[1]);
+        //   },
+        //   destination: "images/users_avatar/",
+        // });
+
+        // const singleUpload = multer({
+        //   fileFilter: (req, file, cb) => {
+        //     if (
+        //       file.mimetype == "image/png" ||
+        //       file.mimetype == "image/jpg" ||
+        //       file.mimetype == "image/jpeg"
+        //     ) {
+        //       res.status(400).send("Image file type must be png / jpg / jpeg.");
+        //     } 
+        //   },
+        //   limits: {
+        //     fileSize: 1000 * 1000, // 1 MB
+        //   },
+        //   storage: storage,
+        // })
+        // singleUpload.single('avatar');
+
+
+
+
         const avatar = req?.file?.path || 'images/defaultAvatar.jpeg';
+
         const show = await model.showById(decoded.id);
         if (show.rowCount > 0) {
           try {
             const show2 = await model.addAvatar( decoded.id, avatar);
+
+
+
+
+
+
             res.status(200).send(`Ok id: '${decoded.id}', your avatar succesfully to be added.`);
           } catch (err) {
             res.status(400).send("Something wrong while adding your avatar.");

@@ -69,11 +69,23 @@ const newRecipe = (id_user, name, ingredients, step, image, video) => {
 }
 
 // EDIT RECIPE DATA BY ID
-const editRecipe = (inpId_user, inpName, inpIngredients, inpStep, inpImage, inpId) => {
+const editRecipe = (inpId_user, inpName, inpIngredients, inpStep, inpId) => {
   return new Promise((resolve, reject) => {
     db.query(
-      `UPDATE recipes SET id_user = $1, name = $2, ingredients = $3, step = $4, image = $5 WHERE id = $6`,
-      [inpId_user, inpName, inpIngredients, inpStep, inpImage, inpId], (err, result) => {
+      `UPDATE recipes SET id_user = $1, name = $2, ingredients = $3, step = $4 WHERE id = $5`,
+      [inpId_user, inpName, inpIngredients, inpStep, inpId], (err, result) => {
+        if (err) { reject (err) } else { resolve (result); }
+      }
+    )
+  })
+};
+
+// EDIT IMAGE RECIPE BY ID
+const editImage = (inpImage, inpId) => {
+  return new Promise((resolve, reject) => {
+    db.query(
+      `UPDATE recipes SET image = $1 WHERE id = $2`, [inpImage, inpId], 
+      (err, result) => {
         if (err) { reject (err) } else { resolve (result); }
       }
     )
@@ -108,6 +120,7 @@ module.exports = {
   showById,
   showByName,
   newRecipe,
+  editImage,
   newVideo,
   editRecipe,
   deleteRecipe,

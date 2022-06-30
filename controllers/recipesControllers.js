@@ -93,6 +93,10 @@ const newRecipe = async (req, res) => {
       try {
         const image = req?.file?.path || 'images/defaultAvatar.jpeg';
         const { name, ingredients, step } = req.body;
+        // console.log(req);
+        // console.log(name);
+        // console.log(ingredients);
+        // console.log(step);
         try {
           const show = await model.newRecipe(id_user, name, ingredients, step, image );
           res.status(200).send(`Your recipe: '${name}', succesfully to be added.`);
@@ -100,50 +104,8 @@ const newRecipe = async (req, res) => {
           res.status(400).send("Something wrong while adding new recipe." + err.message);
         }
       } catch (err) {
+        // console.log(err);
         res.status(400).send('Error in req.body data.');
-      }
-    }
-  })
-}
-
-// EDIT RECIPE DATA BY ID
-const editRecipe = async (req, res) => {
-  jwt.verify(req.rawHeaders[1].split(' ')[1], process.env.JWK_KEY, async function(err, decoded) {
-    if (err) {
-      res.status(400).send('Error verify type: ' + err.message + '.');
-    } else {
-      const { id, name, ingredients, step, image } = req.body;
-      try {
-        const show = await model.showById(id);
-
-        if (show.rowCount > 0) {
-          let inpId = id;
-          let inpId_user = decoded.id // not null
-          let inpName = name || show?.rows[0]?.name // not null
-          let inpIngredients = ingredients || show?.rows[0]?.ingredients; // not null
-          let inpStep = step || null;
-          let inpImage = image || null;
-
-          let message = "";
-          if (inpId_user) message += "id_user, ";
-          if (inpName) message += "name, ";
-          if (inpIngredients) message += "ingredients, ";
-          if (inpStep) message += "step, ";
-          if (inpImage) message += "image, ";
-
-          try {
-            const show = await model.editRecipe(inpId_user, inpName, inpIngredients, inpStep, inpImage, inpId);
-            res.status(200).send(`${message} recipe from id: '${inpId}' successfully to be edited.`);
-          } catch (err) {
-            res.status(400).send("Something wrong while edit recipe data by id.");
-          }
-
-        } else {
-          res.status(400).send(`Recipe data id: '${id}' not found.`);
-        }
-      } catch (err) {
-        res.status(400).send("Something wrong while editing recipe data.");
-        
       }
     }
   })
@@ -151,10 +113,10 @@ const editRecipe = async (req, res) => {
 
 // ADD VIDEO TO RECIPE
 const newVideo = async (req, res) => {
-// jwt.verify(req.rawHeaders[1].split(' ')[1], process.env.JWK_KEY, async function(err, decoded) {
-//   if (err) {
-//     res.status(400).send('Error verify type: ' + err.message + '.');
-//   } else {
+  jwt.verify(req.rawHeaders[1].split(' ')[1], process.env.JWK_KEY, async function(err, decoded) {
+    if (err) {
+      res.status(400).send('Error verify type: ' + err.message + '.');
+    } else {
 
 
       const { id, id_user } = req.body;
@@ -183,8 +145,99 @@ const newVideo = async (req, res) => {
         res.status(400).send("Something wrong while search id for adding video recipe.");
       }
 
-//   }
-// })
+    }
+  })
+}
+
+// EDIT RECIPE DATA BY ID
+const editRecipe = async (req, res) => {
+  jwt.verify(req.rawHeaders[1].split(' ')[1], process.env.JWK_KEY, async function(err, decoded) {
+    if (err) {
+      res.status(400).send('Error verify type: ' + err.message + '.');
+    } else {
+      try {
+        const { id, name, ingredients, step } = req.body;
+        // console.log(req);
+        // console.log(id);
+        // console.log(name);
+        // console.log(ingredients);
+        // console.log(step);
+        try {
+          const show = await model.showById(id);
+          // console.log(show);
+          if (show.rowCount > 0) {
+            let inpId = id;
+            let inpId_user = decoded.id // not null
+            let inpName = name || show?.rows[0]?.name // not null
+            let inpIngredients = ingredients || show?.rows[0]?.ingredients; // not null
+            let inpStep = step || null;
+
+            let message = "";
+            if (inpId_user) message += "id_user, ";
+            if (inpName) message += "name, ";
+            if (inpIngredients) message += "ingredients, ";
+            if (inpStep) message += "step, ";
+
+            try {
+              const show = await model.editRecipe(inpId_user, inpName, inpIngredients, inpStep, inpId);
+              res.status(200).send(`${message} recipe from id: '${inpId}' successfully to be edited.`);
+            } catch (err) {
+              res.status(400).send("Something wrong while edit recipe data by id.");
+            }
+
+          } else {
+            res.status(400).send(`Recipe data id: '${id}' not found.`);
+          }
+        } catch (err) {
+          res.status(400).send("Something wrong while editing recipe data.");
+        }
+      } catch (err) {
+        res.status(400).send("Error in req.body data.");
+      }
+    }
+  })
+}
+
+// EDIT IMAGE RECIPE BY ID
+const editImage = async (req, res) => {
+  jwt.verify(req.rawHeaders[1].split(' ')[1], process.env.JWK_KEY, async function(err, decoded) {
+    if (err) {
+      res.status(400).send('Error verify type: ' + err.message + '.');
+    } else {
+      try {
+        const inpImage = req?.file?.path || 'images/defaultAvatar.jpeg';
+        const { id } = req.body;
+        // console.log(req);
+        // console.log(id);
+        try {
+          const show = await model.showById(id);
+          // console.log(show);
+          if (show.rowCount > 0) {
+            let inpId = id;
+            let inpId_user = decoded.id // not null
+
+            let message = "";
+            if (inpId_user) message += "id_user, ";
+            if (inpImage) message += "image, "
+
+            try {
+              const show = await model.editRecipe(inpImage, inpId);
+              res.status(200).send(`${message} recipe from id: '${inpId}' successfully to be edited.`);
+            } catch (err) {
+              res.status(400).send("Something wrong while edit recipe data by id.");
+            }
+
+          } else {
+            res.status(400).send(`Recipe data id: '${id}' not found.`);
+          }
+        } catch (err) {
+          res.status(400).send("Something wrong while editing recipe data.");
+        }
+      } catch (err) {
+        res.status(400).send("Error in req.body data.");
+      }
+    }
+  })
 }
 
 // DELETE RECIPE BY ID
@@ -198,22 +251,29 @@ const deleteRecipe = async (req, res) => {
         let inpId = id;
         try {
           const show = await model.showById(id);
-          if (show.user_id !== decoded.id) {
-            res.status(400).send("You cann't delete other user recipe.");
-          } else if (show.rowCount > 0) {
-            try {
-              const show2 = await model.deleteRecipe(id);
-              res.status(200).send(`Recipe data id: '${inpId}' succesfully to be deleted.`);
-            } catch (err) {
-              res.status(400).send("Something wrong while deleting recipe data by id");
+          console.log(show);
+          console.log(decoded.id);
+          if (show.rowCount > 0) {
+            if (show.rows[0].id_user !== decoded.id) {
+              res.status(400).send("You cann't delete other user recipe.");
+            } else {
+              try {
+                const show2 = await model.deleteRecipe(id);
+                res.status(200).send(`Recipe data id: '${inpId}' succesfully to be deleted.`);
+              } catch (err) {
+                res.status(400).send("Something wrong while deleting recipe data by id");
+              }
             }
           } else {
             res.status(400).send(`No one Recipe id: '${id}' on Database.`);
           }
-        } catch {
-          res.status(400).send("Something wrong while searching id: '${id}' before delete it.");
+        } catch (err) {
+          console.log(err);
+          res.status(400).send(`Something wrong while searching id: '${id}' before delete it.`);
         }
-      } else ('Please input id recipe.')
+      } else {
+        'Please input id recipe.'
+      }
     }
   })
 }
@@ -227,5 +287,6 @@ module.exports = {
   newRecipe,
   newVideo,
   editRecipe,
+  editImage,
   deleteRecipe,
 };
