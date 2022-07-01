@@ -158,7 +158,11 @@ const editImage = async (req, res) => {
             try {
               const inpImage = req?.file?.path || 'images/defaultAvatar.jpeg';
               const show = await model.editImage(inpId_user, inpImage, inpId);
+							if (req.file == undefined) {
+								res.status(400).send("Image type file must be: png / jpg / jpeg");
+							} else {
               res.status(200).send(`Image of Recipe by id: '${inpId}' successfully to be edited.`);
+							}
             } catch (err) {
               res.status(400).send("Something wrong while edit image recipe data by id.");
             }
@@ -226,8 +230,6 @@ const deleteRecipe = async (req, res) => {
         let inpId = id;
         try {
           const show = await model.showById(id);
-          console.log(show);
-          console.log(decoded.id);
           if (show.rowCount > 0) {
             if (show.rows[0].id_user !== decoded.id) {
               res.status(400).send("You cann't delete other user recipe.");
@@ -243,11 +245,10 @@ const deleteRecipe = async (req, res) => {
             res.status(400).send(`No one Recipe id: '${id}' on Database.`);
           }
         } catch (err) {
-          console.log(err);
           res.status(400).send(`Something wrong while searching id: '${id}' before delete it.`);
         }
       } else {
-        'Please input id recipe.'
+        res.status(400).send('Please input id recipe.')
       }
     }
   })

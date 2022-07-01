@@ -1,58 +1,22 @@
+// https://tsmx.net/express-middleware-function-with-custom-parameters/
+
 gitIgnore
 package.json
 env ~ dotenv *np
 Index : Cors *mw
 Pagination
-New Recipe (limit 5)
 Recipe by Name (%_%)
 Register n Login, bcrypt *np
 akses CUD User di router recipe
 multer.single *mw, -multer.array
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+jika token expire
 
 
 *
-- multer di tiap Upload-an tiap file, krn tidak tau cara buat multer jadi function, agar dapat jadi 1 file,
-- (optional) limit filesize Tidak dapat ku error handling (multer options method) tipe data upload-an
 - Tidak buat middleware verify, karena butuh nilai object key decode nya jwt.verify
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+- multer di tiap Upload-an tiap file, krn tidak tau cara buat multer jadi function, agar dapat jadi 1 file,
+- multer.array
+- limit filesize (options method) tidak dapat ku handle error tipe data upload-nya
 
   - Perbaiki penggunaan .env bersama db.js
   - Perbaiki CRUD: validasi, delete id jangan tereksekusi 2x, handling unique input
@@ -68,12 +32,6 @@ multer.single *mw, -multer.array
   - Saat Register dan LogIn terima JWT.
   - Client harus pakai token ketika akses post put delete.
 
-
-
-
-
-
-
 # Week 3 - Tugas Backend
 
 [Catatan revisi setelah presentasi](#Catatan-revisi-setelah-presentasi)  
@@ -81,10 +39,7 @@ multer.single *mw, -multer.array
 [Format database yang ku buat](#Format-database-yang-ku-buat)  
 <!-- [Soal asli / original](#Soal-asli--original)  -->
 
-Belum:
-  - Validasi error inputan file
-  - Clien akses dengan token
-  - 
+
 
 Tugas tambahan backend 27 Juni:
   - Revisi sebelumnya harus selesai.
