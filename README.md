@@ -1,6 +1,6 @@
 // https://tsmx.net/express-middleware-function-with-custom-parameters/
 
-gitIgnore 
+.gitIgnore 
 package.json
 env ~ dotenv *np
 Index : Cors *mw
