@@ -13,7 +13,7 @@ const storage = multer.diskStorage({
   // destination: (req, file, cb) => {
   // 	cb(null, 'images/users_avatar/')
   // },
-  destination: "././images/users_avatar/",
+  destination: "./images/users_avatar/",
 });
 const singleUpload = multer({
   fileFilter: (req, file, cb) => {

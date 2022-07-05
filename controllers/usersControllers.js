@@ -2,6 +2,7 @@ const model = require("../model/usersModel");
 const jwt = require('jsonwebtoken');
 require('dotenv').config();
 const bcrypt = require('bcrypt');
+
 // var token = jwt.sign({ foo: 'bar' }, process.env.JWK_KEY, { expiresIn: 60 * 60 }, { algorithm: process.env.JWK_ALG }, 
 //   // function(err, token) {
 //   //   console.log(token);
@@ -21,7 +22,6 @@ const showAll = async (req, res) => {
       res.send("No one User on Database.");
     }
   } catch (err) {
-    console.log(err);
     res.status(400).send("Something wrong while getting all users data.");
   }
 };
@@ -80,7 +80,6 @@ const newUser = async (req, res) => {
       res.status(400).send("Success register but failed to Log In." + err);
     }
   } catch (err) {
-    console.log(err);
     res.status(400).send("Please try another 'name' and/or 'email'.");
   }
 }
@@ -114,90 +113,75 @@ const userLogin = async (req, res) => {
 
 // ADD USER AVATAR
 const addAvatar = async (req, res) => {
-  jwt.verify(req.rawHeaders[1].split(" ")[1], process.env.JWK_KEY, async function (err, decoded) {
-    if (err) {
-      res.status(400).send("Error verify type: " + err.message + ".");
-    } else {
+  try {
+    const id_user = req.tokenUserId;
+    const show = await model.showById(id_user);
+    if (show.rowCount > 0) {
       try {
-        const show = await model.showById(decoded.id);
-        if (show.rowCount > 0) {
-          try {
-            const avatar = req?.file?.path || "images/defaultAvatar.jpeg";
-            const show2 = await model.addAvatar(decoded.id, avatar);
-            if (req.file == undefined) {
-              res.status(400).send("Image type file must be: png / jpg / jpeg");
-            } else {
-              res.status(200).send(`Ok id: '${decoded.id}', your avatar succesfully to be edited.`);
-            }
-          } catch (err) {
-            console.log(err);
-            res.status(400).send("Something wrong while adding your avatar.");
-          }
+        const avatar = req?.file?.path || "images/defaultAvatar.jpeg";
+        const show2 = await model.addAvatar(id_user, avatar);
+        if (req.file == undefined) {
+          res.status(400).send("Image type file must be: png / jpg / jpeg");
         } else {
-          res.status(400).send(`Data id: '${decoded.id}' not found.`);
+          res.status(200).send(`Ok id: '${id_user}', your avatar succesfully to be edited.`);
         }
       } catch (err) {
-        res.status(400).send(`Something wrong while getting data id: '${decoded.id}', for adding user avatar.`);
+        res.status(400).send("Something wrong while adding your avatar.");
       }
+    } else {
+      res.status(400).send(`Data id: '${id_user}' not found.`);
     }
-  });
+  } catch (err) {
+    res.status(400).send(`Something wrong while getting data id: '${id_user}', for adding user avatar.`);
+  }
 };
 
 // EDIT USER DATA BY ID
 const editUserData = async (req, res) => {
-  jwt.verify( req.rawHeaders[1].split(" ")[1], process.env.JWK_KEY, async function (err, decoded) {
-    if (err) {
-      res.status(400).send("Error verify type: " + err.message + ".");
-    } else {
+  try {
+    const id_user = req.tokenUserId;
+    const { name, email, phone_number } = req.body;
+    const show = await model.showById(id_user);
+    if (show.rowCount > 0) {
+      let inpName = name || show?.rows[0]?.name; // not null
+      let inpEmail = email || show?.rows[0]?.email; // not null
+      let inpPhone_number = phone_number || show?.rows[0]?.phone_number;
       try {
-        const { name, email, phone_number } = req.body;
-        const show = await model.showById(decoded.id);
-        if (show.rowCount > 0) {
-          let inpName = name || show?.rows[0]?.name; // not null
-          let inpEmail = email || show?.rows[0]?.email; // not null
-          let inpPhone_number = phone_number || show?.rows[0]?.phone_number;
-          try {
-            const show2 = await model.editUserData( inpName, inpEmail, inpPhone_number, decoded.id );
-            res.status(200).send(`Id: '${decoded.id}' successfully to be edited.`);
-          } catch (err) {
-            res.status(400).send("Something wrong while editing data by id.");
-          }
-        } else {
-          res.status(400).send(`Data id: '${decoded.id}' not found.`);
-        }
+        const show2 = await model.editUserData( inpName, inpEmail, inpPhone_number, id_user );
+        res.status(200).send(`Id: '${id_user}' successfully to be edited.`);
       } catch (err) {
-        res.status(400).send("Something wrong while editing user data.");
+        res.status(400).send("Something wrong while editing data by id.");
       }
+    } else {
+      res.status(400).send(`Data id: '${id_user}' not found.`);
     }
-  });
+  } catch (err) {
+    res.status(400).send("Something wrong while editing user data.");
+  }
 };
 
 // DELETE USER BY ID
 const deleteUser = async (req, res) => {
-  jwt.verify(req.rawHeaders[1].split(' ')[1], process.env.JWK_KEY, async function(err, decoded) {
-    if (err) {
-      res.status(400).send('Error verify type: ' + err.message + '.');
-    } else {
-      let inpId = decoded.id;
-      try {
-        const show = await model.showById(decoded.id);
-        if (show.rows[0].id !== decoded.id) {
-          res.status(400).send("You cann't delete other user account.");
-        } else if (show.rowCount > 0) {
-          try{
-            const show2 = await model.deleteUser(decoded.id);
-            res.send(`Data id: '${inpId}' succesfully to be deleted.`);
-          } catch (err) {
-            res.status(400).send("Something wrong while deleting data.");
-          }
-        } else {
-          res.status(400).send(`Id data: '${decoded.id}', not found.`);
-        }
-      } catch {
-        res.status(400).send(`Something wrong while getting data: '${decoded.id}', id for deleting data.`);
+  try {
+    const id_user = req.tokenUserId;
+    const show = await model.showById(id_user);
+    if (show.rows[0].id !== id_user) {
+      res.status(400).send("You cann't delete other user account.");
+    } else if (show.rowCount > 0) {
+      try{
+        const show2 = await model.deleteUser(id_user);
+        res.send(`Data id: '${id_user}' succesfully to be deleted.`);
+      } catch (err) {
+        console.log(err);
+        res.status(400).send("Something wrong while deleting data.");
       }
+    } else {
+      res.status(400).send(`Id data: '${id_user}', not found.`);
     }
-  })
+  } catch (err) {
+    console.log(err);
+    res.status(400).send(`Something wrong while getting data id: '${id_user}', for deleting it as user.`);
+  }
 }
 
 // DELETE ALL USERS

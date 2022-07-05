@@ -12,11 +12,9 @@ const showAll = () => {
 };
 
 // SHOW RECIPES IN PAGES
-const showInPages = (limit, pages) => {
+const showInPages = (limit, offset) => {
   return new Promise((resolve, reject) => {
-    offset = (pages - 1)*limit;
-    const x = `SELECT * FROM recipes ORDER BY id LIMIT ${limit} OFFSET ${offset}`;
-    db.query( x ,
+    db.query( `SELECT * FROM recipes ORDER BY id LIMIT $1 OFFSET $2`, [limit, offset],
       (err, result) => {
         if (err) { reject (err) } else { resolve (result); }
       }

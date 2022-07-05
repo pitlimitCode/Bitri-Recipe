@@ -1,47 +1,28 @@
-// https://tsmx.net/express-middleware-function-with-custom-parameters/
 
-.gitIgnore 
-package.json
-env ~ dotenv *np
-Index : Cors *mw
-Pagination
-Recipe by Name (%_%)
-Register n Login, bcrypt *np
-akses CUD User di router recipe
-multer.single *mw, -multer.array
-jika token expire
+## Tugas frontend 05 juli:
+  - n
+  - n
 
+### Catatan revisi setelah presentase Intermediate Backend 01 Juli:
+1. kirim variabel dari function sebelumnya. (Sudah)  
+2. pagination ada limit page nya dari keseluruhan data. (Sudah)  
+3. handling filter multer error, & membuat multer dalam function. Lihat di repo live coding. (Belum)  
 
-*
-- Tidak buat middleware verify, karena butuh nilai object key decode nya jwt.verify
-- multer di tiap Upload-an tiap file, krn tidak tau cara buat multer jadi function, agar dapat jadi 1 file,
-- multer.array
-- limit filesize (options method) tidak dapat ku handle error tipe data upload-nya
+# Bitri Recipe
+### Website Application
 
-  - Perbaiki penggunaan .env bersama db.js
-  - Perbaiki CRUD: validasi, delete id jangan tereksekusi 2x, handling unique input
-  - Buat pagination
-  - Buat multer untuk inputan file data, lengkap dengan limitasi data file
-  - Pakai Cors
-  - Push tugas di github pakai file .gitignore yang mengabaikan node_modules
-
-  - Revisi sebelumnya harus selesai. [^^^]
-  - Penggunaan CORS.
-  - Hash password (di register user).
-  - Compare hash password (di login).
-  - Saat Register dan LogIn terima JWT.
-  - Client harus pakai token ketika akses post put delete.
-
-# Week 3 - Tugas Backend
-
-[Catatan revisi setelah presentasi](#Catatan-revisi-setelah-presentasi)  
-[Ringkasan tugas](#Ringkasan-tugas)  
-[Format database yang ku buat](#Format-database-yang-ku-buat)  
+<!-- [Catatan revisi setelah presentasi](#Catatan-revisi-setelah-presentasi)   -->
+<!-- [Ringkasan tugas](#Ringkasan-tugas)   -->
+<!-- [Format database yang ku buat](#Format-database-yang-ku-buat)   -->
 <!-- [Soal asli / original](#Soal-asli--original)  -->
 
+### Persyaratan yang belum selesai saat presentasi Intermediate Backend 01 Juli:
+  - Belum menggunakan middleware JWT Verify dari Controllers
+  - Belum membuat Multer dalam 1 file, masing-masing multer harus dalam function.
+  - Belum handle error Multer maximum size
+  - Belum buat Multer.array (upload lebih dari 1 file)
 
-
-Tugas tambahan backend 27 Juni:
+## Tugas Intermediate Backend 27 Juni:
   - Revisi sebelumnya harus selesai.
   - Penggunaan CORS.
   - Hash password (di register user).
@@ -49,7 +30,73 @@ Tugas tambahan backend 27 Juni:
   - Saat Register dan LogIn terima JWT.
   - Client harus pakai token ketika akses post put delete.
 
-### Catatan revisi setelah presentasi:
+---
+### Format database yang dibuat:
+| users table  | data type | not_null? | unique? | primary_key? | foreign_key |
+| ------------ | --------- | --------- | ------- | -----------  | ----------- |
+| id           | int       |     y     |    y    |      y       |      -      |
+| name         | varchar   |     y     |    -    |      -       |      -      |
+| email        | varchar   |     y     |    y    |      -       |      -      |
+| phone_number | int       |     -     |    -    |      -       |      -      |
+| password     | varchar   |     y     |    -    |      -       |      -      |
+| avatar       | varchar   |     -     |    -    |      -       |      -      |
+
+| recipes table | data type | not_null? | unique? | primary_key? | foreign_key  |
+| ------------- | --------- | --------- | ------- | ------------ | ------------ |
+| id            | integer   |     y     |    y    |      y       |       -      |
+| id_user       | integer   |     y     |    -    |      -       |  (users.id)  |
+| name          | varchar   |     y     |    -    |      -       |       -      |
+| ingredients   | varchar   |     y     |    -    |      -       |       -      |
+| step          | varchar   |     -     |    -    |      -       |       -      |
+| image         | varchar   |     -     |    -    |      -       |       -      |
+| video         | varchar   |     -     |    -    |      -       |       -      |
+
+| comments table | data type | not_null? | unique? | primary_key? | foreign_key  |
+| -------------- | --------- | --------- | ------- | ------------ | ------------ |
+| id             | integer   |     y     |    y    |      y       |       -      |
+| id_recipe      | integer   |     y     |    -    |      -       | (recipes.id) |
+| id_commenter   | integer   |     y     |    -    |      -       |  (users.id)  |
+| comment_text   | text      |     y     |    -    |      -       |       -      |
+
+CREATE TABLE users (  
+id SERIAL PRIMARY KEY,  
+name varchar(32) NOT NULL,  
+email varchar(32) NOT NULL UNIQUE,  
+phone_number integer,  
+password varchar(64) NOT NULL,  
+avatar varchar(32)  
+);  
+CREATE TABLE recipes (  
+id SERIAL PRIMARY KEY,  
+id_user integer NOT NULL,  
+name varchar(64) NOT NULL,  
+ingredients varchar(32) NOT NULL,  
+step text,  
+image text,  
+video varchar(32)  
+);  
+CREATE TABLE comments (  
+id SERIAL PRIMARY KEY,  
+id_recipe integer NOT NULL,  
+id_commenter integer NOT NULL,  
+comment_text text NOT NULL  
+);  
+
+\d, postgres:  
+               List of relations  
+ Schema |      Name       |   Type   |  Owner     
+--------+-----------------+----------+----------  
+ public | comments        | table    | postgres  
+ public | comments_id_seq | sequence | postgres  
+ public | recipes         | table    | postgres  
+ public | recipes_id_seq  | sequence | postgres  
+ public | users           | table    | postgres  
+ public | users_id_seq    | sequence | postgres  
+(6 rows)  
+
+---
+
+### Catatan revisi setelah presentasi Beginner Backend:
   - Perbaiki penggunaan .env bersama db.js
   - Perbaiki CRUD: validasi, delete id jangan tereksekusi 2x, handling unique input
   - Buat pagination
@@ -57,7 +104,7 @@ Tugas tambahan backend 27 Juni:
   - Pakai Cors
   - Push tugas di github pakai file .gitignore yang mengabaikan node_modules
 
-### Persyaratan yang telah selesai sebelum presentasi:
+### Persyaratan yang telah selesai saat presentasi Beginner Backend:
   - Gunakan Bahasa Inggris untuk nama File dan Fungsi
   - Table (Recipe, User, Comment)
   - Linter (esLint)
@@ -69,8 +116,8 @@ Tugas tambahan backend 27 Juni:
   - Resep terbaru maksimal 5
   - Comment by resep
   - Resep by user
----
-## Ringkasan tugas:
+
+## Ringkasan tugas Beginner Backend:
 Persyaratan:  
   - Gunakan Bahasa Inggris untuk nama File dan Fungsi  
   - Table (Recipe, User, Comment)  
@@ -105,35 +152,7 @@ Persyaratan tambahan lain-lain (opsional):
   - Validator
   - Autentifikator
 
----
-### Format database yang ku buat:
-| users table  | data type | not_null? | unique? | primary_key? | foreign_key |
-| ------------ | --------- | --------- | ------- | -----------  | ----------- |
-| id           | int       |     y     |    y    |      y       |      -      |
-| name         | varchar   |     y     |    -    |      -       |      -      |
-| email        | varchar   |     y     |    y    |      -       |      -      |
-| phone_number | int       |     -     |    -    |      -       |      -      |
-| password     | varchar   |     y     |    -    |      -       |      -      |
-| avatar       | varchar   |     -     |    -    |      -       |      -      |
-
-| recipes table | data type | not_null? | unique? | primary_key? | foreign_key  |
-| ------------- | --------- | --------- | ------- | ------------ | ------------ |
-| id            | integer   |     y     |    y    |      y       |       -      |
-| id_user       | integer   |     y     |    -    |      -       |  (users.id)  |
-| name          | varchar   |     y     |    -    |      -       |       -      |
-| ingredients   | varchar   |     y     |    -    |      -       |       -      |
-| step          | varchar   |     -     |    -    |      -       |       -      |
-| image         | varchar   |     -     |    -    |      -       |       -      |
-| video         | varchar   |     -     |    -    |      -       |       -      |
-
-| comments table | data type | not_null? | unique? | primary_key? | foreign_key  |
-| -------------- | --------- | --------- | ------- | ------------ | ------------ |
-| id             | integer   |     y     |    y    |      y       |       -      |
-| id_recipe      | integer   |     y     |    -    |      -       | (recipes.id) |
-| id_commenter   | integer   |     y     |    -    |      -       |  (users.id)  |
-| comment_text   | text      |     y     |    -    |      -       |       -      |
----
-### Soal asli / original:
+### Soal asli / original Beginner Backend:
 Buatlah API dari aplikasi dibawah ini  
 https://www.figma.com/file/SUbBTYCq1e4ngRt20lSdqr/Food-Recipe?node-id=47%3A1273  
 
