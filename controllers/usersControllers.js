@@ -21,6 +21,7 @@ const showAll = async (req, res) => {
       res.send("No one User on Database.");
     }
   } catch (err) {
+    console.log(err);
     res.status(400).send("Something wrong while getting all users data.");
   }
 };
@@ -79,6 +80,7 @@ const newUser = async (req, res) => {
       res.status(400).send("Success register but failed to Log In." + err);
     }
   } catch (err) {
+    console.log(err);
     res.status(400).send("Please try another 'name' and/or 'email'.");
   }
 }
