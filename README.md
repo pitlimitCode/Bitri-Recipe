@@ -1,13 +1,3 @@
-
-## Tugas frontend 05 juli:
-  - n
-  - n
-
-### Catatan revisi setelah presentase Intermediate Backend 01 Juli:
-1. kirim variabel dari function sebelumnya. (Sudah)  
-2. pagination ada limit page nya dari keseluruhan data. (Sudah)  
-3. handling filter multer error, & membuat multer dalam function. Lihat di repo live coding. (Belum)  
-
 # Bitri Recipe
 ### Website Application
 
@@ -15,6 +5,42 @@
 <!-- [Ringkasan tugas](#Ringkasan-tugas)   -->
 <!-- [Format database yang ku buat](#Format-database-yang-ku-buat)   -->
 <!-- [Soal asli / original](#Soal-asli--original)  -->
+
+## Tugas Beginner Frontend 05 juli:
+- Melanjutkan program Backend Sebelumnya
+- Semua requirement dari Week sebelumnya
+- Navigation (Public & Private) (private *)
+- Slicing: 
+  - Login, 
+  - register, 
+  - Landing Page (new recipe, and 6 recipe with pagination), 
+  - Detail recipe
+  - Halaman video?
+  - nambah recipe
+  - profile (foto, nama, resep yang udah dibuat)
+- localStorage (*)
+- Redux (CRUD) & with file (*)
+- URL Params (Search, Sort, da Pagination)
+- Build & Deploy (*)
+- ENV
+- Responsive (optional, nilai plus)
+- Linter
+- Hooks [function component, atomic design]
+- Webpack (tidak perlu)
+- Persist storage (tidak perlu)
+- Gunakan Bahasa Inggris untuk nama File dan Fungsi
+- Uploas/push tugas kamu ke github dan gunakan nama yang profesional
+- Presentasikan apa yang telah Anda lakukan dalm minggu ini
+  - Jelaskan dengan bahasa kalian sendiri tentang apa itu dan konsep tentang:
+    - Redux
+    - HOC
+  CXeritakan dan Demokan tentang proyek ini
+*dijelaskan 6 juli  
+
+### Catatan revisi setelah presentase Intermediate Backend 01 Juli:
+1. kirim variabel dari function sebelumnya. (Sudah)  
+2. pagination ada limit page nya dari keseluruhan data. (Sudah)  
+3. handling filter multer error, & membuat multer dalam function. Lihat di repo live coding. (Belum)  
 
 ### Persyaratan yang belum selesai saat presentasi Intermediate Backend 01 Juli:
   - Belum menggunakan middleware JWT Verify dari Controllers
@@ -29,7 +55,6 @@
   - Compare hash password (di login).
   - Saat Register dan LogIn terima JWT.
   - Client harus pakai token ketika akses post put delete.
-
 ---
 ### Format database yang dibuat:
 | users table  | data type | not_null? | unique? | primary_key? | foreign_key |
@@ -95,7 +120,7 @@ comment_text text NOT NULL
 (6 rows)  
 
 ---
-
+---
 ### Catatan revisi setelah presentasi Beginner Backend:
   - Perbaiki penggunaan .env bersama db.js
   - Perbaiki CRUD: validasi, delete id jangan tereksekusi 2x, handling unique input
