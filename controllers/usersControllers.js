@@ -114,6 +114,22 @@ const userLogin = async (req, res) => {
 // ADD USER AVATAR
 const addAvatar = async (req, res) => {
   try {
+  //   singleUpload(req, res, function (err) {
+  //     if (err instanceof multer.MulterError) {
+  //       // A Multer error occurred when uploading.
+  //       console.log(err);
+  //       res.send(err)
+  //     } else if (err) {
+  //       // An unknown error occurred when uploading.
+  //       console.log(err);
+  //       res.send(err)
+  //     }
+    
+  //     console.log(req.file)
+  //     // Everything went fine.
+  //   })
+
+    // console.log(req);
     const id_user = req.tokenUserId;
     const show = await model.showById(id_user);
     if (show.rowCount > 0) {
@@ -132,6 +148,7 @@ const addAvatar = async (req, res) => {
       res.status(400).send(`Data id: '${id_user}' not found.`);
     }
   } catch (err) {
+    console.log(err);
     res.status(400).send(`Something wrong while getting data id: '${id_user}', for adding user avatar.`);
   }
 };

@@ -6,7 +6,7 @@
 <!-- [Format database yang ku buat](#Format-database-yang-ku-buat)   -->
 <!-- [Soal asli / original](#Soal-asli--original)  -->
 
-## Tugas Beginner Frontend 05 juli:
+## Tugas Frontend dgn React 05 juli:
 - Melanjutkan program Backend Sebelumnya
 - Semua requirement dari Week sebelumnya
 - Navigation (Public & Private) (private *)
@@ -14,9 +14,9 @@
   - Login, 
   - register, 
   - Landing Page (new recipe, and 6 recipe with pagination), 
-  - Detail recipe
-  - Halaman video?
-  - nambah recipe
+  - Detail recipe,
+  - Halaman video?,
+  - nambah recipe,
   - profile (foto, nama, resep yang udah dibuat)
 - localStorage (*)
 - Redux (CRUD) & with file (*)
@@ -30,17 +30,21 @@
 - Persist storage (tidak perlu)
 - Gunakan Bahasa Inggris untuk nama File dan Fungsi
 - Uploas/push tugas kamu ke github dan gunakan nama yang profesional
-- Presentasikan apa yang telah Anda lakukan dalm minggu ini
+- Presentasikan apa yang telah Anda lakukan dalam minggu ini
   - Jelaskan dengan bahasa kalian sendiri tentang apa itu dan konsep tentang:
     - Redux
     - HOC
-  CXeritakan dan Demokan tentang proyek ini
-*dijelaskan 6 juli  
+  - Ceritakan dan Demokan tentang proyek ini
+- Css design pakai react bootstrap atau bootstrap
+(*)dijelaskan di kelas tambahan  
 
 ### Catatan revisi setelah presentase Intermediate Backend 01 Juli:
 1. kirim variabel dari function sebelumnya. (Sudah)  
 2. pagination ada limit page nya dari keseluruhan data. (Sudah)  
-3. handling filter multer error, & membuat multer dalam function. Lihat di repo live coding. (Belum)  
+3. handling error multer limits fileSize, & membuat multer dalam function. Lihat di repo live coding. (Belum)  
+  *buat multer dalam function dan seluruhnya dalam 1 file
+  *buat multer array
+  *cari tahu handling error multer limits fileSize (terlalu rumit, minim reference)  
 
 ### Persyaratan yang belum selesai saat presentasi Intermediate Backend 01 Juli:
   - Belum menggunakan middleware JWT Verify dari Controllers
