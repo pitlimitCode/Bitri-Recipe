@@ -30,15 +30,15 @@ const singleUpload = multer({
       // if (req.rawHeaders[17] > 150 * 1000) {
       //   return cb(null, false);
       // } else {
-        return cb(null, true);
+        return cb(null, true); 
       // }
     } else {
       return cb(null, false);
 		}
   },
-  limits: {
-    fileSize: 150 * 1000, // 1 MB
-  },
+  // limits: {
+  //   fileSize: 150 * 1000, // 1 MB
+  // },
   storage: storage,
 })
 

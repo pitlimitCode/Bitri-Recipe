@@ -42,8 +42,9 @@
 1. kirim variabel dari function sebelumnya. (Sudah)  
 2. pagination ada limit page nya dari keseluruhan data. (Sudah)  
 3. handling error multer limits fileSize, & membuat multer dalam function. Lihat di repo live coding. (Belum)  
-  *buat multer dalam function dan seluruhnya dalam 1 file
-  *buat multer array
+  Step revisi:  
+  *buat multer dalam function dan seluruhnya dalam 1 file  
+  *buat multer array  
   *cari tahu handling error multer limits fileSize (terlalu rumit, minim reference)  
 
 ### Persyaratan yang belum selesai saat presentasi Intermediate Backend 01 Juli:
