@@ -43,9 +43,9 @@
 2. pagination ada limit page nya dari keseluruhan data. (Sudah)  
 3. handling error multer limits fileSize, & membuat multer dalam function. Lihat di repo live coding. (Belum)  
   Step revisi:  
-  *buat multer dalam function dan seluruhnya dalam 1 file  
+  *buat multer dalam function dan semua multer dimasukkan ke dalam 1 file.js di folder middleware  
   *buat multer array  
-  *cari tahu handling error multer limits fileSize (terlalu rumit, minim reference)  
+  *cari tahu handling error multer limits fileSize (terlalu rumit, minim problem solver reference)  
 
 ### Persyaratan yang belum selesai saat presentasi Intermediate Backend 01 Juli:
   - Belum menggunakan middleware JWT Verify dari Controllers
